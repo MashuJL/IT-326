@@ -15,10 +15,11 @@ class LNNotificationHandler
         return "placeholder";
     }
 
-    public LNAccount getAccount()
-    {
-
-    }
+    /*
+     * public LNAccount getAccount() {
+     * 
+     * }
+     */
 
     public boolean markNotifiactionAsRead(int ID)
     {
