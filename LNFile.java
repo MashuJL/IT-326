@@ -1,8 +1,11 @@
+import java.io.Serializable;
 import java.io.File;
+import java.nio.file.*;
+import java.io.FileWriter;
 import java.util.List;
 
-public class LNFile {
-    private int NotesFileID;
+public class LNFile implements Serializable{
+private int NotesFileID;
 private String name;
 private String content;
 private File actualFile;
@@ -10,10 +13,10 @@ private int folderID;
 private int accountID;
 private List<LNComment> comments;
 
-public LNFile(String name, LNFolder folder, LNAccount account){
+public LNFile(String name, int folderID, int accountID){
     this.name = name;
-    this.folder = folder.;
-    this.account = LNAccountController.;
+    this.folderID = folderID;
+    this.accountID = accountID;
     actualFile = new File(name);
 }
 
@@ -40,12 +43,12 @@ public void renameNotesFile(String name){
 public void downloadNotesFile(String downloadName){
     File makeFile = new File(actualFile, downloadName);
 }
-public LNFile getFile(){
-    return this;
+public File getFile(){
+    return this.actualFile;
 }
 
-public LNAccount getAccount(){
-    return account;
+public int getAccountID(){
+    return accountID;
 }
 public List<LNComment> getComments(){
     return comments;
@@ -53,6 +56,30 @@ public List<LNComment> getComments(){
 public boolean addComment(LNComment e){
     comments.add(e);
     return true;
+}
+
+public boolean setName(String name){
+    File renamFile = new File(actualFile, name);
+    if (actualFile.delete()) {
+        actualFile = renamFile;
+        return true;
+    } else {
+        return false;
+    }
+
+}
+public boolean setContents(String contents){
+    if(contents ==null){
+        return true;
+    }
+    try {
+        FileWriter write = new FileWriter(actualFile);
+        write.write(contents);
+        write.close();
+        return true;
+    } catch (Exception e) {
+        return false;
+    }
 }
 
 }

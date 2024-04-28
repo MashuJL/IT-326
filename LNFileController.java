@@ -1,14 +1,27 @@
+import java.io.File;
 import java.util.List;
 
 public class LNFileController {
     private LNFileHandler handler = new LNFileHandler();
-    public List<LNFile> getNotesFilesInFolder(LNFolder folder){
-        return handler.getNotesFilesInFolder(folder);
+    public List<LNFile> getFilesInFolder(LNFolder folder){
+        return handler.getFilesInFolder(folder);
     }
-public List<LNFolder> getFoldersFromAccount(LNAccount account){
-    return handler.getFoldersFromAccount(account);
+//finalize, save it.
+public Boolean uploadFile(String name, LNFile file){
+    return handler.uploadFile(name, file);
 }
-public Boolean uploadNotesFile(String name, LNFile file){
-    return handler.uploadNotesFile(name, file);
+public boolean removeFile(LNFile file){
+    return handler.removeFile(file);
 }
+public boolean moveFile(LNFile file, LNFolder destination){
+    return handler.moveFile(file, destination);
+}
+//when call update file, in that method you will ask user what they will want to change,title, text
+public boolean updateFile(String name,String contents){
+    return handler.updateFile(name, contents);
+}
+public boolean downloadFile(String name, LNFile file){
+    return handler.downloadFile(name, file);
+}
+
 }
