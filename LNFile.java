@@ -6,14 +6,15 @@ public class LNFile {
 private String name;
 private String content;
 private File actualFile;
-private LNFolder folder;
-private LNAccount account;
+private int folderID; 
+private int accountID;
 private List<LNComment> comments;
 
-public LNFile(String name, LNFolder folder){
+public LNFile(String name, LNFolder folder, LNAccount account){
     this.name = name;
-    this.folder = folder;
-    actualFile = new File()
+    this.folder = folder.;
+    this.account = LNAccountController.;
+    actualFile = new File(name);
 }
 
 //return name of file.
@@ -26,6 +27,7 @@ public int getID(){
 }
 public void deleteNotesFile(){
     actualFile.delete();
+    comments = null;
 }
 public void renameNotesFile(String name){
     this.name = name;
@@ -39,12 +41,18 @@ public void downloadNotesFile(String downloadName){
     File makeFile = new File(actualFile, downloadName);
 }
 public LNFile getFile(){
-
     return this;
 }
 
-public LNAccount getAccount(){}
-public List<LNComment> getComments(){}
-public boolean addComment(){}
+public LNAccount getAccount(){
+    return account;
+}
+public List<LNComment> getComments(){
+    return comments;
+}
+public boolean addComment(LNComment e){
+    comments.add(e);
+    return true;
+}
 
 }
