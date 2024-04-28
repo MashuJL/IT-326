@@ -4,6 +4,6 @@ public class LNAccountHandler
 
         public boolean blockUser(int id)
         {
-            
+            return true; //TODO: Implement logic
         }
 }
