@@ -108,7 +108,7 @@ public class LNAccountOperations extends LNAccountCRUDOps
         return null;
     }
 
-    public boolean deleteAccount(String username, String password, LNUser user) throws IOException, ClassNotFoundException
+    public ArrayList<LNAccount> deleteAccount(String username, String password, LNUser user) throws IOException, ClassNotFoundException
     {
         //LNAccount tempAcct = retrieveAcct(username, password);
         for(int i = 0; i < user.getAccounts().size(); i++)
@@ -117,10 +117,12 @@ public class LNAccountOperations extends LNAccountCRUDOps
             {
                 user.getAccounts().remove(i);
                 saveAcct(user.getID(), user.getAccounts());
-                return true;
+                System.out.println("Account successfully deleted");
+                return user.getAccounts();
             }
         }
-        return false;
+        System.out.println("Error: Account not deleted");
+        return user.getAccounts();
     }
 
     public boolean updateAccount(String username, String password, String curUsername, String curPassword, LNUser user) throws IOException, ClassNotFoundException
