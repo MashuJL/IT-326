@@ -1,28 +1,30 @@
 public class LNNotificationController
 {
 
-    public int getID()
+    private LNNotificationHandler notifHandler = new LNNotificationHandler();
+
+    public int getID(LNNotification notif)
     {
-        return 0;
+        return notifHandler.getID(notif);
     }
 
-    public String getTitle()
+    public String getTitle(LNNotification notif)
     {
-        return "Placeholder for title";
+        return notifHandler.getTitle(notif);
     }
 
-    public String getBody()
+    public String getBody(LNNotification notif)
     {
-        return "placeholder for body";
+        return notifHandler.getBody(notif);
     }
 
-    public LNAccount getAccount()
+    public LNAccount getAccount(LNNotification notif)
     {
-        return account;
+        return notifHandler.getAccount(notif);
     }
 
-    public boolean markNotifiactionAsRead(int ID)
+    public boolean markNotifiactionAsRead(LNNotification notif)
     {
-        return false;
+        return notifHandler.markNotifiactionAsRead(notif);
     }
 }

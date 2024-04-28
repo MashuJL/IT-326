@@ -5,9 +5,9 @@ public class LNNotification
     private String bodyText;
     private String titleText;
     private LNAccount account;
-    private boolean unread;
+    public boolean unread;
 
-    public LNNotification(int notifID, String bodyText, String titleText, LNAccount account, boolean unread)
+    public LNNotification(int notifID, String bodyText, String titleText, LNAccount account)
     {
         this.notifID = notifID;
         this.bodyText = bodyText;
