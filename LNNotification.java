@@ -1,4 +1,6 @@
-public class LNNotification
+import java.io.Serializable;
+
+public class LNNotification implements Serializable
 {
 
     private int notifID;

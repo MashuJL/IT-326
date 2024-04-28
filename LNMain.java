@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Random;
 
 public class LNMain 
 {
@@ -20,10 +21,10 @@ public class LNMain
         Scanner scanner = new Scanner(System.in);
         int userInput;
         boolean loginUser = false;
-        String mainUsername = "";
-        String mainPassword = "";
-        System.out.println("What would you like your User ID number to be?");
-        int userID = Integer.parseInt(scanner.nextLine());
+        String loginUsername = "";
+        String loginPassword = "";
+        Random rand = new Random();
+        int userID = rand.nextInt(1000);
         opFactory.getUserOps().saveUser(userID, new ArrayList<>());
         while(!endAllFlag)
         {
@@ -73,10 +74,10 @@ public class LNMain
                         String username = scanner.nextLine();
                         System.out.println("Enter a password (must be between 8 and 50 characters and must consist of only lowercase letters, uppercase letters, numbers, and the following special characters: @#$%^&+=: ");
                         String password = scanner.nextLine();
-                        if(opFactory.getAcctOps().retrieveAcct(username, password) != null)
+                        if(userController.login(username, password, opFactory.getUserOps().retrieveUser(userID)) == true)
                         {
-                            mainUsername = username;
-                            mainPassword = password;
+                            loginUsername = username;
+                            loginPassword = password;
                             loginUser = true;
                         }
                         else
@@ -124,20 +125,19 @@ public class LNMain
                                 yesOrNo = scanner.nextLine();
                                 if(yesOrNo.toLowerCase().equals("Yes".toLowerCase()))
                                 {
-                                    boolean delete = opFactory.getAcctOps().deleteAccount(mainUsername, mainPassword, opFactory.getUserOps().retrieveUser(userID));
-                                    opFactory.getUserOps().saveUser(userID, opFactory.getUserOps().retrieveUser(userID).getAccounts());
-                                    if(delete == true)
-                                    {
-                                        mainUsername = "";
-                                        mainPassword = "";
+                                    opFactory.getUserOps().saveUser(userID, opFactory.getAcctOps().deleteAccount(loginUsername, loginPassword, opFactory.getUserOps().retrieveUser(userID)));
+                                    // if(delete == true)
+                                    // {
+                                        loginUsername = "";
+                                        loginPassword = "";
                                         loginUser = false;
                                         endFlag = true;
-                                        System.out.println("Account successfully deleted");
-                                    }
-                                    else
-                                    {
-                                        System.out.println("Error: Account not deleted");
-                                    }
+                                        // System.out.println("Account successfully deleted");
+                                    // }
+                                    // else
+                                    // {
+                                    //     System.out.println("Error: Account not deleted");
+                                    // }
                                 }
                                 else if(yesOrNo.toLowerCase().equals("No".toLowerCase()))
                                 {
@@ -155,12 +155,12 @@ public class LNMain
                             String changeUsername = scanner.nextLine();
                             System.out.println("Change password here:");
                             String changePassword = scanner.nextLine();
-                            boolean update = opFactory.getAcctOps().updateAccount(changeUsername, changePassword, mainUsername, mainPassword, opFactory.getUserOps().retrieveUser(userID));
+                            boolean update = opFactory.getAcctOps().updateAccount(changeUsername, changePassword, loginUsername, loginPassword, opFactory.getUserOps().retrieveUser(userID));
                             opFactory.getUserOps().saveUser(userID, opFactory.getUserOps().retrieveUser(userID).getAccounts());
                             if(update == true)
                             {
-                                mainUsername = changeUsername;
-                                mainPassword = changePassword;
+                                loginUsername = changeUsername;
+                                loginPassword = changePassword;
                                 System.out.println("Account successfully updated!");
                             }
                             else

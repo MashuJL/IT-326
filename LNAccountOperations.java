@@ -108,16 +108,21 @@ public class LNAccountOperations extends LNAccountCRUDOps
         return null;
     }
 
-    public boolean deleteAccount(String username, String password, LNUser user) throws IOException, ClassNotFoundException
+    public ArrayList<LNAccount> deleteAccount(String username, String password, LNUser user) throws IOException, ClassNotFoundException
     {
-        LNAccount tempAcct = retrieveAcct(username, password);
-        if(tempAcct != null)
+        //LNAccount tempAcct = retrieveAcct(username, password);
+        for(int i = 0; i < user.getAccounts().size(); i++)
         {
-            user.getAccounts().remove(tempAcct);
-            saveAcct(user.getID(), user.getAccounts());
-            return true;
+            if(user.getAccounts().get(i).getEmail().equals(username) && user.getAccounts().get(i).getPassword().equals(password))
+            {
+                user.getAccounts().remove(i);
+                saveAcct(user.getID(), user.getAccounts());
+                System.out.println("Account successfully deleted");
+                return user.getAccounts();
+            }
         }
-        return false;
+        System.out.println("Error: Account not deleted");
+        return user.getAccounts();
     }
 
     public boolean updateAccount(String username, String password, String curUsername, String curPassword, LNUser user) throws IOException, ClassNotFoundException
@@ -126,7 +131,7 @@ public class LNAccountOperations extends LNAccountCRUDOps
         {
             if(user.getAccounts().get(i).getEmail().equals(curUsername) && user.getAccounts().get(i).getPassword().equals(curPassword))
             {
-                user.getAccounts().set(i, new LNAccount(username, password));
+                user.getAccounts().set(i, new LNAccount(user.getAccounts().get(i).getAcctID(), username, password, user.getAccounts().get(i).getOwnerID(), user.getAccounts().get(i).getFiles(), user.getAccounts().get(i).getFolders(), user.getAccounts().get(i).getNotifs(), user.getAccounts().get(i).getComments(), user.getAccounts().get(i).getBlockedUsers()));
                 saveAcct(user.getID(), user.getAccounts());
                 return true;
             }
