@@ -45,4 +45,27 @@ public class LNUserOperations extends LNUserCRUDOps
             return false;
         }
     }
+
+    public boolean deleteUser(int ID) throws IOException, ClassNotFoundException
+    {
+        LNUser tempUser= retrieveUser(ID);
+        if(tempUser != null)
+        {
+            tempUser = null;
+            saveUser(tempUser.getID(), tempUser.getAccounts());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateUser(int ID, int curID) throws IOException, ClassNotFoundException
+    {
+        LNUser tempUser = retrieveUser(curID);
+        if(tempUser != null)
+        {
+            saveUser(ID, tempUser.getAccounts());
+            return true;
+        }
+        return false;
+    }
 }
