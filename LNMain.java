@@ -32,11 +32,6 @@ public class LNMain
             System.out.println("0: Exit");
             System.out.println("1: Create an account");
             System.out.println("2: Login");
-            System.out.println("3: Block User");
-            System.out.println("4: Unblock user");
-            System.out.println("5: Pin comment");
-            System.out.println("6: Remove comment");
-            System.out.println("7: Edit comment");
             try
             {
                 if(scanner.hasNextLine())
@@ -51,7 +46,7 @@ public class LNMain
                         System.out.println("Goodbye");
                         endAllFlag = true;
                     }
-                    else if(userInput == 1)
+                    else if(userInput == 1) //Create Account
                     {
                         System.out.println("Enter a username (must be at most 16 characters and consist of only lowercase letters, uppercase letters, and numbers): ");
                         String username = scanner.nextLine();
@@ -92,34 +87,6 @@ public class LNMain
                             System.out.println("Error: Incorrect username or password");
                         }
                     }
-                    else if(userInput == 3) //Block User
-                    {
-                        if(!loginUser)
-                        {
-                            System.out.println("Must be logged in to block user.");
-                        }
-                        //LNAccount loggedIn = opFactory.getAcctOps().retrieveAcct(mainUsername, mainPassword);
-                        else
-                        {
-                            System.out.println("Im blocking sucessfully now");
-                        }
-                    }
-                    else if(userInput == 4) //Unblock User
-                    {
-
-                    }
-                    else if(userInput == 5) //Pin Comment
-                    {
-
-                    }
-                    else if(userInput == 6) //Remove Comment
-                    {
-
-                    }
-                    else if(userInput == 7) //Edit Comment
-                    {
-
-                    }
                 }
             }
             catch(NumberFormatException e) {
@@ -134,14 +101,20 @@ public class LNMain
                 boolean endFlag = false;
                 while(!endFlag)
                 {
-                    System.out.println("All account options will be implemented later but rn just loggout");
-                    System.out.println("0: Loggout");
+                    //TODO: Remove this first statement in final program
+                    System.out.println("\nAll account options will be implemented later but rn just loggout");
+                    System.out.println("0: Log Out");
                     System.out.println("1: Delete Account");
                     System.out.println("2: Update Account");
+                    System.out.println("3: Block User");
+                    System.out.println("4: Unblock user");
+                    System.out.println("5: Pin comment");
+                    System.out.println("6: Remove comment");
+                    System.out.println("7: Edit comment");
                     try
                     {
                         userInput = Integer.parseInt(scanner.nextLine());
-                        if(userInput < 0 || userInput > 2) 
+                        if(userInput < 0 || userInput > 7) 
                         {
                             System.out.println("Error: Please enter a valid option");
                         }
@@ -151,7 +124,7 @@ public class LNMain
                             loginUser = false;
                             endFlag = true;
                         }
-                        else if(userInput == 1)
+                        else if(userInput == 1) //Log Out
                         {
                             String yesOrNo = "";
                             while(!yesOrNo.toLowerCase().equals("Yes".toLowerCase()) && !yesOrNo.toLowerCase().equals("No".toLowerCase()))
@@ -185,7 +158,7 @@ public class LNMain
                                 }
                             }
                         }
-                        else if(userInput == 2)
+                        else if(userInput == 2) //Update Account
                         {
                             System.out.println("Change username here:");
                             String changeUsername = scanner.nextLine();
@@ -204,6 +177,35 @@ public class LNMain
                                 System.out.println("Error: Account not updated");
                             }
                         }
+                        else if(userInput == 3) //Block User
+                        {
+                            /*if(!loginUser)
+                            {
+                                System.out.println("\nMust be logged in to block user.");
+                                continue;
+                            }*/
+                            System.out.print("Enter the ID of the user you want to block: ");
+                            int uid = Integer.parseInt(scanner.nextLine()); //Temp User ID we attempt to block
+                            LNAccountController lnac = new LNAccountController();
+                            lnac.blockUser(uid); //TODO: handle any returns
+                        }
+                        else if(userInput == 4) //Unblock User
+                        {
+
+                        }
+                        else if(userInput == 5) //Pin Comment
+                        {
+
+                        }
+                        else if(userInput == 6) //Remove Comment
+                        {
+
+                        }
+                        else if(userInput == 7) //Edit Comment
+                        {
+
+                        }
+                        
                     }
                     catch(NumberFormatException e) {
                         System.out.println("Error: Please enter a number");
