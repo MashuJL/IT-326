@@ -23,6 +23,8 @@ public class LNMain
         String mainUsername = "";
         String mainPassword = "";
         System.out.println("What would you like your User ID number to be?");
+            //TODO: 
+            //Change the below line so string input doesn't nuke the system
         int userID = Integer.parseInt(scanner.nextLine());
         opFactory.getUserOps().saveUser(userID, new ArrayList<>());
         while(!endAllFlag)
@@ -31,14 +33,19 @@ public class LNMain
             System.out.println("0: Exit");
             System.out.println("1: Create an account");
             System.out.println("2: Login");
+            System.out.println("3: Block User");
+            System.out.println("4: Unblock user");
+            System.out.println("5: Pin comment");
+            System.out.println("6: Remove comment");
+            System.out.println("7: Edit comment");
             try
             {
                 if(scanner.hasNextLine())
                 {
                     userInput = Integer.parseInt(scanner.nextLine());
-                    if(userInput < 0 || userInput > 2) 
+                    if(userInput < 0 || userInput > 7) 
                     {
-                        System.out.println("Error: Please enter a valid option");
+                        System.out.println("Error: Please enter a valid option\n");
                     }
                     else if(userInput == 0) 
                     {
@@ -69,6 +76,8 @@ public class LNMain
                     }
                     else if(userInput == 2)
                     {
+                        //TODO:
+                        //Add regexes to enforce password restrictions
                         System.out.println("Enter a username (must be at most 16 characters and consist of only lowercase letters, uppercase letters, and numbers): ");
                         String username = scanner.nextLine();
                         System.out.println("Enter a password (must be between 8 and 50 characters and must consist of only lowercase letters, uppercase letters, numbers, and the following special characters: @#$%^&+=: ");
@@ -83,6 +92,34 @@ public class LNMain
                         {
                             System.out.println("Error: Incorrect username or password");
                         }
+                    }
+                    else if(userInput == 3) //Block User
+                    {
+                        if(!loginUser)
+                        {
+                            System.out.println("Must be logged in to block user.");
+                        }
+                        //LNAccount loggedIn = opFactory.getAcctOps().retrieveAcct(mainUsername, mainPassword);
+                        else
+                        {
+                            System.out.println("Im blocking sucessfully now");
+                        }
+                    }
+                    else if(userInput == 4) //Unblock User
+                    {
+
+                    }
+                    else if(userInput == 5) //Pin Comment
+                    {
+
+                    }
+                    else if(userInput == 6) //Remove Comment
+                    {
+
+                    }
+                    else if(userInput == 7) //Edit Comment
+                    {
+
                     }
                 }
             }
