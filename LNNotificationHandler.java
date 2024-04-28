@@ -1,4 +1,4 @@
-class LNNotificationHandler
+public class LNNotificationHandler
 {
     public int getID()
     {
@@ -15,11 +15,10 @@ class LNNotificationHandler
         return "placeholder";
     }
 
-    /*
-     * public LNAccount getAccount() {
-     * 
-     * }
-     */
+    public LNAccount getAccount()
+    {
+        return account;
+    }
 
     public boolean markNotifiactionAsRead(int ID)
     {

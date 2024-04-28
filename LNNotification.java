@@ -1,10 +1,10 @@
-class LNNotification
+public class LNNotification
 {
 
     private int notifID;
     private String bodyText;
     private String titleText;
-    /* private LNAccount account; */
+    private LNAccount account;
 
     public int getID()
     {
@@ -13,7 +13,7 @@ class LNNotification
 
     public void detectActivity()
     {
-
+        return;
     }
 
     public String getTitle()
@@ -25,8 +25,10 @@ class LNNotification
     {
         return bodyText;
     }
-    /*
-     * public LNAccount getAccount() { return account; }
-     */
+
+    public LNAccount getAccount()
+    {
+        return account;
+    }
 
 }

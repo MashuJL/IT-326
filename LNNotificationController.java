@@ -1,4 +1,4 @@
-class LNNotificationController
+public class LNNotificationController
 {
 
     public int getID()
@@ -8,19 +8,18 @@ class LNNotificationController
 
     public String getTitle()
     {
-        return "placeholder";
+        return "Placeholder for title";
     }
 
     public String getBody()
     {
-        return "placeholder";
+        return "placeholder for body";
     }
 
-    /*
-     * public LNAccount getAccount() {
-     * 
-     * }
-     */
+    public LNAccount getAccount()
+    {
+        return account;
+    }
 
     public boolean markNotifiactionAsRead(int ID)
     {
