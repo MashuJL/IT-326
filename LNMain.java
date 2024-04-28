@@ -74,7 +74,7 @@ public class LNMain
                         String username = scanner.nextLine();
                         System.out.println("Enter a password (must be between 8 and 50 characters and must consist of only lowercase letters, uppercase letters, numbers, and the following special characters: @#$%^&+=: ");
                         String password = scanner.nextLine();
-                        if(opFactory.getAcctOps().retrieveAcct(username, password) != null)
+                        if(userController.login(username, password, opFactory.getUserOps().retrieveUser(userID)) == true)
                         {
                             loginUsername = username;
                             loginPassword = password;
@@ -125,20 +125,19 @@ public class LNMain
                                 yesOrNo = scanner.nextLine();
                                 if(yesOrNo.toLowerCase().equals("Yes".toLowerCase()))
                                 {
-                                    boolean delete = opFactory.getAcctOps().deleteAccount(loginUsername, loginPassword, opFactory.getUserOps().retrieveUser(userID));
-                                    opFactory.getUserOps().saveUser(userID, opFactory.getUserOps().retrieveUser(userID).getAccounts());
-                                    if(delete == true)
-                                    {
+                                    opFactory.getUserOps().saveUser(userID, opFactory.getAcctOps().deleteAccount(loginUsername, loginPassword, opFactory.getUserOps().retrieveUser(userID)));
+                                    // if(delete == true)
+                                    // {
                                         loginUsername = "";
                                         loginPassword = "";
                                         loginUser = false;
                                         endFlag = true;
-                                        System.out.println("Account successfully deleted");
-                                    }
-                                    else
-                                    {
-                                        System.out.println("Error: Account not deleted");
-                                    }
+                                        // System.out.println("Account successfully deleted");
+                                    // }
+                                    // else
+                                    // {
+                                    //     System.out.println("Error: Account not deleted");
+                                    // }
                                 }
                                 else if(yesOrNo.toLowerCase().equals("No".toLowerCase()))
                                 {

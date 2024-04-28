@@ -16,10 +16,17 @@ public class LNUserHandler
         return user.getAccounts();
     }
 
-    // public LNAccount login(String username, String password)
-    // {
-        
-    // }
+    public boolean login(String username, String password, LNUser user)
+    {
+        for(int i = 0; i < user.getAccounts().size(); i++)
+        {
+            if(user.getAccounts().get(i).getEmail().toLowerCase().equals(username) && user.getAccounts().get(i).getPassword().equals(password))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public ArrayList<LNAccount> createAccount(String username, String password, LNUser user)
     {

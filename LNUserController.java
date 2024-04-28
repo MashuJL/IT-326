@@ -15,6 +15,11 @@ public class LNUserController
         return userHandler.getAccounts(user);
     }
 
+    public boolean login(String username, String password, LNUser user)
+    {
+        return userHandler.login(username, password, user);
+    }
+
     public ArrayList<LNAccount> createAccount(String username, String password, LNUser user)
     {
         return userHandler.createAccount(username, password, user);
