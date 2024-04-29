@@ -7,7 +7,7 @@ import java.util.Random;
 public class LNMain 
 {
     private static LNUserController userController = new LNUserController();
-    private LNAccountController acctController = new LNAccountController();
+    private static LNAccountController acctController = new LNAccountController();
     private LNFolderController folderController = new LNFolderController();
     private LNFileController fileController = new LNFileController();
     private LNNotificationController notifController = new LNNotificationController();
@@ -48,9 +48,11 @@ public class LNMain
                     }
                     else if(userInput == 1) //Create Account
                     {
-                        System.out.println("Enter a username (must be at most 16 characters and consist of only lowercase letters, uppercase letters, and numbers): ");
+                        //System.out.println("Enter a username (must be at most 16 characters and consist of only lowercase letters, uppercase letters, and numbers): ");
+                        System.out.println("Enter a email");
                         String username = scanner.nextLine();
-                        System.out.println("Enter a password (must be between 8 and 50 characters and must consist of only lowercase letters, uppercase letters, numbers, and the following special characters: @#$%^&+=: ");
+                        //System.out.println("Enter a password (must be between 8 and 50 characters and must consist of only lowercase letters, uppercase letters, numbers, and the following special characters: @#$%^&+=: ");
+                        System.out.println("Enter a password");
                         String password = scanner.nextLine();
                         // LNAccount jackson = new LNAccount("jwclar1@ilstu.edu", "M@rth1009");
                         // LNAccount warren = new LNAccount("whern2@mistu.edu", "Dogar120");
@@ -70,11 +72,11 @@ public class LNMain
                     }
                     else if(userInput == 2)
                     {
-                        //TODO:
-                        //Add regexes to enforce password restrictions
-                        System.out.println("Enter a username (must be at most 16 characters and consist of only lowercase letters, uppercase letters, and numbers): ");
+                        //System.out.println("Enter a username (must be at most 16 characters and consist of only lowercase letters, uppercase letters, and numbers): ");
+                        System.out.println("Enter a email");
                         String username = scanner.nextLine();
-                        System.out.println("Enter a password (must be between 8 and 50 characters and must consist of only lowercase letters, uppercase letters, numbers, and the following special characters: @#$%^&+=: ");
+                        //System.out.println("Enter a password (must be between 8 and 50 characters and must consist of only lowercase letters, uppercase letters, numbers, and the following special characters: @#$%^&+=: ");
+                        System.out.println("Enter a password");
                         String password = scanner.nextLine();
                         if(userController.login(username, password, opFactory.getUserOps().retrieveUser(userID)) == true)
                         {
@@ -120,9 +122,13 @@ public class LNMain
                         }
                         else if(userInput == 0) 
                         {
-                            System.out.println("Goodbye");
-                            loginUser = false;
-                            endFlag = true;
+                            if(acctController.loggout() == true)
+                            {
+                                loginUsername = "";
+                                loginPassword = "";
+                                loginUser = false;
+                                endFlag = true;
+                            }
                         }
                         else if(userInput == 1) //Log Out
                         {
@@ -159,22 +165,14 @@ public class LNMain
                         }
                         else if(userInput == 2) //Update Account
                         {
-                            System.out.println("Change username here:");
+                            System.out.println("Change email here:");
                             String changeUsername = scanner.nextLine();
                             System.out.println("Change password here:");
                             String changePassword = scanner.nextLine();
-                            boolean update = opFactory.getAcctOps().updateAccount(changeUsername, changePassword, loginUsername, loginPassword, opFactory.getUserOps().retrieveUser(userID));
-                            opFactory.getUserOps().saveUser(userID, opFactory.getUserOps().retrieveUser(userID).getAccounts());
-                            if(update == true)
-                            {
-                                loginUsername = changeUsername;
-                                loginPassword = changePassword;
-                                System.out.println("Account successfully updated!");
-                            }
-                            else
-                            {
-                                System.out.println("Error: Account not updated");
-                            }
+                            opFactory.getUserOps().saveUser(userID, opFactory.getAcctOps().updateAccount(changeUsername, changePassword, loginUsername, loginPassword, opFactory.getUserOps().retrieveUser(userID)));
+                            loginUsername = changeUsername;
+                            loginPassword = changePassword;
+                            System.out.println("Account successfully updated!");
                         }
                         else if(userInput == 3) //Block User
                         {

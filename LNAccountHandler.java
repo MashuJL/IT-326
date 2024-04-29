@@ -10,4 +10,10 @@ public class LNAccountHandler
             acct = ops.retrieveAcct(username, pass);
             return true; //TODO: Implement logic
         }
+
+        public boolean loggout()
+        {
+            System.out.println("Goodbye");
+            return true;
+        }
 }
