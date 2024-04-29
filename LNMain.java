@@ -178,15 +178,10 @@ public class LNMain
                         }
                         else if(userInput == 3) //Block User
                         {
-                            /*if(!loginUser)
-                            {
-                                System.out.println("\nMust be logged in to block user.");
-                                continue;
-                            }*/
                             System.out.print("Enter the ID of the user you want to block: ");
                             int uid = Integer.parseInt(scanner.nextLine()); //Temp User ID we attempt to block
                             LNAccountController lnac = new LNAccountController();
-                            lnac.blockUser(uid); //TODO: handle any returns
+                            lnac.blockUser(loginUsername, loginPassword, uid); //TODO: handle any returns
                         }
                         else if(userInput == 4) //Unblock User
                         {
