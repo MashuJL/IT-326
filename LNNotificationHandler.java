@@ -20,12 +20,16 @@ public class LNNotificationHandler
         return notif.getAccount();
     }
 
+    public boolean getUnread(LNNotification notif)
+    {
+        return notif.getUnread();
+    }
+
     public boolean markNotifiactionAsRead(LNNotification notif)
     {
-        if (notif.unread)
+        if (notif.getUnread())
         {
-            notif.unread = false;
-            return true;
+            notif.markNotifiactionAsRead();
         }
         return false;
     }

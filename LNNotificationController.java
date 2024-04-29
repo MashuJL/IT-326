@@ -23,6 +23,11 @@ public class LNNotificationController
         return notifHandler.getAccount(notif);
     }
 
+    public boolean getUnread(LNNotification notif)
+    {
+        return notif.getUnread();
+    }
+
     public boolean markNotifiactionAsRead(LNNotification notif)
     {
         return notifHandler.markNotifiactionAsRead(notif);

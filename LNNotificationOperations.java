@@ -2,12 +2,14 @@ public class LNNotificationOperations
 {
     public boolean createNotification(int notifID, String titleText, String bodyText, LNAccount account)
     {
+
         return true;
     }
 
-    public void deleteNotification()
+    public boolean deleteNotification(LNNotification notif)
     {
-        return;
+        notif = null;
+        return true;
     }
 
 }

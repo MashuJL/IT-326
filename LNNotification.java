@@ -7,7 +7,7 @@ public class LNNotification implements Serializable
     private String bodyText;
     private String titleText;
     private LNAccount account;
-    public boolean unread;
+    private boolean unread;
 
     public LNNotification(int notifID, String bodyText, String titleText, LNAccount account)
     {
@@ -41,6 +41,17 @@ public class LNNotification implements Serializable
     public LNAccount getAccount()
     {
         return account;
+    }
+
+    public boolean getUnread()
+    {
+        return unread;
+    }
+
+    public boolean markNotifiactionAsRead()
+    {
+        unread = false;
+        return true;
     }
 
 }
