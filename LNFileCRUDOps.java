@@ -1,6 +1,6 @@
 public abstract class LNFileCRUDOps {
-    public abstract boolean createNotesFile(String name,LNFolder folder,LNAccount account);
-    public abstract boolean deleteNotesFile(LNFile deleted);
-    public abstract LNFile getNotesFile(int id);
-    public abstract boolean updateNotesFile(int NotesFileID,String name,String folder);
+    public abstract boolean createFile(String name,int folder,int account);
+    public abstract boolean deleteFile(LNFile deleted);
+    public abstract LNFile getFile(int id);
+    public abstract boolean updateFile(int FileID,String name,String folder);
 }

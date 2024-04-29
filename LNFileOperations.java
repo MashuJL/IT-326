@@ -6,19 +6,19 @@ import java.io.FileWriter;
 public class LNFileOperations extends LNFileCRUDOps{
     private ArrayList<LNFile> records;
 
-    public boolean createNotesFile(String name,int folder,int account){
+    public boolean createFile(String name,int folder,int account){
         return records.add(new LNFile(name,folder,account));
     }
-    public boolean deleteNotesFile(LNFile deleted){
+    public boolean deleteFile(LNFile deleted){
         if(records.remove(deleted)){
-            deleted.deleteNotesFile();
+            deleted.deleteFile();
             return true;
         }
         else{
             return false;
         }
     }
-    public LNFile getNotesFile(int id){
+    public LNFile getFile(int id){
         LNFile toGet = null;
         for (int i = 0; i < records.size(); i++) {
             toGet = records.get(i);
@@ -31,12 +31,12 @@ public class LNFileOperations extends LNFileCRUDOps{
         }
         return toGet;
     }
-    public boolean updateNotesFile(int NotesFileID,String name,String contents){
+    public boolean updateFile(int FileID,String name,String contents){
         LNFile toGet = null;
         boolean noError= true;
         for (int i = 0; i < records.size(); i++) {
             toGet = records.get(i);
-            if (toGet.getID()==NotesFileID) {
+            if (toGet.getID()==FileID) {
                 break;
             }
             else{

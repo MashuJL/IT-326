@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.util.List;
 
 public class LNFile implements Serializable{
-private int NotesFileID;
+private int FileID;
 private String name;
 private String content;
 private File actualFile;
@@ -26,13 +26,13 @@ public String getName(){
 }
 //return id of file.
 public int getID(){
-    return NotesFileID;
+    return FileID;
 }
-public void deleteNotesFile(){
+public void deleteFile(){
     actualFile.delete();
     comments = null;
 }
-public void renameNotesFile(String name){
+public void renameFile(String name){
     this.name = name;
     File newFile = new File(actualFile,name);
     actualFile.delete();
@@ -40,7 +40,7 @@ public void renameNotesFile(String name){
 }
 
 //this will allow user to download the file to another location.
-public void downloadNotesFile(String downloadName){
+public void downloadFile(String downloadName){
     File makeFile = new File(actualFile, downloadName);
 }
 public File getFile(){
