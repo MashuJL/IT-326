@@ -1,5 +1,8 @@
+package Handlers;
 import java.io.File;
 import java.util.List;
+
+import Classes.LNFile;
 
 public class LNFileHandler {
     public List<LNFile> getFilesInFolder(LNFolder folder){
