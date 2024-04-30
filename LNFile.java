@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.io.File;
-import java.nio.file.*;
 import java.io.FileWriter;
 import java.util.List;
 
@@ -18,6 +17,13 @@ public LNFile(String name, int folderID, int accountID){
     this.folderID = folderID;
     this.accountID = accountID;
     actualFile = new File(name);
+}
+
+public LNFile(String name, int folderID, int accountID,File actualFile){
+    this.name = name;
+    this.folderID = folderID;
+    this.accountID = accountID;
+    this.actualFile = actualFile;
 }
 
 //return name of file.
