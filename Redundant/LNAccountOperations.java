@@ -11,8 +11,6 @@ import java.io.EOFException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Redundant.IgnoreThis.LNAccount;
-
 public class LNAccountOperations extends LNAccountCRUDOps
 {
     public boolean saveAcct(int ID, ArrayList<LNAccount> accts) throws IOException
