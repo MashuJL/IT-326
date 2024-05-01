@@ -176,12 +176,12 @@ public class LNMain
                         }
                         else if(userInput == 3)
                         {
-                            acctController.printBlockedUsers(loginUsername, loginPassword);
+                            acctController.printBlockedUsers(loginUsername);
                             System.out.println("Enter the ID of the user you want to block: ");
                             try
                             {
                                 int blocked = Integer.parseInt(scanner.nextLine());
-                                if(acctController.blockUser(loginUsername, loginPassword, blocked))
+                                if(acctController.blockUser(loginUsername, blocked))
                                     System.out.println("User ID = "+blocked+" blocked successfully!");
                                 else
                                     System.out.println("Failed to block user ID = "+blocked+" (User is already blocked)");
@@ -193,7 +193,7 @@ public class LNMain
                         }
                         else if(userInput == 4) //Unblock user
                         {
-                            int numBlocked = acctController.printBlockedUsers(loginUsername, loginPassword);
+                            int numBlocked = acctController.printBlockedUsers(loginUsername);
                             if(numBlocked == 0)
                             {
                                 System.out.println("You have no currently blocked users.");
@@ -204,7 +204,7 @@ public class LNMain
                                 try
                                 {
                                     int unblocked = Integer.parseInt(scanner.nextLine());
-                                    if(acctController.unblockUser(loginUsername, loginPassword, unblocked))
+                                    if(acctController.unblockUser(loginUsername, unblocked))
                                         System.out.println("User ID = "+unblocked+" unblocked successfully!");
                                     else
                                         System.out.println("Failed to unblock user ID = "+unblocked+" (User is not blocked)");
@@ -217,7 +217,7 @@ public class LNMain
                         }
                         else if(userInput == 5) //Pin Comment
                         {
-                            int numCmts = acctController.printComments(loginUsername, loginPassword);
+                            int numCmts = acctController.printComments(loginUsername);
                             if(numCmts == 0)
                                 System.out.println("You have no comments to pin.");
                             else

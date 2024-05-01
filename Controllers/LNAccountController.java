@@ -45,23 +45,23 @@ public class LNAccountController
         return acctHandler.updateAccount(newName, newPass, oldName, oldPass);
     }
 
-    public int printBlockedUsers(String currentUser, String currentPass) throws ClassNotFoundException, IOException
+    public int printBlockedUsers(String currentUser) throws ClassNotFoundException, IOException
     {
-        return acctHandler.printBlockedUsers(currentUser, currentPass);
+        return acctHandler.printBlockedUsers(currentUser);
     }
 
-    public boolean blockUser(String currentUser, String currentPass, int id) throws ClassNotFoundException, IOException
+    public boolean blockUser(String currentUser, int id) throws ClassNotFoundException, IOException
     {
-        return acctHandler.blockUser(currentUser, currentPass, id);
+        return acctHandler.blockUser(currentUser, id);
     }
 
-    public boolean unblockUser(String currentUser, String currentPass, int id) throws ClassNotFoundException, IOException
+    public boolean unblockUser(String currentUser, int id) throws ClassNotFoundException, IOException
     {
-        return acctHandler.unblockUser(currentUser, currentPass, id);
+        return acctHandler.unblockUser(currentUser, id);
     }
 
-    public int printComments(String currentUser, String currentPass) throws ClassNotFoundException, IOException
+    public int printComments(String currentUser) throws ClassNotFoundException, IOException
     {
-        return acctHandler.printComments(currentUser, currentPass);
+        return acctHandler.printComments(currentUser);
     }
 }

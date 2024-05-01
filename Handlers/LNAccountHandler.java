@@ -57,9 +57,9 @@ public class LNAccountHandler
         return getAcctOps().updateAccount(newName, newPass, oldName, oldPass);
     }
 
-    public int printBlockedUsers(String currentUser, String currentPass) throws ClassNotFoundException, IOException
+    public int printBlockedUsers(String currentUser) throws ClassNotFoundException, IOException
     {
-        LNAccount temp = getAcctOps().retrieveAcct(currentUser, currentPass);
+        LNAccount temp = getAcctOps().retrieveAcct(currentUser);
         if(temp == null)
         {
             System.out.println("Error - Account [Name = "+currentUser+"] is null");
@@ -77,9 +77,9 @@ public class LNAccountHandler
         return blocked.size();
     }
 
-    public boolean blockUser(String currentUser, String currentPass, int id) throws ClassNotFoundException, IOException
+    public boolean blockUser(String currentUser, int id) throws ClassNotFoundException, IOException
     {
-        LNAccount temp = getAcctOps().retrieveAcct(currentUser, currentPass);
+        LNAccount temp = getAcctOps().retrieveAcct(currentUser);
         if(temp == null)
         {
             System.out.println("Error - Account [Name = "+currentUser+"] is null");
@@ -90,12 +90,12 @@ public class LNAccountHandler
         if(newBlocked.contains((Integer) id))
             return false; //Already blocked
         newBlocked.add((Integer) id);
-        return getAcctOps().updateAccount(newBlocked, currentUser, currentPass);
+        return getAcctOps().updateAccount(newBlocked, currentUser);
     }
 
-    public boolean unblockUser(String currentUser, String currentPass, int id) throws ClassNotFoundException, IOException
+    public boolean unblockUser(String currentUser, int id) throws ClassNotFoundException, IOException
     {
-        LNAccount temp = getAcctOps().retrieveAcct(currentUser, currentPass);
+        LNAccount temp = getAcctOps().retrieveAcct(currentUser);
         if(temp == null)
         {
             System.out.println("Error - Account [Name = "+currentUser+"] is null");
@@ -105,12 +105,12 @@ public class LNAccountHandler
         if(newBlocked.contains((Integer) id))
         {
             newBlocked.remove((Integer) id);
-            return getAcctOps().updateAccount(newBlocked, currentUser, currentPass);
+            return getAcctOps().updateAccount(newBlocked, currentUser);
         }
         return false; //Given ID is not blocked - can't unblock it
     }
 
-    public int printComments(String currentUser, String currentPass) throws ClassNotFoundException, IOException
+    public int printComments(String currentUser) throws ClassNotFoundException, IOException
     {
         LNAccount temp = getAcctOps().retrieveAcct(currentUser);
         if(temp == null)

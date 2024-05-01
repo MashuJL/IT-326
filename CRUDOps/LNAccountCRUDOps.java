@@ -12,5 +12,5 @@ public abstract class LNAccountCRUDOps
     public abstract LNAccount retrieveAcct(String username) throws IOException, ClassNotFoundException; //abstract method for retrieving an account
     public abstract boolean deleteAccount(String username, String password) throws IOException, ClassNotFoundException; //abstract method for deleting an account
     public abstract boolean updateAccount(String username, String password, String curUsername, String curPassword) throws IOException, ClassNotFoundException; //abstract method for updating an account
-    public abstract boolean updateAccount(ArrayList<Integer> newBlacklist, String curUsername, String curPassword) throws IOException, ClassNotFoundException;
+    public abstract boolean updateAccount(ArrayList<Integer> newBlacklist, String curUsername) throws IOException, ClassNotFoundException;
 };

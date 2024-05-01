@@ -136,14 +136,14 @@ public class LNAccountOperations extends LNAccountCRUDOps
         return false;
     }
 
-    public boolean updateAccount(ArrayList<Integer> newBlacklist, String curUsername, String curPassword) throws ClassNotFoundException, IOException
+    public boolean updateAccount(ArrayList<Integer> newBlacklist, String curUsername) throws ClassNotFoundException, IOException
     {
         ArrayList<LNAccount> acctArr = readFromAccountCSV();
         if(acctArr != null)
         {
             for(int i = 0; i < acctArr.size(); i++)
             {
-                if(acctArr.get(i).getEmail().toLowerCase().equals(curUsername.toLowerCase()) && acctArr.get(i).getPassword().equals(curPassword))
+                if(acctArr.get(i).getEmail().toLowerCase().equals(curUsername.toLowerCase()))
                 {
                     acctArr.get(i).setBlockedUsers(newBlacklist);
                     writeToAccountCSV(acctArr);
