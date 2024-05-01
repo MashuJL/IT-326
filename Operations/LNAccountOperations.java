@@ -9,7 +9,7 @@ import java.io.EOFException;
 import java.util.ArrayList;
 
 import CRUDOps.LNAccountCRUDOps;
-import Classes.LNAccount;
+import Models.LNAccount;
 
 public class LNAccountOperations extends LNAccountCRUDOps
 {
