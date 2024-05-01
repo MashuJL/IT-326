@@ -1,3 +1,8 @@
+package CRUDOps;
+
+import Classes.LNAccount;
+import Classes.LNNotification;
+
 public abstract class LNNotificationCRUDOps
 {
     public abstract boolean createNotification(int notifID, String titleText, String bodyText, LNAccount account);

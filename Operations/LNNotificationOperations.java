@@ -1,3 +1,8 @@
+package Operations;
+
+import Classes.LNAccount;
+import Classes.LNNotification;
+
 public class LNNotificationOperations
 {
     public boolean createNotification(int notifID, String titleText, String bodyText, LNAccount account)

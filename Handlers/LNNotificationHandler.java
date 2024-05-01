@@ -1,3 +1,8 @@
+package Handlers;
+
+import Classes.LNAccount;
+import Classes.LNNotification;
+
 public class LNNotificationHandler
 {
     public int getID(LNNotification notif)

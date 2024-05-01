@@ -1,35 +1,37 @@
-public class LNNotificationController
-{
+// import Handlers.LNNotificationHandler;
 
-    private LNNotificationHandler notifHandler = new LNNotificationHandler();
+// public class LNNotificationController
+// {
 
-    public int getID(LNNotification notif)
-    {
-        return notifHandler.getID(notif);
-    }
+// private LNNotificationHandler notifHandler = new LNNotificationHandler();
 
-    public String getTitle(LNNotification notif)
-    {
-        return notifHandler.getTitle(notif);
-    }
+// public int getID(LNNotification notif)
+// {
+// return notifHandler.getID(notif);
+// }
 
-    public String getBody(LNNotification notif)
-    {
-        return notifHandler.getBody(notif);
-    }
+// public String getTitle(LNNotification notif)
+// {
+// return notifHandler.getTitle(notif);
+// }
 
-    public LNAccount getAccount(LNNotification notif)
-    {
-        return notifHandler.getAccount(notif);
-    }
+// public String getBody(LNNotification notif)
+// {
+// return notifHandler.getBody(notif);
+// }
 
-    public boolean getUnread(LNNotification notif)
-    {
-        return notif.getUnread();
-    }
+// public LNAccount getAccount(LNNotification notif)
+// {
+// return notifHandler.getAccount(notif);
+// }
 
-    public boolean markNotifiactionAsRead(LNNotification notif)
-    {
-        return notifHandler.markNotifiactionAsRead(notif);
-    }
-}
+// public boolean getUnread(LNNotification notif)
+// {
+// return notif.getUnread();
+// }
+
+// public boolean markNotifiactionAsRead(LNNotification notif)
+// {
+// return notifHandler.markNotifiactionAsRead(notif);
+// }
+// }
