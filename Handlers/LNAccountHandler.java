@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 import CRUDOps.LNAccountCRUDOps;
-import Classes.LNAccount;
+import Models.LNAccount;
 import OperationsFactory.OperationsFactory;
 
 public class LNAccountHandler 
@@ -37,6 +37,16 @@ public class LNAccountHandler
         }
         System.out.print("Error: Not a valid email.");
         return false;
+    }
+
+    public boolean updateAccount(String username, String password, String curUsername, String curPassword) throws IOException, ClassNotFoundException
+    {
+        return getAcctOps().updateAccount(username, password, curUsername, curPassword);
+    }
+
+    public boolean deleteAccount(String username, String password) throws IOException, ClassNotFoundException
+    {
+        return getAcctOps().deleteAccount(username, password);
     }
 
     public boolean loggout() //Simply returns true and which logs them out of the user experience in main

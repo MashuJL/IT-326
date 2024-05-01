@@ -8,11 +8,6 @@ import Handlers.LNAccountHandler;
 
 public class LNMain 
 {
-    public static LNAccountHandler getAcctHandler()
-    {
-        return LNAccountController.getLNAccountHandlerInstance();
-    }
-
     public static void main(String[] args) throws IOException, ClassNotFoundException
     {
         boolean endAllFlag = false; //End the app boolean variable
@@ -48,7 +43,7 @@ public class LNMain
                         String username = scanner.nextLine();
                         System.out.println("Enter a password");
                         String password = scanner.nextLine();
-                        if(getAcctHandler().createAccount(username, password))
+                        if(LNAccountController.createAccount(username, password))
                         {
                             System.out.println("Account was created and saved successfully!");
                         }
@@ -63,7 +58,7 @@ public class LNMain
                         String username = scanner.nextLine();
                         System.out.println("Enter a password");
                         String password = scanner.nextLine();
-                        if(getAcctHandler().login(username, password))
+                        if(LNAccountController.login(username, password))
                         {
                             loginUsername = username;
                             loginPassword = password;
@@ -99,7 +94,7 @@ public class LNMain
                         }
                         else if(userInput == 0) 
                         {
-                            if(getAcctHandler().loggout())
+                            if(LNAccountController.loggout())
                             {
                                 loginUsername = "";
                                 loginPassword = "";
@@ -116,7 +111,7 @@ public class LNMain
                                 yesOrNo = scanner.nextLine();
                                 if(yesOrNo.toLowerCase().equals("Yes".toLowerCase()))
                                 {
-                                    if(getAcctHandler().getAcctOps().deleteAccount(loginUsername, loginPassword))
+                                    if(LNAccountController.deleteAccount(loginUsername, loginPassword))
                                     {
                                         loginUsername = "";
                                         loginPassword = "";
@@ -144,7 +139,7 @@ public class LNMain
                             String changeUsername = scanner.nextLine();
                             System.out.println("Change password here:");
                             String changePassword = scanner.nextLine();
-                            if(getAcctHandler().getAcctOps().updateAccount(changeUsername, changePassword, loginUsername, loginPassword))
+                            if(LNAccountController.updateAccount(changeUsername, changePassword, loginUsername, loginPassword))
                             {
                                 loginUsername = changeUsername;
                                 loginPassword = changePassword;
