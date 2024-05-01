@@ -55,7 +55,17 @@ public class LNAccountOperations extends LNAccountCRUDOps
         {
             accts = new ArrayList<>();
         }
-        accts.add(acct);
+
+        if(retrieveAcct(acct.getEmail()) == null)
+        {
+            accts.add(acct);
+        }
+        else
+        {
+            System.out.print("Error: Account has already been made.");
+            return false;
+        }
+
         if(writeToAccountCSV(accts) != false)
         {
             return true;
@@ -63,20 +73,19 @@ public class LNAccountOperations extends LNAccountCRUDOps
         return false;
     }
 
-    public LNAccount retrieveAcct(String username, String password) throws IOException, ClassNotFoundException
+    public LNAccount retrieveAcct(String username) throws IOException, ClassNotFoundException
     {
         ArrayList<LNAccount> acctArr = readFromAccountCSV();
         if(acctArr != null)
         {
             for(int i = 0; i < acctArr.size(); i++)
             {
-                if(acctArr.get(i).getEmail().toLowerCase().equals(username.toLowerCase()) && acctArr.get(i).getPassword().equals(password))
+                if(acctArr.get(i).getEmail().toLowerCase().equals(username.toLowerCase()))
                 {
                     return acctArr.get(i);
                 }
             }
         }
-        System.out.println("Error: No account has been made or could not find account. Returning null");
         return null;
     }
 

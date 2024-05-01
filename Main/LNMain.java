@@ -57,7 +57,7 @@ public class LNMain
                         }
                         else
                         {
-                            System.out.println("Error: Account not created");
+                            System.out.println(" Account not created.");
                         }
                     }
                     else if(userInput == 2)
