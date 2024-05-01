@@ -7,7 +7,7 @@ public class LNAccountController
 {
     /*private static LNAccountHandler acctHandler = null;
 
-    public static LNAccountHandler getLNAccountHandlerInstance(){
+    public static LNAccountHandler getLNAccountHandlerInstance(){ //Gets the account handler object
         if(acctHandler==null)
             acctHandler = new LNAccountHandler();
         return acctHandler;
@@ -15,19 +15,19 @@ public class LNAccountController
 
     private static LNAccountHandler acctHandler = new LNAccountHandler();
     
-    public boolean login(String username, String password) throws IOException, ClassNotFoundException
+    public boolean login(String username, String password) throws IOException, ClassNotFoundException //Calls login implementation from account handler
     {
         //return getLNAccountHandlerInstance().login(username, password);
         return acctHandler.login(username, password);
     }
 
-    public boolean createAccount(String username, String password) throws IOException, ClassNotFoundException
+    public boolean createAccount(String username, String password) throws IOException, ClassNotFoundException //Calls create account implementation from account handler
     {
         //return getLNAccountHandlerInstance().createAccount(username, password);
         return acctHandler.createAccount(username, password);
     }
 
-    public boolean loggout()
+    public boolean loggout() //Calls loggout implementation from account handler
     {
         //return getLNAccountHandlerInstance().loggout();
         return acctHandler.loggout();

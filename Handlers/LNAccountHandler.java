@@ -1,6 +1,7 @@
 package Handlers;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 import java.util.ArrayList;
 
 import CRUDOps.LNAccountCRUDOps;
@@ -12,26 +13,35 @@ public class LNAccountHandler
 {
     //LNAccountCRUDOps acctCRUDOps = OperationsFactory.getAcctOps();
 
-    public static LNAccountCRUDOps getAcctOps()
+    public static LNAccountCRUDOps getAcctOps() //Get account operations object
     {
         return OperationsFactory.getAcctOps();
     }
 
-    public boolean login(String username, String password) throws IOException, ClassNotFoundException
+    public boolean login(String username, String password) throws IOException, ClassNotFoundException //Login that checks user's inputted email and password with accounts.csv file
     {
-        if(getAcctOps().retrieveAcct(username, password) != null)
+        LNAccount tempAcct = getAcctOps().retrieveAcct(username);
+        if(tempAcct != null)
         {
-            return true;
+            if(tempAcct.getPassword().equals(password))
+            {
+                return true;
+            }
         }
         return false;
     }
 
-    public boolean createAccount(String username, String password) throws IOException, ClassNotFoundException
+    public boolean createAccount(String username, String password) throws IOException, ClassNotFoundException //Creates and saves the account to the accounts.csv file
     {
-        return getAcctOps().saveAcct(new LNAccount(username, password));
+        if(Pattern.matches("^[a-zA-Z0-9_!#$%&'*+=?`{|}~^.-]+@[a-zA-Z]+.[a-zA-Z]+$", username) == true)
+        {
+            return getAcctOps().saveAcct(new LNAccount(username, password));
+        }
+        System.out.print("Error: Not a valid email.");
+        return false;
     }
 
-    public boolean loggout()
+    public boolean loggout() //Simply returns true and which logs them out of the user experience in main
     {
         System.out.println("Goodbye");
         return true;
@@ -102,7 +112,7 @@ public class LNAccountHandler
 
     public int printComments(String currentUser, String currentPass) throws ClassNotFoundException, IOException
     {
-        LNAccount temp = getAcctOps().retrieveAcct(currentUser, currentPass);
+        LNAccount temp = getAcctOps().retrieveAcct(currentUser);
         if(temp == null)
         {
             System.out.println("Error - Account [Name = "+currentUser+"] is null");
