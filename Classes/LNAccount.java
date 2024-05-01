@@ -60,9 +60,19 @@ public class LNAccount implements Serializable
         return ownerID;
     }
 
+    public void setOwnerID(int id)
+    {
+        this.ownerID = id;
+    }
+
     public ArrayList<LNFile> getFiles()
     {
         return ownedFiles;
+    }
+
+    public void setFiles(ArrayList<LNFile> files)
+    {
+        this.ownedFiles = files;
     }
 
     public ArrayList<LNFolder> getFolders()
@@ -70,9 +80,19 @@ public class LNAccount implements Serializable
         return ownedFolders;
     }
 
+    public void setFolders(ArrayList<LNFolder> folders)
+    {
+        this.ownedFolders = folders;
+    }
+
     public ArrayList<LNNotification> getNotifs()
     {
         return notifications;
+    }
+
+    public void setNotifications(ArrayList<LNNotification> notifs)
+    {
+        this.notifications = notifs;
     }
 
     public ArrayList<LNComment> getComments()
@@ -80,8 +100,18 @@ public class LNAccount implements Serializable
         return comments;
     }
 
+    public void setComments(ArrayList<LNComment> cmts)
+    {
+        this.comments = cmts;
+    }
+
     public ArrayList<Integer> getBlockedUsers()
     {
         return blockedUserIDs;
+    }
+
+    public void setBlockedUsers(ArrayList<Integer> ids)
+    {
+        this.blockedUserIDs = ids;
     }
 }

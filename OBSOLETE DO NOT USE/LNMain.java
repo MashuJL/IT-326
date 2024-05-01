@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class LNMain 
 {
-    private static LNUserController userController = new LNUserController();
+    //private static LNUserController userController = new LNUserController();
     private static LNAccountController acctController = new LNAccountController();
     private LNFolderController folderController = new LNFolderController();
     private LNFileController fileController = new LNFileController();
@@ -176,10 +176,18 @@ public class LNMain
                         }
                         else if(userInput == 3) //Block User
                         {
+                            //TODO: Test
+                            System.out.println("CURRENT USER NAME: "+loginUsername+"\nCURRENT USER PASS: "+loginPassword);
+                            //TODO: End test
                             System.out.print("Enter the ID of the user you want to block: ");
-                            int uid = Integer.parseInt(scanner.nextLine()); //Temp User ID we attempt to block
+                            //TODO: Check for bad input here
+                            int blockID = Integer.parseInt(scanner.nextLine()); //Temp User ID we attempt to block
                             LNAccountController lnac = new LNAccountController();
-                            lnac.blockUser(loginUsername, loginPassword, uid); //TODO: handle any returns
+                            lnac.blockUser(loginUsername, loginPassword, userID, blockID);
+                            //TODO: Test
+                            LNAccount tact = opFactory.getAcctOps().retrieveAcct(loginUsername, loginPassword);
+                            System.out.println("Size of blocked = "+tact.getBlockedUsers().size());
+                            //TODO: End test
                         }
                         else if(userInput == 4) //Unblock User
                         {

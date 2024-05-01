@@ -24,7 +24,9 @@ public class LNAccountOperations extends LNAccountCRUDOps
 
     private ArrayList<LNAccount> readFromAccountCSV() throws IOException, ClassNotFoundException
     {
-        try(FileInputStream fis = new FileInputStream("accounts.csv"); ObjectInputStream ois = new ObjectInputStream(fis))
+        File output = new File("accounts.csv");
+        output.createNewFile(); //Create file if it doesn't exist -- prevent crashes
+        try(FileInputStream fis = new FileInputStream("accounts.csv");ObjectInputStream ois = new ObjectInputStream(fis))
         {
             return (ArrayList<LNAccount>) ois.readObject();
         } catch (EOFException exc)
@@ -36,6 +38,7 @@ public class LNAccountOperations extends LNAccountCRUDOps
     private boolean writeToAccountCSV(ArrayList<LNAccount> accts) throws IOException, ClassNotFoundException
     {
         File csvFile = new File("accounts.csv");
+        csvFile.createNewFile(); //Does nothing if it exists-- prevents FileNotFound exceptions if it can't find the file
 
         try(FileOutputStream fos = new FileOutputStream(csvFile); ObjectOutputStream oos = new ObjectOutputStream(fos))
         {
@@ -109,6 +112,24 @@ public class LNAccountOperations extends LNAccountCRUDOps
                 {
                     acctArr.get(i).setEmail(username);
                     acctArr.get(i).setPassword(password);
+                    writeToAccountCSV(acctArr);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean updateAccount(ArrayList<Integer> newBlacklist, String curUsername, String curPassword) throws ClassNotFoundException, IOException
+    {
+        ArrayList<LNAccount> acctArr = readFromAccountCSV();
+        if(acctArr != null)
+        {
+            for(int i = 0; i < acctArr.size(); i++)
+            {
+                if(acctArr.get(i).getEmail().toLowerCase().equals(curUsername.toLowerCase()) && acctArr.get(i).getPassword().equals(curPassword))
+                {
+                    acctArr.get(i).setBlockedUsers(newBlacklist);
                     writeToAccountCSV(acctArr);
                     return true;
                 }

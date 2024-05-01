@@ -1,5 +1,6 @@
 package CRUDOps;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import Classes.LNAccount;
 
@@ -9,4 +10,5 @@ public abstract class LNAccountCRUDOps
     public abstract LNAccount retrieveAcct(String username, String password) throws IOException, ClassNotFoundException;
     public abstract boolean deleteAccount(String username, String password) throws IOException, ClassNotFoundException;
     public abstract boolean updateAccount(String username, String password, String curUsername, String curPassword) throws IOException, ClassNotFoundException;
+    public abstract boolean updateAccount(ArrayList<Integer> newBlacklist, String curUsername, String curPassword) throws IOException, ClassNotFoundException;
 };
