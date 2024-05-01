@@ -15,13 +15,13 @@ public class LNMain
 
     public static void main(String[] args) throws IOException, ClassNotFoundException
     {
-        //App UI starts here
-        boolean endAllFlag = false;
-        Scanner scanner = new Scanner(System.in);
-        int userInput;
-        boolean loginUser = false;
-        String loginUsername = "";
-        String loginPassword = "";
+        boolean endAllFlag = false; //End the app boolean variable
+        Scanner scanner = new Scanner(System.in); //Gets user input
+        int userInput; //Stores user input
+        boolean loginUser = false; //End the user experience boolean variable
+        String loginUsername = ""; //Stores the current logged in user's email
+        String loginPassword = ""; //Stores the current logged in user's password
+        //App starts here
         while(!endAllFlag)
         {
             System.out.println("Select an option: ");
@@ -44,11 +44,8 @@ public class LNMain
                     }
                     else if(userInput == 1)
                     {
-                        
-                        //System.out.println("Enter a username (must be at most 16 characters and consist of only lowercase letters, uppercase letters, and numbers): ");
                         System.out.println("Enter a email");
                         String username = scanner.nextLine();
-                        //System.out.println("Enter a password (must be between 8 and 50 characters and must consist of only lowercase letters, uppercase letters, numbers, and the following special characters: @#$%^&+=: ");
                         System.out.println("Enter a password");
                         String password = scanner.nextLine();
                         if(getAcctHandler().createAccount(username, password))
@@ -62,10 +59,8 @@ public class LNMain
                     }
                     else if(userInput == 2)
                     {
-                        //System.out.println("Enter a username (must be at most 16 characters and consist of only lowercase letters, uppercase letters, and numbers): ");
                         System.out.println("Enter a email");
                         String username = scanner.nextLine();
-                        //System.out.println("Enter a password (must be between 8 and 50 characters and must consist of only lowercase letters, uppercase letters, numbers, and the following special characters: @#$%^&+=: ");
                         System.out.println("Enter a password");
                         String password = scanner.nextLine();
                         if(getAcctHandler().login(username, password))
@@ -81,15 +76,13 @@ public class LNMain
                     }
                 }
             }
-            catch(NumberFormatException e) {
+            catch(NumberFormatException e) { //Catching user inputting anything but a number
                 System.out.println("Error: Please enter a number");
             }
 
             if(loginUser != false)
             {
-            //Login processes ends here
-
-                //Loggout/Delete process starts here
+                //User experience starts here
                 boolean endFlag = false;
                 while(!endFlag)
                 {
@@ -167,9 +160,10 @@ public class LNMain
                         System.out.println("Error: Please enter a number");
                     }
                 }
-                //Loggout/Delete process starts here
+                //User experience ends here
             }
         }
+        //App ends here
         PrintWriter pw = new PrintWriter("accounts.csv");
         pw.print(""); //Clears file after use
         pw.close();

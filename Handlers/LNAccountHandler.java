@@ -11,12 +11,12 @@ public class LNAccountHandler
 {
     //LNAccountCRUDOps acctCRUDOps = OperationsFactory.getAcctOps();
 
-    public static LNAccountCRUDOps getAcctOps()
+    public static LNAccountCRUDOps getAcctOps() //Get account operations object
     {
         return OperationsFactory.getAcctOps();
     }
 
-    public boolean login(String username, String password) throws IOException, ClassNotFoundException
+    public boolean login(String username, String password) throws IOException, ClassNotFoundException //Login that checks user's inputted email and password with accounts.csv file
     {
         LNAccount tempAcct = getAcctOps().retrieveAcct(username);
         if(tempAcct != null)
@@ -29,7 +29,7 @@ public class LNAccountHandler
         return false;
     }
 
-    public boolean createAccount(String username, String password) throws IOException, ClassNotFoundException
+    public boolean createAccount(String username, String password) throws IOException, ClassNotFoundException //Creates and saves the account to the accounts.csv file
     {
         if(Pattern.matches("^[a-zA-Z0-9_!#$%&'*+=?`{|}~^.-]+@[a-zA-Z]+.[a-zA-Z]+$", username) == true)
         {
@@ -39,7 +39,7 @@ public class LNAccountHandler
         return false;
     }
 
-    public boolean loggout()
+    public boolean loggout() //Simply returns true and which logs them out of the user experience in main
     {
         System.out.println("Goodbye");
         return true;

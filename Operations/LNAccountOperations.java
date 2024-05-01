@@ -16,13 +16,13 @@ public class LNAccountOperations extends LNAccountCRUDOps
 
     private static LNAccountCRUDOps acctOps = null;
 
-    public static LNAccountCRUDOps getLNAccountOperationsInstance(){
+    public static LNAccountCRUDOps getLNAccountOperationsInstance(){ //Gets the abstract account CRUDOps object
         if(acctOps==null)
             acctOps = new LNAccountOperations();
         return acctOps;
     }
 
-    private ArrayList<LNAccount> readFromAccountCSV() throws IOException, ClassNotFoundException
+    public ArrayList<LNAccount> readFromAccountCSV() throws IOException, ClassNotFoundException //Reads in the accounts.csv file into an array list of account objects
     {
         try(FileInputStream fis = new FileInputStream("accounts.csv"); ObjectInputStream ois = new ObjectInputStream(fis))
         {
@@ -33,7 +33,7 @@ public class LNAccountOperations extends LNAccountCRUDOps
         }
     }
 
-    private boolean writeToAccountCSV(ArrayList<LNAccount> accts) throws IOException, ClassNotFoundException
+    public boolean writeToAccountCSV(ArrayList<LNAccount> accts) throws IOException, ClassNotFoundException //Writes into the accounts.csv file and reutrns a boolean based on if it worked or not
     {
         File csvFile = new File("accounts.csv");
 
@@ -48,7 +48,9 @@ public class LNAccountOperations extends LNAccountCRUDOps
         }
     }
 
-    public boolean saveAcct(LNAccount acct) throws IOException, ClassNotFoundException
+    //Reads in the accounts from the accounts.csv file and adds the new account to the array list of accounts just read and finally writes 
+    //the new array list with the new account to the accounts.csv file
+    public boolean saveAcct(LNAccount acct) throws IOException, ClassNotFoundException 
     {
         ArrayList<LNAccount> accts = readFromAccountCSV();
         if(accts == null)
@@ -73,6 +75,7 @@ public class LNAccountOperations extends LNAccountCRUDOps
         return false;
     }
 
+    //Reads in the accounts from the accounts.csv file and searches for the account based on email alone
     public LNAccount retrieveAcct(String username) throws IOException, ClassNotFoundException
     {
         ArrayList<LNAccount> acctArr = readFromAccountCSV();
@@ -89,6 +92,8 @@ public class LNAccountOperations extends LNAccountCRUDOps
         return null;
     }
 
+    //Reads in the accounts from the accounts.csv file and removes the specified account from the array list of accounts just read and finally writes 
+    //the new array list with the account specified removed to the accounts.csv file
     public boolean deleteAccount(String username, String password) throws IOException, ClassNotFoundException
     {
         ArrayList<LNAccount> acctArr = readFromAccountCSV();
@@ -107,6 +112,8 @@ public class LNAccountOperations extends LNAccountCRUDOps
         return false;
     }
 
+    //Reads in the accounts from the accounts.csv file and updates the username and password of the specified account  
+    //in the array list of accounts just read in and finally writes the new array list with the updated account to the accounts.csv file
     public boolean updateAccount(String username, String password, String curUsername, String curPassword) throws IOException, ClassNotFoundException
     {
         ArrayList<LNAccount> acctArr = readFromAccountCSV();
