@@ -1,3 +1,5 @@
+package Controllers;
+
 import java.io.File;
 import java.util.List;
 
@@ -7,13 +9,11 @@ import Handlers.LNFileHandler;
 
 import java.util.List;
 
-import LNFile;
-import LNFileHandler;
 
 public class LNFileController {
         private static LNFileHandler handler = null;
 
-    public static LNFileHandler getLNAccountHandlerInstance(){
+    public static LNFileHandler getLNFileHandlerInstance(){
         if(handler==null)
             handler = new LNFileHandler();
         return handler;

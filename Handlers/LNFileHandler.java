@@ -2,12 +2,20 @@ package Handlers;
 import java.io.File;
 import java.util.List;
 
+import CRUDOps.LNAccountCRUDOps;
 import CRUDOps.LNFileCRUDOps;
 import Classes.LNFile;
 import Classes.LNFolder;
 import Controllers.LNFolderController;
+import OperationsFactory.OperationsFactory;
 
 public class LNFileHandler {
+
+    public static LNFileCRUDOps getFileOps() //
+    {
+        return OperationsFactory.getFileOps();
+    }
+
     public List<LNFile> getFilesInFolder(LNFolder folder){
         return LNFolderController.getFilesInFolder(folder);
     }

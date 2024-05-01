@@ -2,13 +2,24 @@ package Operations;
 import java.util.List;
 
 import CRUDOps.LNFileCRUDOps;
+import Classes.LNAccount;
+import Classes.LNComment;
 import Classes.LNFile;
 
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 
 public class LNFileOperations extends LNFileCRUDOps{
+    private static LNFileCRUDOps fileOps = null;
+
+    public static LNFileCRUDOps getLNFileOperationsInstance(){ 
+        if(fileOps==null)
+            fileOps = new LNFileOperations();
+        return fileOps;
+    }
+
     private ArrayList<LNFile> records;
 
     public boolean createFile(String name,int folder,int account){
@@ -36,7 +47,7 @@ public class LNFileOperations extends LNFileCRUDOps{
         }
         return toGet;
     }
-    public boolean updateFile(int FileID,String name,String contents){
+    public boolean updateFile(int FileID, String name, String folder, String contents){
         LNFile toGet = null;
         boolean noError= true;
         for (int i = 0; i < records.size(); i++) {
@@ -70,4 +81,14 @@ public boolean moveFile(String folderName){}
 public LNFile getFile(){}
 public LNAccount getAccount(){}
 public List<LNComment> getComments(){}
+@Override
+public ArrayList<File> readFileCSV() throws IOException, ClassNotFoundException {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'readFileCSV'");
+}
+@Override
+public boolean writeFileCSV(ArrayList<File> files) throws IOException, ClassNotFoundException {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'writeFileCSV'");
+}
 }
