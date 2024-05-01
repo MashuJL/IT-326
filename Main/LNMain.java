@@ -223,7 +223,13 @@ public class LNMain
                         }
                         else if(userInput == 5) //Pin Comment
                         {
-                            int numCmts ;
+                            int numCmts = acctController.printComments(loginUsername, loginPassword);
+                            if(numCmts == 0)
+                                System.out.println("You have no comments to pin.");
+                            else
+                            {
+                                //TODO: Code here
+                            }
                         }
                     }
                     catch(NumberFormatException e) {

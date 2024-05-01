@@ -116,7 +116,8 @@ public class LNAccountHandler
         for(LNComment i : comments)
         {
             System.out.println("------");
-            System.out.println("Text: "+i.getText());
+            System.out.println("Text: ["+i.getText()+"]");
+            System.out.println("On File: "+i.getFile().getName());
             System.out.println("------");
         }
         return comments.size();

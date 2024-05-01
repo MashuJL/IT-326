@@ -59,4 +59,9 @@ public class LNAccountController
     {
         return acctHandler.unblockUser(currentUser, currentPass, id);
     }
+
+    public int printComments(String currentUser, String currentPass) throws ClassNotFoundException, IOException
+    {
+        return acctHandler.printComments(currentUser, currentPass);
+    }
 }
