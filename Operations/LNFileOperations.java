@@ -59,7 +59,9 @@ public class LNFileOperations extends LNFileCRUDOps{
         }
         return noError;
     }
-public String getName(){}
+public String getName(){
+    
+}
 public int getID(){}
 public LNFile createFile(){}
 public void renameFile(String name){}

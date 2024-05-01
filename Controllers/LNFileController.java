@@ -2,13 +2,22 @@ import java.io.File;
 import java.util.List;
 
 import Classes.LNFile;
+import Classes.LNFolder;
+import Handlers.LNFileHandler;
+
 import java.util.List;
 
 import LNFile;
 import LNFileHandler;
 
 public class LNFileController {
-    private LNFileHandler handler = new LNFileHandler();
+        private static LNFileHandler handler = null;
+
+    public static LNFileHandler getLNAccountHandlerInstance(){
+        if(handler==null)
+            handler = new LNFileHandler();
+        return handler;
+    }
     public List<LNFile> getFilesInFolder(LNFolder folder){
         return handler.getFilesInFolder(folder);
     }

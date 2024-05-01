@@ -2,14 +2,17 @@ package Handlers;
 import java.io.File;
 import java.util.List;
 
+import CRUDOps.LNFileCRUDOps;
 import Classes.LNFile;
+import Classes.LNFolder;
+import Controllers.LNFolderController;
 
 public class LNFileHandler {
     public List<LNFile> getFilesInFolder(LNFolder folder){
-
+        return LNFolderController.getFilesInFolder(folder);
     }
     public boolean uploadFile(String name, LNFile NotesFile){
-        
+        return LNFileCRUDOps.
     }
     public boolean removeFile(LNFile file){
 
