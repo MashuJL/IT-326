@@ -223,7 +223,7 @@ public class LNMain
                         }
                         else if(userInput == 5) //Pin Comment
                         {
-                            
+                            int numCmts ;
                         }
                     }
                     catch(NumberFormatException e) {

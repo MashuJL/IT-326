@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import CRUDOps.LNAccountCRUDOps;
 import Classes.LNAccount;
+import Classes.LNComment;
 import OperationsFactory.OperationsFactory;
 
 public class LNAccountHandler 
@@ -97,6 +98,28 @@ public class LNAccountHandler
             return getAcctOps().updateAccount(newBlocked, currentUser, currentPass);
         }
         return false; //Given ID is not blocked - can't unblock it
+    }
+
+    public int printComments(String currentUser, String currentPass) throws ClassNotFoundException, IOException
+    {
+        LNAccount temp = getAcctOps().retrieveAcct(currentUser, currentPass);
+        if(temp == null)
+        {
+            System.out.println("Error - Account [Name = "+currentUser+"] is null");
+        }
+        ArrayList<LNComment> comments = temp.getComments();
+
+        if(comments.size() == 0)
+            return 0;
+        
+        System.out.println("All comments: ");
+        for(LNComment i : comments)
+        {
+            System.out.println("------");
+            System.out.println("Text: "+i.getText());
+            System.out.println("------");
+        }
+        return comments.size();
     }
 
 }
