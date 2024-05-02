@@ -64,4 +64,19 @@ public class LNAccountController
     {
         return acctHandler.printComments(currentUser);
     }
+
+    public boolean pinComment(String currentUser, int selected) throws ClassNotFoundException, IOException
+    {
+        return acctHandler.pinComment(currentUser, selected);
+    }
+
+    public boolean removeComment(String currentUser, int removed) throws ClassNotFoundException, IOException
+    {
+        return acctHandler.removeComment(currentUser, removed);
+    }
+
+    public boolean editComment(String currentUser, int selected, String newText) throws ClassNotFoundException, IOException
+    {
+        return acctHandler.editComment(currentUser, selected, newText);
+    }
 }

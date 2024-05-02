@@ -94,17 +94,14 @@ public class LNMain
                 boolean endFlag = false;
                 while(!endFlag)
                 {
-                    System.out.println("All account options will be implemented later but rn just loggout");
+                    //System.out.println("All account options will be implemented later but rn just loggout");
                     System.out.println("0: Loggout");
                     System.out.println("1: Delete Account");
                     System.out.println("2: Update Account");
                     System.out.println("3: Block User");
                     System.out.println("4: Unblock User");
-                    //TODO: 5 Pin Comment
                     System.out.println("5: Pin Comment");
-                    //6 Remove Comment
                     System.out.println("6: Remove Comment");
-                    //7 Edit Comment
                     System.out.println("7: Edit Comment");
                     try
                     {
@@ -222,7 +219,65 @@ public class LNMain
                                 System.out.println("You have no comments to pin.");
                             else
                             {
-                                //TODO: Code here
+                                System.out.println("Enter the number of the comment you want to pin: ");
+                                try
+                                {
+                                    int selected = Integer.parseInt(scanner.nextLine());
+                                    if(acctController.pinComment(loginUsername, selected))
+                                        System.out.println("Comment successfully pinned!");
+                                    else
+                                        System.out.println("Couldn't pin comment");
+                                }
+                                catch(NumberFormatException e)
+                                {
+                                    System.out.println("Invalid selection");
+                                }
+                            }
+                        }
+                        else if(userInput == 6) //Remove Comment
+                        {
+                            int numCmts = acctController.printComments(loginUsername);
+                            if(numCmts == 0)
+                                System.out.println("You have no comments.");
+                            else
+                            {
+                                System.out.println("Enter the number of the comment you want to remove: ");
+                                int removed = Integer.parseInt(scanner.nextLine());
+                                try
+                                {
+                                    if(acctController.removeComment(loginUsername, removed))
+                                        System.out.println("Comment successfully removed!");
+                                    else
+                                        System.out.println("Couldn't remove comment");
+                                }
+                                catch(NumberFormatException e)
+                                {
+                                    System.out.println("Invalid selection");
+                                }
+                            }
+                        }
+                        else if(userInput == 7) //Edit comment
+                        {
+                            int numCmts = acctController.printComments(loginUsername);
+                            if(numCmts == 0)
+                                System.out.println("You have no comments.");
+                            else
+                            {
+                                System.out.println("Enter the number of the comment you want to edit: ");
+                                int selected = Integer.parseInt(scanner.nextLine());
+                                System.out.println("Enter the new text for the comment: ");
+                                try
+                                {
+                                    String newText = scanner.nextLine();
+                                    if(acctController.editComment(loginUsername, selected, newText))
+                                        System.out.println("Comment successfully edited!");
+                                    else
+                                        System.out.println("Couldn't edit comment");
+                                }
+                                catch(NumberFormatException e)
+                                {
+                                    System.out.println("Invalid selection");
+                                }
                             }
                         }
                     }

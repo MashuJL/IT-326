@@ -16,6 +16,7 @@ public class LNAccount implements Serializable
     private ArrayList<LNFolder> ownedFolders; //Account's list of folders
     private ArrayList<LNNotification> notifications; //Account's list of notifications
     private ArrayList<LNComment> comments; //Account's list of comments
+    private ArrayList<LNComment> pinned; //Account's list of pinned comments
     private ArrayList<Integer> blockedUserIDs; //Account's blocked list of users with their ID's specifying them
 
     public LNAccount(String accountEmail, String accountPassword) throws IOException, ClassNotFoundException
@@ -46,6 +47,7 @@ public class LNAccount implements Serializable
         this.ownedFolders = new ArrayList<>();
         this.notifications = new ArrayList<>();
         this.comments = new ArrayList<>();
+        this.pinned = new ArrayList<>();
         this.blockedUserIDs = new ArrayList<>();
     }
 
@@ -119,6 +121,16 @@ public class LNAccount implements Serializable
     public void setComments(ArrayList<LNComment> cmts)
     {
         this.comments = cmts;
+    }
+
+    public ArrayList<LNComment> getPinned()
+    {
+        return pinned;
+    }
+
+    public void setPinned(ArrayList<LNComment> pinned)
+    {
+        this.pinned = pinned;
     }
 
     public ArrayList<Integer> getBlockedUsers() //Gets the account's list of blocked users

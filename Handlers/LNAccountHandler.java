@@ -90,7 +90,7 @@ public class LNAccountHandler
         if(newBlocked.contains((Integer) id))
             return false; //Already blocked
         newBlocked.add((Integer) id);
-        return getAcctOps().updateAccount(newBlocked, currentUser);
+        return getAcctOps().updateAccountBlocked(newBlocked, currentUser);
     }
 
     public boolean unblockUser(String currentUser, int id) throws ClassNotFoundException, IOException
@@ -105,7 +105,7 @@ public class LNAccountHandler
         if(newBlocked.contains((Integer) id))
         {
             newBlocked.remove((Integer) id);
-            return getAcctOps().updateAccount(newBlocked, currentUser);
+            return getAcctOps().updateAccountBlocked(newBlocked, currentUser);
         }
         return false; //Given ID is not blocked - can't unblock it
     }
@@ -122,15 +122,69 @@ public class LNAccountHandler
         if(comments.size() == 0)
             return 0;
         
+        int index = 1;
         System.out.println("All comments: ");
         for(LNComment i : comments)
         {
-            System.out.println("------");
-            System.out.println("Text: ["+i.getText()+"]");
-            System.out.println("On File: "+i.getFile().getName());
-            System.out.println("------");
+            System.out.println("-----------------");
+            System.out.println("Comment "+index+":");
+            System.out.println("    Text: ["+i.getText()+"]");
+            System.out.println("    On File: "+i.getFile().getName());
+            System.out.println("-----------------");
+            index++;
         }
         return comments.size();
+    }
+
+    public boolean pinComment(String currentUser, int selected) throws ClassNotFoundException, IOException
+    {
+        LNAccount temp = getAcctOps().retrieveAcct(currentUser);
+        if(temp == null)
+        {
+            System.out.println("Error - Account [Name = "+currentUser+"] is null");
+            return false;
+        }
+        ArrayList<LNComment> comments = temp.getComments();
+        if(selected > comments.size())
+            return false; //Invalid selection
+        ArrayList<LNComment> newPinned = new ArrayList<LNComment>();
+        newPinned.add( comments.get(selected-1) ); //-1 because this is starting from 1 when presented to user
+        return getAcctOps().updateAccountPinned(newPinned, currentUser);
+    }
+
+    public boolean removeComment(String currentUser, int removed) throws ClassNotFoundException, IOException
+    {
+        //TODO: Update the LNFile the comment is attached to as well
+        //TODO: Actually, this may not be necessary if LNFile has the actual Comment object
+        LNAccount temp = getAcctOps().retrieveAcct(currentUser);
+        if(temp == null)
+        {
+            System.out.println("Error - Account [Name = "+currentUser+"] is null");
+            return false;
+        }
+        ArrayList<LNComment> comments = temp.getComments();
+        if(removed > comments.size())
+            return false; //Invalid selection
+        comments.remove(removed-1);
+        return getAcctOps().updateAccountComments(comments, currentUser);
+    }
+
+    public boolean editComment(String currentUser, int selected, String newText) throws ClassNotFoundException, IOException
+    {
+        //TODO: Update the LNFile the comment is attached to as well
+        //TODO: Actually, this may not be necessary if LNFile has the actual Comment object
+        LNAccount temp = getAcctOps().retrieveAcct(currentUser);
+        if(temp == null)
+        {
+            System.out.println("Error - Account [Name = "+currentUser+"] is null");
+            return false;
+        }
+        ArrayList<LNComment> comments = temp.getComments();
+        if(selected > comments.size())
+            return false; //Invalid
+        comments.get(selected-1).setText(newText);
+        return getAcctOps().updateAccountComments(comments, currentUser);
+
     }
 
 }

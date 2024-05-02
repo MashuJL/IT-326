@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import Classes.LNAccount;
+import Classes.LNComment;
 
 public abstract class LNAccountCRUDOps 
 {
@@ -12,5 +13,8 @@ public abstract class LNAccountCRUDOps
     public abstract LNAccount retrieveAcct(String username) throws IOException, ClassNotFoundException; //abstract method for retrieving an account
     public abstract boolean deleteAccount(String username, String password) throws IOException, ClassNotFoundException; //abstract method for deleting an account
     public abstract boolean updateAccount(String username, String password, String curUsername, String curPassword) throws IOException, ClassNotFoundException; //abstract method for updating an account
-    public abstract boolean updateAccount(ArrayList<Integer> newBlacklist, String curUsername) throws IOException, ClassNotFoundException;
+    public abstract boolean updateAccountBlocked(ArrayList<Integer> newBlacklist, String curUsername) throws IOException, ClassNotFoundException;
+    public abstract boolean updateAccountPinned(ArrayList<LNComment> newPinned, String curUsername) throws IOException, ClassNotFoundException;
+    public abstract boolean updateAccountComments(ArrayList<LNComment> newComments, String curUsername) throws IOException, ClassNotFoundException;
+
 };

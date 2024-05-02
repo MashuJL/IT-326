@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import CRUDOps.LNAccountCRUDOps;
 import Classes.LNAccount;
+import Classes.LNComment;
 
 public class LNAccountOperations extends LNAccountCRUDOps
 {
@@ -136,7 +137,7 @@ public class LNAccountOperations extends LNAccountCRUDOps
         return false;
     }
 
-    public boolean updateAccount(ArrayList<Integer> newBlacklist, String curUsername) throws ClassNotFoundException, IOException
+    public boolean updateAccountBlocked(ArrayList<Integer> newBlacklist, String curUsername) throws ClassNotFoundException, IOException
     {
         ArrayList<LNAccount> acctArr = readFromAccountCSV();
         if(acctArr != null)
@@ -146,6 +147,42 @@ public class LNAccountOperations extends LNAccountCRUDOps
                 if(acctArr.get(i).getEmail().toLowerCase().equals(curUsername.toLowerCase()))
                 {
                     acctArr.get(i).setBlockedUsers(newBlacklist);
+                    writeToAccountCSV(acctArr);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean updateAccountPinned(ArrayList<LNComment> newPinned, String curUsername) throws ClassNotFoundException, IOException
+    {
+        ArrayList<LNAccount> acctArr = readFromAccountCSV();
+        if(acctArr != null)
+        {
+            for(int i = 0; i < acctArr.size(); i++)
+            {
+                if(acctArr.get(i).getEmail().toLowerCase().equals(curUsername.toLowerCase()))
+                {
+                    acctArr.get(i).setPinned(newPinned);
+                    writeToAccountCSV(acctArr);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean updateAccountComments(ArrayList<LNComment> newComments, String curUsername) throws ClassNotFoundException, IOException
+    {
+        ArrayList<LNAccount> acctArr = readFromAccountCSV();
+        if(acctArr != null)
+        {
+            for(int i = 0; i < acctArr.size(); i++)
+            {
+                if(acctArr.get(i).getEmail().toLowerCase().equals(curUsername.toLowerCase()))
+                {
+                    acctArr.get(i).setComments(newComments);
                     writeToAccountCSV(acctArr);
                     return true;
                 }
