@@ -1,41 +1,29 @@
 package Handlers;
 
+import CRUDOps.LNNotificationCRUDOps;
 import Classes.LNAccount;
 import Classes.LNNotification;
 
 public class LNNotificationHandler
 {
-    public int getID(LNNotification notif)
+    private boolean verify(/* String ? */)
     {
-        return notif.getID();
-    }
-
-    public String getTitle(LNNotification notif)
-    {
-        return notif.getTitle();
-    }
-
-    public String getBody(LNNotification notif)
-    {
-        return notif.getBody();
-    }
-
-    public LNAccount getAccount(LNNotification notif)
-    {
-        return notif.getAccount();
-    }
-
-    public boolean getUnread(LNNotification notif)
-    {
-        return notif.getUnread();
-    }
-
-    public boolean markNotifiactionAsRead(LNNotification notif)
-    {
-        if (notif.getUnread())
-        {
-            notif.markNotifiactionAsRead();
-        }
         return false;
     }
+
+    public boolean createNotification(int notifID, String titleText, String bodyText, LNAccount account)
+    {
+
+        return false;
+    }
+
+    public boolean deleteNotification(/* String ? */)
+    {
+
+        return false;
+    }
+
+    // public LNNotificationCRUDOps getNotificationCRUDOps(){
+    // return LNNotificationCRUDOps;
+    // }
 }

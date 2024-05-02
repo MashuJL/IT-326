@@ -1,7 +1,12 @@
+package Redundant.IgnoreThis;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.management.Notification;
+
+import LNComment;
+import LNFile;
+import LNFolder;
 
 public class LNAccount implements Serializable 
 {

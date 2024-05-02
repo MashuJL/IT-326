@@ -1,6 +1,7 @@
 package Controllers;
 
 import Classes.LNNotification;
+import CRUDOps.LNNotificationCRUDOps;
 import Classes.LNAccount;
 import Handlers.LNNotificationHandler;
 
@@ -9,33 +10,21 @@ public class LNNotificationController
 
     private LNNotificationHandler notifHandler = new LNNotificationHandler();
 
-    public int getID(LNNotification notif)
+    public boolean createNotification(int notifID, String titleText, String bodyText, LNAccount account)
     {
-        return notifHandler.getID(notif);
+
+        return false;
     }
 
-    public String getTitle(LNNotification notif)
+    public boolean deleteNotification(/* String ? */)
     {
-        return notifHandler.getTitle(notif);
+
+        return false;
     }
 
-    public String getBody(LNNotification notif)
+    public LNNotificationHandler getNotificationCRUDOps()
     {
-        return notifHandler.getBody(notif);
+        return notifHandler;
     }
 
-    public LNAccount getAccount(LNNotification notif)
-    {
-        return notifHandler.getAccount(notif);
-    }
-
-    public boolean getUnread(LNNotification notif)
-    {
-        return notif.getUnread();
-    }
-
-    public boolean markNotifiactionAsRead(LNNotification notif)
-    {
-        return notifHandler.markNotifiactionAsRead(notif);
-    }
 }
