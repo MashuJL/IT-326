@@ -1,9 +1,11 @@
-public class folder
+import java.io.Serializable;
+
+public class LNFolder implements Serializable
 {
     private int folderID;
     private String name;
-    private File[] fileList;
-    private Account  owner;
+    private LNFile[] fileList;
+    private LNAccount owner;
 
     public int getFolderID()
     {
@@ -15,12 +17,12 @@ public class folder
         return name;
     }
 
-    public File[] getFileList()
+    public LNFile[] getFileList()
     {
         return fileList;
     }
 
-    public Account getOwner();
+    public LNAccount getOwner();
     {
         return owner;
     }
