@@ -1,8 +1,8 @@
 package Handlers;
 
 import CRUDOps.LNNotificationCRUDOps;
-import Classes.LNAccount;
-import Classes.LNNotification;
+import Models.LNAccount;
+import Models.LNNotification;
 import OperationsFactory.OperationsFactory;
 
 public class LNNotificationHandler

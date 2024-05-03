@@ -1,8 +1,8 @@
 package Controllers;
 
-import Classes.LNNotification;
+import Models.LNNotification;
 import CRUDOps.LNNotificationCRUDOps;
-import Classes.LNAccount;
+import Models.LNAccount;
 import Handlers.LNNotificationHandler;
 
 public class LNNotificationController
