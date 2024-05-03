@@ -4,23 +4,9 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 import Controllers.LNAccountController;
-<<<<<<< HEAD:Main/LNMain.java
-//import Handlers.LNAccountHandler;
-    //I don't think handlers are visible to this one
 
 public class LNMain 
 {
-    //public static LNAccountHandler getAcctHandler()
-    // {
-    //    return LNAccountController.getLNAccountHandlerInstance();
-    //}
-    private static LNAccountController acctController = new LNAccountController();
-
-=======
-
-public class LNMain 
-{
->>>>>>> d547c207615643ed7c7d888ef7756fec11685fb0:src/Main/LNMain.java
     public static void main(String[] args) throws IOException, ClassNotFoundException
     {
         boolean endAllFlag = false; //End the app boolean variable
@@ -53,19 +39,11 @@ public class LNMain
                     else if(userInput == 1)
                     {
                         System.out.println("Enter a email");
-                        //String username = scanner.nextLine();
-                        loginUsername = scanner.nextLine();
+                        String username = scanner.nextLine();
                         //System.out.println("Enter a password (must be between 8 and 50 characters and must consist of only lowercase letters, uppercase letters, numbers, and the following special characters: @#$%^&+=: ");
                         System.out.println("Enter a password");
-<<<<<<< HEAD:Main/LNMain.java
-                        //String password = scanner.nextLine();
-                        loginPassword = scanner.nextLine();
-                        //if(getAcctHandler().createAccount(username, password))
-                        if(acctController.createAccount(loginUsername, loginPassword))
-=======
                         String password = scanner.nextLine();
                         if(LNAccountController.createAccount(username, password))
->>>>>>> d547c207615643ed7c7d888ef7756fec11685fb0:src/Main/LNMain.java
                         {
                             System.out.println("Account was created and saved successfully!");
                         }
@@ -80,13 +58,7 @@ public class LNMain
                         String username = scanner.nextLine();
                         System.out.println("Enter a password");
                         String password = scanner.nextLine();
-<<<<<<< HEAD:Main/LNMain.java
-                        //if(getAcctHandler().login(username, password))
-                        //if(acctController.login(loginUsername, loginPassword))
-                        if(acctController.login(username, password))
-=======
                         if(LNAccountController.login(username, password))
->>>>>>> d547c207615643ed7c7d888ef7756fec11685fb0:src/Main/LNMain.java
                         {
                             loginUsername = username;
                             loginPassword = password;
@@ -127,18 +99,8 @@ public class LNMain
                         }
                         else if(userInput == 0) 
                         {
-<<<<<<< HEAD:Main/LNMain.java
-                            //if(getAcctHandler().loggout())
-                            if(acctController.loggout())
-=======
                             if(LNAccountController.loggout())
->>>>>>> d547c207615643ed7c7d888ef7756fec11685fb0:src/Main/LNMain.java
-                            {
-                                loginUsername = "";
-                                loginPassword = "";
-                                loginUser = false;
                                 endFlag = true;
-                            }
                         }
                         else if(userInput == 1)
                         {
@@ -149,12 +111,7 @@ public class LNMain
                                 yesOrNo = scanner.nextLine();
                                 if(yesOrNo.toLowerCase().equals("Yes".toLowerCase()))
                                 {
-<<<<<<< HEAD:Main/LNMain.java
-                                    //if(getAcctHandler().getAcctOps().deleteAccount(loginUsername, loginPassword))
-                                    if(acctController.deleteAccount(loginUsername, loginPassword))
-=======
                                     if(LNAccountController.deleteAccount(loginUsername, loginPassword))
->>>>>>> d547c207615643ed7c7d888ef7756fec11685fb0:src/Main/LNMain.java
                                     {
                                         loginUsername = "";
                                         loginPassword = "";
@@ -182,12 +139,7 @@ public class LNMain
                             String changeUsername = scanner.nextLine();
                             System.out.println("Change password here:");
                             String changePassword = scanner.nextLine();
-<<<<<<< HEAD:Main/LNMain.java
-                            //if(getAcctHandler().getAcctOps().updateAccount(changeUsername, changePassword, loginUsername, loginPassword))
-                            if(acctController.updateAccount(changeUsername, changePassword, loginUsername, loginPassword))
-=======
                             if(LNAccountController.updateAccount(changeUsername, changePassword, loginUsername, loginPassword))
->>>>>>> d547c207615643ed7c7d888ef7756fec11685fb0:src/Main/LNMain.java
                             {
                                 loginUsername = changeUsername;
                                 loginPassword = changePassword;
@@ -200,12 +152,12 @@ public class LNMain
                         }
                         else if(userInput == 3)
                         {
-                            acctController.printBlockedUsers(loginUsername);
+                            LNAccountController.printBlockedUsers(loginUsername);
                             System.out.println("Enter the ID of the user you want to block: ");
                             try
                             {
                                 int blocked = Integer.parseInt(scanner.nextLine());
-                                if(acctController.blockUser(loginUsername, blocked))
+                                if(LNAccountController.blockUser(loginUsername, blocked))
                                     System.out.println("User ID = "+blocked+" blocked successfully!");
                                 else
                                     System.out.println("Failed to block user ID = "+blocked+" (User is already blocked)");
@@ -217,7 +169,7 @@ public class LNMain
                         }
                         else if(userInput == 4) //Unblock user
                         {
-                            int numBlocked = acctController.printBlockedUsers(loginUsername);
+                            int numBlocked = LNAccountController.printBlockedUsers(loginUsername);
                             if(numBlocked == 0)
                             {
                                 System.out.println("You have no currently blocked users.");
@@ -228,7 +180,7 @@ public class LNMain
                                 try
                                 {
                                     int unblocked = Integer.parseInt(scanner.nextLine());
-                                    if(acctController.unblockUser(loginUsername, unblocked))
+                                    if(LNAccountController.unblockUser(loginUsername, unblocked))
                                         System.out.println("User ID = "+unblocked+" unblocked successfully!");
                                     else
                                         System.out.println("Failed to unblock user ID = "+unblocked+" (User is not blocked)");
@@ -241,7 +193,7 @@ public class LNMain
                         }
                         else if(userInput == 5) //Pin Comment
                         {
-                            int numCmts = acctController.printComments(loginUsername);
+                            int numCmts = LNAccountController.printComments(loginUsername);
                             if(numCmts == 0)
                                 System.out.println("You have no comments to pin.");
                             else
@@ -250,7 +202,7 @@ public class LNMain
                                 try
                                 {
                                     int selected = Integer.parseInt(scanner.nextLine());
-                                    if(acctController.pinComment(loginUsername, selected))
+                                    if(LNAccountController.pinComment(loginUsername, selected))
                                         System.out.println("Comment successfully pinned!");
                                     else
                                         System.out.println("Couldn't pin comment");
@@ -263,16 +215,16 @@ public class LNMain
                         }
                         else if(userInput == 6) //Remove Comment
                         {
-                            int numCmts = acctController.printComments(loginUsername);
+                            int numCmts = LNAccountController.printComments(loginUsername);
                             if(numCmts == 0)
-                                System.out.println("You have no comments.");
+                                System.out.println("You have no comments to remove.");
                             else
                             {
                                 System.out.println("Enter the number of the comment you want to remove: ");
                                 int removed = Integer.parseInt(scanner.nextLine());
                                 try
                                 {
-                                    if(acctController.removeComment(loginUsername, removed))
+                                    if(LNAccountController.removeComment(loginUsername, removed))
                                         System.out.println("Comment successfully removed!");
                                     else
                                         System.out.println("Couldn't remove comment");
@@ -285,9 +237,9 @@ public class LNMain
                         }
                         else if(userInput == 7) //Edit comment
                         {
-                            int numCmts = acctController.printComments(loginUsername);
+                            int numCmts = LNAccountController.printComments(loginUsername);
                             if(numCmts == 0)
-                                System.out.println("You have no comments.");
+                                System.out.println("You have no comments to edit.");
                             else
                             {
                                 System.out.println("Enter the number of the comment you want to edit: ");
@@ -296,7 +248,7 @@ public class LNMain
                                 try
                                 {
                                     String newText = scanner.nextLine();
-                                    if(acctController.editComment(loginUsername, selected, newText))
+                                    if(LNAccountController.editComment(loginUsername, selected, newText))
                                         System.out.println("Comment successfully edited!");
                                     else
                                         System.out.println("Couldn't edit comment");

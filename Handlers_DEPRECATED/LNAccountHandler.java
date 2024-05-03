@@ -1,13 +1,15 @@
-package Handlers;
+package Handlers_DEPRECATED;
 
 import java.io.IOException;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
 
 import CRUDOps.LNAccountCRUDOps;
-import Classes.LNAccount;
-import Classes.LNComment;
+import Models.LNAccount;
+import Models.LNComment;
 import OperationsFactory.OperationsFactory;
+
+//TODO: This is deprecated.
 
 public class LNAccountHandler 
 {

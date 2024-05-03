@@ -1,7 +1,7 @@
 package Controllers;
 import java.io.IOException;
 
-import Handlers.LNAccountHandler;
+import Handlers_DEPRECATED.LNAccountHandler;
 
 public class LNAccountController 
 {
@@ -37,4 +37,40 @@ public class LNAccountController
     {
         return getLNAccountHandlerInstance().loggout();
     }
+
+    public static int printBlockedUsers(String currentUser) throws ClassNotFoundException, IOException
+    {
+        return acctHandler.printBlockedUsers(currentUser);
+    }
+
+    public static boolean blockUser(String currentUser, int id) throws ClassNotFoundException, IOException
+    {
+        return acctHandler.blockUser(currentUser, id);
+    }
+
+    public static boolean unblockUser(String currentUser, int id) throws ClassNotFoundException, IOException
+    {
+        return acctHandler.unblockUser(currentUser, id);
+    }
+
+    public static int printComments(String currentUser) throws ClassNotFoundException, IOException
+    {
+        return acctHandler.printComments(currentUser);
+    }
+
+    public static boolean pinComment(String currentUser, int selected) throws ClassNotFoundException, IOException
+    {
+        return acctHandler.pinComment(currentUser, selected);
+    }
+
+    public static boolean removeComment(String currentUser, int removed) throws ClassNotFoundException, IOException
+    {
+        return acctHandler.removeComment(currentUser, removed);
+    }
+
+    public static boolean editComment(String currentUser, int selected, String newText) throws ClassNotFoundException, IOException
+    {
+        return acctHandler.editComment(currentUser, selected, newText);
+    }
+
 }

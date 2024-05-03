@@ -3,6 +3,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+//TODO: This is deprecated - do not use Classes.LNComment (use Models.LNComment)
+
 public class LNComment implements Serializable
 {
     private LNAccount owner;
