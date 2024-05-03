@@ -4,10 +4,17 @@ import CRUDOps.LNNotificationCRUDOps;
 import Classes.LNAccount;
 import Classes.LNNotification;
 
-public class LNNotificationOperations
+public class LNNotificationOperations extends LNNotificationCRUDOps
 {
 
-    private LNNotificationCRUDOps notificationOps;
+    private static LNNotificationCRUDOps notifOps = null;
+
+    public static LNNotificationCRUDOps getLNNotificationOperationsInstance()
+    {
+        if (notifOps == null)
+            notifOps = new LNNotificationOperations();
+        return notifOps;
+    }
 
     public boolean createNotification(int notifID, String titleText, String bodyText, LNAccount account)
     {
@@ -19,11 +26,6 @@ public class LNNotificationOperations
     {
         notif = null;
         return true;
-    }
-
-    public LNNotificationCRUDOps getLnNotificationOperationsInstance()
-    {
-        return notificationOps;
     }
 
 }

@@ -3,12 +3,13 @@ package Handlers;
 import CRUDOps.LNNotificationCRUDOps;
 import Classes.LNAccount;
 import Classes.LNNotification;
+import OperationsFactory.OperationsFactory;
 
 public class LNNotificationHandler
 {
-    private boolean verify(/* String ? */)
+    private boolean verify(String verifyStr)
     {
-        return false;
+        return verifyStr instanceof String;
     }
 
     public boolean createNotification(int notifID, String titleText, String bodyText, LNAccount account)
@@ -23,7 +24,8 @@ public class LNNotificationHandler
         return false;
     }
 
-    // public LNNotificationCRUDOps getNotificationCRUDOps(){
-    // return LNNotificationCRUDOps;
-    // }
+    public LNNotificationCRUDOps getNotifOps()
+    {
+        return OperationsFactory.getNotifOps();
+    }
 }
