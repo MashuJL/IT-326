@@ -2,7 +2,7 @@ package CRUDOps;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Classes.LNAccount;
+import Models.LNAccount;
 
 public abstract class LNAccountCRUDOps 
 {

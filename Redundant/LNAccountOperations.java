@@ -20,22 +20,23 @@ public class LNAccountOperations extends LNAccountCRUDOps
         File csvFile = new File("accounts.csv");
         // PrintWriter pout = new PrintWriter(csvFile);
 
-        try(FileOutputStream fos = new FileOutputStream(csvFile); ObjectOutputStream oos = new ObjectOutputStream(fos))
+        try (FileOutputStream fos = new FileOutputStream(csvFile); ObjectOutputStream oos = new ObjectOutputStream(fos))
         {
-            for(int i = 0; i < accts.size(); i++)
+            for (int i = 0; i < accts.size(); i++)
             {
                 oos.writeObject(accts.get(i));
             }
             oos.flush();
             return true;
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             return false;
         }
 
         // for()
         // {
-        //     out.printf("%s %s\n", person.getEmail(), person.getPassword());
+        // out.printf("%s %s\n", person.getEmail(), person.getPassword());
         // }
 
         // pout.close();
@@ -46,28 +47,29 @@ public class LNAccountOperations extends LNAccountCRUDOps
         // File file = new File("people.csv");
         // Scanner scan = new Scanner(file);
         ArrayList<LNAccount> acctArr = new ArrayList<>();
-            // while (scan.hasNextLine())
-            // {
-            //     String[] readArr = scan.nextLine().split(" ");
-            //     for(int i = 0; i < readArr.length; i++)
-            //     {
-            //         strArr.add(readArr[i]);
-            //     }
-            // }
-            // scan.close();
-            // for(int i = 0; i < strArr.size(); i+=2)
-            // {
-            //     if(strArr.get(i).toLowerCase().equals(username.toLowerCase()) && strArr.get(i+1).equals(password))
-            //     {
-            //         scan.close();
-            //         return new LNAccount(username, password);
-            //     }
-            // }
+        // while (scan.hasNextLine())
+        // {
+        // String[] readArr = scan.nextLine().split(" ");
+        // for(int i = 0; i < readArr.length; i++)
+        // {
+        // strArr.add(readArr[i]);
+        // }
+        // }
+        // scan.close();
+        // for(int i = 0; i < strArr.size(); i+=2)
+        // {
+        // if(strArr.get(i).toLowerCase().equals(username.toLowerCase()) &&
+        // strArr.get(i+1).equals(password))
+        // {
+        // scan.close();
+        // return new LNAccount(username, password);
+        // }
+        // }
         FileInputStream fileStream = new FileInputStream("accounts.csv");
         ObjectInputStream objStream = new ObjectInputStream(fileStream);
         try
         {
-            for(;;)
+            for (;;)
             {
                 acctArr.add((LNAccount) objStream.readObject());
             }
@@ -86,14 +88,15 @@ public class LNAccountOperations extends LNAccountCRUDOps
         }
         // for(int i = 0; i < acctArr.size(); i++)
         // {
-        //     System.out.println("Email: " + acctArr.get(i).getEmail());
-        //     System.out.println("Password: " + acctArr.get(i).getPassword());
+        // System.out.println("Email: " + acctArr.get(i).getEmail());
+        // System.out.println("Password: " + acctArr.get(i).getPassword());
         // }
-        if(acctArr != null)
+        if (acctArr != null)
         {
-            for(int i = 0; i < acctArr.size(); i++)
+            for (int i = 0; i < acctArr.size(); i++)
             {
-                if(acctArr.get(i).getEmail().toLowerCase().equals(username.toLowerCase()) && acctArr.get(i).getPassword().equals(password))
+                if (acctArr.get(i).getEmail().toLowerCase().equals(username.toLowerCase())
+                        && acctArr.get(i).getPassword().equals(password))
                 {
                     objStream.close();
                     fileStream.close();
@@ -110,12 +113,14 @@ public class LNAccountOperations extends LNAccountCRUDOps
         return null;
     }
 
-    public ArrayList<LNAccount> deleteAccount(String username, String password, LNUser user) throws IOException, ClassNotFoundException
+    public ArrayList<LNAccount> deleteAccount(String username, String password, LNUser user)
+            throws IOException, ClassNotFoundException
     {
-        //LNAccount tempAcct = retrieveAcct(username, password);
-        for(int i = 0; i < user.getAccounts().size(); i++)
+        // LNAccount tempAcct = retrieveAcct(username, password);
+        for (int i = 0; i < user.getAccounts().size(); i++)
         {
-            if(user.getAccounts().get(i).getEmail().toLowerCase().equals(username) && user.getAccounts().get(i).getPassword().equals(password))
+            if (user.getAccounts().get(i).getEmail().toLowerCase().equals(username)
+                    && user.getAccounts().get(i).getPassword().equals(password))
             {
                 user.getAccounts().remove(i);
                 saveAcct(user.getID(), user.getAccounts());
@@ -127,13 +132,19 @@ public class LNAccountOperations extends LNAccountCRUDOps
         return user.getAccounts();
     }
 
-    public ArrayList<LNAccount> updateAccount(String username, String password, String curUsername, String curPassword, LNUser user) throws IOException, ClassNotFoundException
+    public ArrayList<LNAccount> updateAccount(String username, String password, String curUsername, String curPassword,
+            LNUser user) throws IOException, ClassNotFoundException
     {
-        for(int i = 0; i < user.getAccounts().size(); i++)
+        for (int i = 0; i < user.getAccounts().size(); i++)
         {
-            if(user.getAccounts().get(i).getEmail().toLowerCase().equals(curUsername) && user.getAccounts().get(i).getPassword().equals(curPassword))
+            if (user.getAccounts().get(i).getEmail().toLowerCase().equals(curUsername)
+                    && user.getAccounts().get(i).getPassword().equals(curPassword))
             {
-                user.getAccounts().set(i, new LNAccount(user.getAccounts().get(i).getAcctID(), username, password, user.getAccounts().get(i).getOwnerID(), user.getAccounts().get(i).getFiles(), user.getAccounts().get(i).getFolders(), user.getAccounts().get(i).getNotifs(), user.getAccounts().get(i).getComments(), user.getAccounts().get(i).getBlockedUsers()));
+                user.getAccounts().set(i,
+                        new LNAccount(user.getAccounts().get(i).getAcctID(), username, password,
+                                user.getAccounts().get(i).getOwnerID(), user.getAccounts().get(i).getFiles(),
+                                user.getAccounts().get(i).getFolders(), user.getAccounts().get(i).getNotifs(),
+                                user.getAccounts().get(i).getComments(), user.getAccounts().get(i).getBlockedUsers()));
                 saveAcct(user.getID(), user.getAccounts());
                 System.out.println("Account successfully updated!");
                 return user.getAccounts();

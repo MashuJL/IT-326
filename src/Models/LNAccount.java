@@ -1,4 +1,4 @@
-package Classes;
+package Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,8 +18,6 @@ public class LNAccount implements Serializable
     private ArrayList<LNNotification> notifications; // Account's list of notifications
     private ArrayList<LNComment> comments; // Account's list of comments
     private ArrayList<Integer> blockedUserIDs; // Account's blocked list of users with their ID's specifying them
-
-    private Boolean enableNotifications = true; // determines if account will receive notifications, true by default
 
     public LNAccount(String accountEmail, String accountPassword) throws IOException, ClassNotFoundException
     {

@@ -5,15 +5,9 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 import Controllers.LNAccountController;
-import Handlers.LNAccountHandler;
 
 public class LNMain
 {
-    public static LNAccountHandler getAcctHandler()
-    {
-        return LNAccountController.getLNAccountHandlerInstance();
-    }
-
     public static void main(String[] args) throws IOException, ClassNotFoundException
     {
         boolean endAllFlag = false; // End the app boolean variable
@@ -49,7 +43,7 @@ public class LNMain
                         String username = scanner.nextLine();
                         System.out.println("Enter a password");
                         String password = scanner.nextLine();
-                        if (getAcctHandler().createAccount(username, password))
+                        if (LNAccountController.createAccount(username, password))
                         {
                             System.out.println("Account was created and saved successfully!");
                         }
@@ -64,7 +58,7 @@ public class LNMain
                         String username = scanner.nextLine();
                         System.out.println("Enter a password");
                         String password = scanner.nextLine();
-                        if (getAcctHandler().login(username, password))
+                        if (LNAccountController.login(username, password))
                         {
                             loginUsername = username;
                             loginPassword = password;
@@ -92,10 +86,6 @@ public class LNMain
                     System.out.println("0: Loggout");
                     System.out.println("1: Delete Account");
                     System.out.println("2: Update Account");
-                    System.out.println("3: Check notifactions" + "("
-                            + /* get number of unread notifiactions + */" new notifications)");
-                    System.out.println("4: Clear all notifications");
-                    System.out.println("5: Disable Notifiactions");
                     try
                     {
                         userInput = Integer.parseInt(scanner.nextLine());
@@ -105,7 +95,7 @@ public class LNMain
                         }
                         else if (userInput == 0)
                         {
-                            if (getAcctHandler().loggout())
+                            if (LNAccountController.loggout())
                             {
                                 loginUsername = "";
                                 loginPassword = "";
@@ -123,7 +113,7 @@ public class LNMain
                                 yesOrNo = scanner.nextLine();
                                 if (yesOrNo.toLowerCase().equals("Yes".toLowerCase()))
                                 {
-                                    if (getAcctHandler().getAcctOps().deleteAccount(loginUsername, loginPassword))
+                                    if (LNAccountController.deleteAccount(loginUsername, loginPassword))
                                     {
                                         loginUsername = "";
                                         loginPassword = "";
@@ -151,8 +141,8 @@ public class LNMain
                             String changeUsername = scanner.nextLine();
                             System.out.println("Change password here:");
                             String changePassword = scanner.nextLine();
-                            if (getAcctHandler().getAcctOps().updateAccount(changeUsername, changePassword,
-                                    loginUsername, loginPassword))
+                            if (LNAccountController.updateAccount(changeUsername, changePassword, loginUsername,
+                                    loginPassword))
                             {
                                 loginUsername = changeUsername;
                                 loginPassword = changePassword;
@@ -163,41 +153,6 @@ public class LNMain
                                 System.out.println("User was not updated");
                             }
                         }
-                        else if (userInput == 3)
-                        {
-
-                            for (int i = 0; i < 0/* get length of list of notifications */; i++)
-                            {
-
-                            }
-                        }
-                        else if (userInput == 4)
-                        {
-                            System.out.println("Clear all notifications? (press 1 to continue)");
-                            userInput = Integer.parseInt(scanner.nextLine());
-                            if (userInput == 1)
-                            {
-                                /* Code for clearing notifactions */
-                            }
-                            else
-                            {
-                                System.out.println("Notifiactions not deleted");
-                            }
-                        }
-                        else if (userInput == 5)
-                        {
-                            System.out.println("Disable notifacations? (press 1 to continue)");
-                            userInput = Integer.parseInt(scanner.nextLine());
-                            if (userInput == 1)
-                            {
-                                /* Code for disabling notifactions */
-                            }
-                            else
-                            {
-                                System.out.println("Notifiactions not disabled");
-                            }
-                        }
-
                     }
                     catch (NumberFormatException e)
                     {

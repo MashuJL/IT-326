@@ -1,8 +1,8 @@
 package Operations;
 
 import CRUDOps.LNNotificationCRUDOps;
-import Classes.LNAccount;
-import Classes.LNNotification;
+import Models.LNAccount;
+import Models.LNNotification;
 
 public class LNNotificationOperations extends LNNotificationCRUDOps
 {

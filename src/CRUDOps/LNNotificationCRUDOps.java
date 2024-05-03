@@ -1,7 +1,7 @@
 package CRUDOps;
 
-import Classes.LNAccount;
-import Classes.LNNotification;
+import Models.LNAccount;
+import Models.LNNotification;
 
 public abstract class LNNotificationCRUDOps
 {
