@@ -2,8 +2,12 @@ package CRUDOps;
 import java.io.IOException;
 import java.util.ArrayList;
 
+<<<<<<< HEAD:CRUDOps/LNAccountCRUDOps.java
 import Classes.LNAccount;
 import Classes.LNComment;
+=======
+import Models.LNAccount;
+>>>>>>> d547c207615643ed7c7d888ef7756fec11685fb0:src/CRUDOps/LNAccountCRUDOps.java
 
 public abstract class LNAccountCRUDOps 
 {
