@@ -159,7 +159,10 @@ public class LNMain
                         else if(userInput == 3)
                         {
                             System.out.println("All users: ");
-                            LNAccountController.printNamesAndIDs();
+                            if(LNAccountController.printNamesAndIDs())
+                                System.out.println("TRUE");
+                            else
+                                System.out.println("FALSE");
                             LNAccountController.printBlockedUsers(loginUsername);
                             System.out.println("Enter the ID of the user you want to block: ");
                             try

@@ -73,9 +73,9 @@ public class LNAccountController
         return acctHandler.editComment(currentUser, selected, newText);
     }
 
-    public static void printNamesAndIDs() throws ClassNotFoundException, IOException
+    public static boolean printNamesAndIDs() throws ClassNotFoundException, IOException
     {
-        acctHandler.printNamesAndIDs();
+        return acctHandler.printNamesAndIDs();
     }
 
 }

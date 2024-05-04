@@ -127,13 +127,18 @@ public class LNAccountHandler
         return -1;
     }
 
-    public void printNamesAndIDs() throws ClassNotFoundException, IOException
+    public boolean printNamesAndIDs() throws ClassNotFoundException, IOException
     {
         ArrayList<LNAccount> temp = getAcctOps().retriveAcctList();
-        for(LNAccount a : temp)
+        if(temp != null)
         {
-            System.out.println(a.getEmail()+" ["+a.getAcctID()+"]");
+            for(LNAccount a : temp)
+            {
+                System.out.println(a.getEmail()+" ["+a.getAcctID()+"]");
+            }
+            return true;
         }
+        return false;
     }
 
     public boolean blockUser(String currentUser, int id) throws ClassNotFoundException, IOException
