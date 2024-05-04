@@ -89,4 +89,44 @@ public boolean setContents(String contents){
     }
 }
 
+public int getFileID() {
+    return FileID;
+}
+
+public void setFileID(int fileID) {
+    FileID = fileID;
+}
+
+public String getContent() {
+    return content;
+}
+
+public void setContent(String content) {
+    this.content = content;
+}
+
+public File getActualFile() {
+    return actualFile;
+}
+
+public void setActualFile(File actualFile) {
+    this.actualFile = actualFile;
+}
+
+public int getFolderID() {
+    return folderID;
+}
+
+public void setFolderID(int folderID) {
+    this.folderID = folderID;
+}
+
+public void setAccountID(int accountID) {
+    this.accountID = accountID;
+}
+
+public void setComments(List<LNComment> comments) {
+    this.comments = comments;
+}
+
 }

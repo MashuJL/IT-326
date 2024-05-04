@@ -16,23 +16,23 @@ public class LNFileHandler {
         return OperationsFactory.getFileOps();
     }
 
-    public List<LNFile> getFilesInFolder(LNFolder folder){
-        return LNFolderController.getFilesInFolder(folder);
+    public List<LNFile> filesInFolder getFilesInFolder(LNFolder folder){
+        return getFileOps().getFilesInFolder(folder);
     }
-    public boolean uploadFile(String name, LNFile NotesFile){
-        return LNFileCRUDOps.
+    public boolean uploadFile(String name, int folderID, int accountID, List<LNFile> filesInFolder){
+        return getFileOps().createFile(name, folderID, accountID);
     }
     public boolean removeFile(LNFile file){
-
+        return getFileOps().deleteFile(file);
     }
-    public boolean moveFile(LNFile file, LNFolder destination){
-    
+    public boolean moveFile(LNFile file, String destination,List<LNFile> filesInFolder){
+        return getFileOps().updateFile(file.getFileID(), null, destination, null);
     }
-    public boolean updateFile(String name,String contents){
-    
+    public boolean updateFile(int id,String name,String contents,List<LNFile> filesInFolder){
+        return getFileOps().updateFile(id, name, null, contents);
     }
     public boolean downloadFile(String name, LNFile file){
-    
+        return getFileOps().;
     }
     private boolean verify(){
         return true;

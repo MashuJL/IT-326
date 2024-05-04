@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import Classes.LNFile;
 
 public abstract class LNFileCRUDOps {
-    public abstract ArrayList<File> readFileCSV() throws IOException, ClassNotFoundException;
+    public abstract ArrayList<LNFile> readFileCSV() throws IOException, ClassNotFoundException;
     public abstract boolean writeFileCSV(ArrayList<File> files) throws IOException, ClassNotFoundException;
     public abstract boolean createFile(String name,int folder,int account);
     public abstract boolean deleteFile(LNFile deleted);

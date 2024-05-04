@@ -8,17 +8,12 @@ import Classes.LNFile;
 
 import java.util.ArrayList;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class LNFileOperations extends LNFileCRUDOps{
-    private static LNFileCRUDOps fileOps = null;
-
-    public static LNFileCRUDOps getLNFileOperationsInstance(){ 
-        if(fileOps==null)
-            fileOps = new LNFileOperations();
-        return fileOps;
-    }
 
     private ArrayList<LNFile> records;
 
@@ -82,9 +77,14 @@ public LNFile getFile(){}
 public LNAccount getAccount(){}
 public List<LNComment> getComments(){}
 @Override
-public ArrayList<File> readFileCSV() throws IOException, ClassNotFoundException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'readFileCSV'");
+public ArrayList<LNFile> readFileCSV() throws IOException, ClassNotFoundException {
+    try {
+        FileInputStream files = new FileInputStream("files.csv");
+        ObjectInputStream filesToFiles = new ObjectInputStream(files);
+        return (ArrayList<LNFile>) filesToFiles.readObject();
+    } catch (Exception e) {
+        return null;
+    }
 }
 @Override
 public boolean writeFileCSV(ArrayList<File> files) throws IOException, ClassNotFoundException {
