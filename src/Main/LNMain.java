@@ -80,14 +80,18 @@ public class LNMain
                 boolean endFlag = false;
                 while(!endFlag)
                 {
-                    System.out.println("All account options will be implemented later but rn just loggout");
                     System.out.println("0: Loggout");
                     System.out.println("1: Delete Account");
                     System.out.println("2: Update Account");
+                    System.out.println("3: Block User");
+                    System.out.println("4: Unblock User");
+                    System.out.println("5: Pin Comment");
+                    System.out.println("6: Remove Comment");
+                    System.out.println("7: Edit Comment");
                     try
                     {
                         userInput = Integer.parseInt(scanner.nextLine());
-                        if(userInput < 0 || userInput > 2) 
+                        if(userInput < 0 || userInput > 7) //TODO: Update the max limit for # of acceptable use cases 
                         {
                             System.out.println("Error: Please enter a valid option");
                         }
@@ -147,6 +151,115 @@ public class LNMain
                             else
                             {
                                 System.out.println("User was not updated");
+                            }
+                        }
+                        else if(userInput == 3)
+                        {
+                            LNAccountController.printBlockedUsers(loginUsername);
+                            System.out.println("Enter the ID of the user you want to block: ");
+                            try
+                            {
+                                int blocked = Integer.parseInt(scanner.nextLine());
+                                if(LNAccountController.blockUser(loginUsername, blocked))
+                                    System.out.println("User ID = "+blocked+" blocked successfully!");
+                                else
+                                    System.out.println("Failed to block user ID = "+blocked+" (User is already blocked)");
+                            }
+                            catch(NumberFormatException e)
+                            {
+                                System.err.println("Invalid ID number");
+                            }
+                        }
+                        else if(userInput == 4) //Unblock user
+                        {
+                            int numBlocked = LNAccountController.printBlockedUsers(loginUsername);
+                            if(numBlocked == 0)
+                            {
+                                System.out.println("You have no currently blocked users.");
+                            }
+                            else
+                            {
+                                System.out.println("Enter the ID of the user you want to unblock: ");
+                                try
+                                {
+                                    int unblocked = Integer.parseInt(scanner.nextLine());
+                                    if(LNAccountController.unblockUser(loginUsername, unblocked))
+                                        System.out.println("User ID = "+unblocked+" unblocked successfully!");
+                                    else
+                                        System.out.println("Failed to unblock user ID = "+unblocked+" (User is not blocked)");
+                                }
+                                catch(NumberFormatException e)
+                                {
+                                    System.err.println("Invalid ID number");
+                                }
+                            }
+                        }
+                        else if(userInput == 5) //Pin Comment
+                        {
+                            int numCmts = LNAccountController.printComments(loginUsername);
+                            if(numCmts == 0)
+                                System.out.println("You have no comments to pin.");
+                            else
+                            {
+                                System.out.println("Enter the number of the comment you want to pin: ");
+                                try
+                                {
+                                    int selected = Integer.parseInt(scanner.nextLine());
+                                    if(LNAccountController.pinComment(loginUsername, selected))
+                                        System.out.println("Comment successfully pinned!");
+                                    else
+                                        System.out.println("Couldn't pin comment");
+                                }
+                                catch(NumberFormatException e)
+                                {
+                                    System.out.println("Invalid selection");
+                                }
+                            }
+                        }
+                        else if(userInput == 6) //Remove Comment
+                        {
+                            int numCmts = LNAccountController.printComments(loginUsername);
+                            if(numCmts == 0)
+                                System.out.println("You have no comments to remove.");
+                            else
+                            {
+                                System.out.println("Enter the number of the comment you want to remove: ");
+                                int removed = Integer.parseInt(scanner.nextLine());
+                                try
+                                {
+                                    if(LNAccountController.removeComment(loginUsername, removed))
+                                        System.out.println("Comment successfully removed!");
+                                    else
+                                        System.out.println("Couldn't remove comment");
+                                }
+                                catch(NumberFormatException e)
+                                {
+                                    System.out.println("Invalid selection");
+                                }
+                            }
+                        }
+                        else if(userInput == 7) //Edit comment
+                        {
+                            int numCmts = LNAccountController.printComments(loginUsername);
+                            if(numCmts == 0)
+                                System.out.println("You have no comments to edit.");
+                            else
+                            {
+                                System.out.println("Enter the number of the comment you want to edit: ");
+                                int selected = Integer.parseInt(scanner.nextLine());
+                                System.out.println("Enter the new text for the comment: ");
+                                try
+                                {
+                                    String newText = scanner.nextLine();
+                                    if(LNAccountController.editComment(loginUsername, selected, newText))
+                                        System.out.println("Comment successfully edited!");
+                                    else
+                                        System.out.println("Couldn't edit comment");
+                                }
+                                catch(NumberFormatException e)
+                                {
+                                    System.out.println("Invalid selection");
+                                }
                             }
                         }
                     }

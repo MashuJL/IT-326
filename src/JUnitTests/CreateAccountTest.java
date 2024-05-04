@@ -24,7 +24,19 @@ public class CreateAccountTest {
     }
 
     /*
-     * Basis Path Testing - Part 1 (40->42->46->48)
+     * Basis Path Testing - Part 1 (55->63)
+     */
+    @Test
+    public void testingVerifyString() throws IOException, ClassNotFoundException{
+        String username = null;
+        String password = null;
+        boolean expected = false;
+        boolean actual = acctHandler.createAccount(username, password);
+        assertEquals(expected, actual);
+    }
+
+    /*
+     * Basis Path Testing - Part 2 (55->57->61->63)
      */
     @Test
     public void testingRegexPatternDoesntMatch() throws IOException, ClassNotFoundException{
@@ -36,7 +48,7 @@ public class CreateAccountTest {
     }
 
     /*
-     * Basis Path Testing - Part 2 (40->42->44)
+     * Basis Path Testing - Part 3 (55->57->59)
      */
     @Test
     public void testingRegexPatternDoesMatch() throws IOException, ClassNotFoundException{
@@ -50,6 +62,6 @@ public class CreateAccountTest {
     @After
     public void cleanUp(){
         acctHandler = null;
-        csvFile.delete();
+        csvFile.delete(); //Clears the file after use
     }
 }

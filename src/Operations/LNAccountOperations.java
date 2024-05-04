@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import CRUDOps.LNAccountCRUDOps;
 import Models.LNAccount;
+import Models.LNComment;
 
 public class LNAccountOperations extends LNAccountCRUDOps
 {
@@ -24,9 +25,9 @@ public class LNAccountOperations extends LNAccountCRUDOps
 
     public ArrayList<LNAccount> readFromAccountCSV() throws IOException, ClassNotFoundException //Reads in the accounts.csv file into an array list of account objects
     {
-        File acctFile = new File("accounts.csv");
-        acctFile.createNewFile();
-        try(FileInputStream fis = new FileInputStream(acctFile); ObjectInputStream ois = new ObjectInputStream(fis))
+        File output = new File("accounts.csv");
+        output.createNewFile(); //Create file if it doesn't exist -- prevent crashes
+        try(FileInputStream fis = new FileInputStream("accounts.csv");ObjectInputStream ois = new ObjectInputStream(fis))
         {
             return (ArrayList<LNAccount>) ois.readObject();
         } catch (EOFException exc)
@@ -38,7 +39,8 @@ public class LNAccountOperations extends LNAccountCRUDOps
     public boolean writeToAccountCSV(ArrayList<LNAccount> accts) throws IOException, ClassNotFoundException //Writes into the accounts.csv file and reutrns a boolean based on if it worked or not
     {
         File csvFile = new File("accounts.csv");
-        csvFile.createNewFile();
+        csvFile.createNewFile(); //Does nothing if it exists-- prevents FileNotFound exceptions if it can't find the file
+
         try(FileOutputStream fos = new FileOutputStream(csvFile); ObjectOutputStream oos = new ObjectOutputStream(fos))
         {
             oos.writeObject(accts);
@@ -127,6 +129,60 @@ public class LNAccountOperations extends LNAccountCRUDOps
                 {
                     acctArr.get(i).setEmail(username);
                     acctArr.get(i).setPassword(password);
+                    writeToAccountCSV(acctArr);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean updateAccountBlocked(ArrayList<Integer> newBlacklist, String curUsername) throws ClassNotFoundException, IOException
+    {
+        ArrayList<LNAccount> acctArr = readFromAccountCSV();
+        if(acctArr != null)
+        {
+            for(int i = 0; i < acctArr.size(); i++)
+            {
+                if(acctArr.get(i).getEmail().toLowerCase().equals(curUsername.toLowerCase()))
+                {
+                    acctArr.get(i).setBlockedUsers(newBlacklist);
+                    writeToAccountCSV(acctArr);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean updateAccountPinned(ArrayList<LNComment> newPinned, String curUsername) throws ClassNotFoundException, IOException
+    {
+        ArrayList<LNAccount> acctArr = readFromAccountCSV();
+        if(acctArr != null)
+        {
+            for(int i = 0; i < acctArr.size(); i++)
+            {
+                if(acctArr.get(i).getEmail().toLowerCase().equals(curUsername.toLowerCase()))
+                {
+                    acctArr.get(i).setPinned(newPinned);
+                    writeToAccountCSV(acctArr);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean updateAccountComments(ArrayList<LNComment> newComments, String curUsername) throws ClassNotFoundException, IOException
+    {
+        ArrayList<LNAccount> acctArr = readFromAccountCSV();
+        if(acctArr != null)
+        {
+            for(int i = 0; i < acctArr.size(); i++)
+            {
+                if(acctArr.get(i).getEmail().toLowerCase().equals(curUsername.toLowerCase()))
+                {
+                    acctArr.get(i).setComments(newComments);
                     writeToAccountCSV(acctArr);
                     return true;
                 }
