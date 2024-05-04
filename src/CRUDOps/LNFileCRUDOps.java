@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Classes.LNFile;
+import Models.LNFile;
 
 public abstract class LNFileCRUDOps {
     public abstract ArrayList<LNFile> readFileCSV() throws IOException, ClassNotFoundException;

@@ -3,8 +3,8 @@ package Controllers;
 import java.io.File;
 import java.util.List;
 
-import Classes.LNFile;
-import Classes.LNFolder;
+import Models.LNFile;
+import Models.LNFolder;
 import Handlers.LNFileHandler;
 
 import java.util.List;

@@ -4,8 +4,8 @@ import java.util.List;
 
 import CRUDOps.LNAccountCRUDOps;
 import CRUDOps.LNFileCRUDOps;
-import Classes.LNFile;
-import Classes.LNFolder;
+import Models.LNFile;
+import Models.LNFolder;
 import Controllers.LNFolderController;
 import OperationsFactory.OperationsFactory;
 

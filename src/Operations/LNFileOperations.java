@@ -2,9 +2,9 @@ package Operations;
 import java.util.List;
 
 import CRUDOps.LNFileCRUDOps;
-import Classes.LNAccount;
-import Classes.LNComment;
-import Classes.LNFile;
+import Models.LNAccount;
+import Models.LNComment;
+import Models.LNFile;
 
 import java.util.ArrayList;
 import java.io.File;
