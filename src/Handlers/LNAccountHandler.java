@@ -116,7 +116,7 @@ public class LNAccountHandler
                 return 0;
             }
             
-            System.out.println("All blocked IDs: ");
+            System.out.println("All blocked IDs:");
             for(Integer i : blocked)
             {
                 System.out.println("["+i+"]");
