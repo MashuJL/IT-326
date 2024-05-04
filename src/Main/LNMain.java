@@ -40,7 +40,6 @@ public class LNMain
                     {
                         System.out.println("Enter a email");
                         String username = scanner.nextLine();
-                        //System.out.println("Enter a password (must be between 8 and 50 characters and must consist of only lowercase letters, uppercase letters, numbers, and the following special characters: @#$%^&+=: ");
                         System.out.println("Enter a password");
                         String password = scanner.nextLine();
                         if(LNAccountController.createAccount(username, password))
@@ -81,7 +80,6 @@ public class LNMain
                 boolean endFlag = false;
                 while(!endFlag)
                 {
-                    //System.out.println("All account options will be implemented later but rn just loggout");
                     System.out.println("0: Loggout");
                     System.out.println("1: Delete Account");
                     System.out.println("2: Update Account");
@@ -100,7 +98,12 @@ public class LNMain
                         else if(userInput == 0) 
                         {
                             if(LNAccountController.loggout())
+                            {
+                                loginUsername = "";
+                                loginPassword = "";
+                                loginUser = false;
                                 endFlag = true;
+                            }
                         }
                         else if(userInput == 1)
                         {
