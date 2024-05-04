@@ -151,4 +151,11 @@ public class LNAccount implements Serializable
     { // gets the accounts notification setting
         return enableNotifs;
     }
+
+    public boolean disableNotifs()// changes enableNotifs to false
+    {
+        this.enableNotifs = false;
+        return true;
+    }
+
 }

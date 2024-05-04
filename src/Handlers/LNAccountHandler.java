@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import CRUDOps.LNAccountCRUDOps;
 import Models.LNAccount;
 import Models.LNComment;
+import Models.LNNotification;
 import OperationsFactory.OperationsFactory;
 
 public class LNAccountHandler
@@ -34,13 +35,8 @@ public class LNAccountHandler
         return OperationsFactory.getAcctOps();
     }
 
-    public boolean login(String username, String password) throws IOException, ClassNotFoundException // Login that
-                                                                                                      // checks user's
-                                                                                                      // inputted email
-                                                                                                      // and password
-                                                                                                      // with
-                                                                                                      // accounts.csv
-                                                                                                      // file
+    // Login that checks user's inputted email and password with accounts.csv file
+    public boolean login(String username, String password) throws IOException, ClassNotFoundException
     {
         if (verify(username) && verify(password))
         {
@@ -56,14 +52,8 @@ public class LNAccountHandler
         return false;
     }
 
-    public boolean createAccount(String username, String password) throws IOException, ClassNotFoundException // Creates
-                                                                                                              // and
-                                                                                                              // saves
-                                                                                                              // the
-                                                                                                              // account
-                                                                                                              // to the
-                                                                                                              // accounts.csv
-                                                                                                              // file
+    // Creates and saves the account to the accounts.csv file
+    public boolean createAccount(String username, String password) throws IOException, ClassNotFoundException
     {
         if (verify(username) && verify(password))
         {
@@ -273,5 +263,59 @@ public class LNAccountHandler
         {
             return 0;
         }
+    }
+
+    public boolean disableNotifs(String username) throws ClassNotFoundException, IOException
+    {
+        if (verify(username))
+        {
+            return getAcctOps().disableNotifs(username);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public boolean clearNotifs(String username) throws ClassNotFoundException, IOException
+    {
+        if (verify(username))
+        {
+            return getAcctOps().clearNotifs(username);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public int printNotif(String username) throws ClassNotFoundException, IOException
+    {
+        if (verify(username))
+        {
+            LNAccount temp = getAcctOps().retrieveAcct(username);
+            if (temp == null)
+            {
+                System.out.println("Error - Account [" + username + "] is null");
+            }
+            ArrayList<LNNotification> notifs = temp.getNotifs();
+
+            if (notifs.size() == 0)
+                return 0;
+
+            int count = 1;
+            for (LNNotification i : notifs)
+            {
+                System.out.println("Notification " + count + ", " + i.getTitle() + ":");
+                System.out.println("    " + i.getBody());
+                System.out.println("-----------------");
+                i.markNotifiactionAsRead();
+                count++;
+            }
+            System.out.println("No new notifications");
+            return notifs.size();
+        }
+        System.out.println("Error - invalid input");
+        return -1;
     }
 }

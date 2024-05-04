@@ -48,6 +48,13 @@ public abstract class LNAccountCRUDOps
                                                                                                    // for getting amount
                                                                                                    // of notifications
 
+    public abstract boolean disableNotifs(String username) throws IOException, ClassNotFoundException; // Abstract
+                                                                                                       // method for
+                                                                                                       // disabling
+                                                                                                       // notifications
+
+    public abstract boolean clearNotifs(String username) throws IOException, ClassNotFoundException;
+
     public abstract boolean updateAccountBlocked(ArrayList<Integer> newBlacklist, String curUsername)
             throws IOException, ClassNotFoundException;
 

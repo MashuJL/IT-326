@@ -272,38 +272,41 @@ public class LNMain
                                 }
                             }
                         }
-                        else if (userInput == 8)
+                        else if (userInput == 8) // check notifications
                         {
-
-                            for (int i = 0; i < LNAccountController.getNotifCount(loginUsername); i++)
+                            if (LNAccountController.getNotifCount(loginUsername) == 0)
+                                System.out.println("You have no notifications");
+                            else
                             {
-
+                                LNAccountController.printNotif(loginUsername);
                             }
                         }
-                        else if (userInput == 9)
+                        else if (userInput == 9) // clear notifications
                         {
                             System.out.println("Clear all notifications? (press 1 to continue)");
                             userInput = Integer.parseInt(scanner.nextLine());
                             if (userInput == 1)
                             {
-                                /* Code for clearing notifactions */
+                                if (LNAccountController.clearNotifs(loginUsername))
+                                    System.out.println("Notifiactions turned off");
                             }
                             else
                             {
                                 System.out.println("Notifiactions not deleted");
                             }
                         }
-                        else if (userInput == 10)
+                        else if (userInput == 10) // disable notifications
                         {
                             System.out.println("Disable notifacations? (press 1 to continue)");
                             userInput = Integer.parseInt(scanner.nextLine());
                             if (userInput == 1)
                             {
-                                /* Code for disabling notifactions */
+                                if (LNAccountController.disableNotifs(loginUsername))
+                                    System.out.println("Notifiactions turned off");
                             }
                             else
                             {
-                                System.out.println("Notifiactions not disabled");
+                                System.out.println("Notifiactions will not be disabled");
                             }
                         }
                     }

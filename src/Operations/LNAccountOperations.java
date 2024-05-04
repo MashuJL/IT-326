@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import CRUDOps.LNAccountCRUDOps;
 import Models.LNAccount;
 import Models.LNComment;
+import Models.LNNotification;
 
 public class LNAccountOperations extends LNAccountCRUDOps
 {
@@ -25,10 +26,8 @@ public class LNAccountOperations extends LNAccountCRUDOps
         return acctOps;
     }
 
-    public ArrayList<LNAccount> readFromAccountCSV() throws IOException, ClassNotFoundException // Reads in the
-                                                                                                // accounts.csv file
-                                                                                                // into an array list of
-                                                                                                // account objects
+    // Reads in the accounts.csv file into an array list of account objects
+    public ArrayList<LNAccount> readFromAccountCSV() throws IOException, ClassNotFoundException
     {
         File output = new File("accounts.csv");
         output.createNewFile(); // Create file if it doesn't exist -- prevent crashes
@@ -43,20 +42,14 @@ public class LNAccountOperations extends LNAccountCRUDOps
         }
     }
 
-    public boolean writeToAccountCSV(ArrayList<LNAccount> accts) throws IOException, ClassNotFoundException // Writes
-                                                                                                            // into the
-                                                                                                            // accounts.csv
-                                                                                                            // file and
-                                                                                                            // reutrns a
-                                                                                                            // boolean
-                                                                                                            // based on
-                                                                                                            // if it
-                                                                                                            // worked or
-                                                                                                            // not
+    // Writes into the accounts.csv file and reutrns a boolean based on if it worked
+    // or not
+    public boolean writeToAccountCSV(ArrayList<LNAccount> accts) throws IOException, ClassNotFoundException
     {
         File csvFile = new File("accounts.csv");
-        csvFile.createNewFile(); // Does nothing if it exists-- prevents FileNotFound exceptions if it can't find
-                                 // the file
+        csvFile.createNewFile();
+        // Does nothing if it exists-- prevents FileNotFound exceptions if it can't find
+        // the file
 
         try (FileOutputStream fos = new FileOutputStream(csvFile); ObjectOutputStream oos = new ObjectOutputStream(fos))
         {
@@ -180,6 +173,43 @@ public class LNAccountOperations extends LNAccountCRUDOps
             }
         }
         return 0;
+    }
+
+    // Finds account belonging to username and calls disableNotifs on it - Nathan
+    public boolean disableNotifs(String username) throws ClassNotFoundException, IOException
+    {
+        ArrayList<LNAccount> acctArr = readFromAccountCSV();
+        if (acctArr != null)
+        {
+            for (int i = 0; i < acctArr.size(); i++)
+            {
+                if (acctArr.get(i).getEmail().toLowerCase().equals(username.toLowerCase()))
+                {
+                    return acctArr.get(i).disableNotifs();
+                }
+            }
+        }
+        return false;
+    }
+
+    // Clears all of the account's notifications
+    public boolean clearNotifs(String username) throws ClassNotFoundException, IOException
+    {
+        ArrayList<LNAccount> acctArr = readFromAccountCSV();
+        if (acctArr != null)
+        {
+            for (int i = 0; i < acctArr.size(); i++)
+            {
+                if (acctArr.get(i).getEmail().toLowerCase().equals(username.toLowerCase()))
+                {
+                    for (int j = 0; j < acctArr.get(i).getNotifs().size(); j++)
+                    {
+                        return acctArr.get(i).getNotifs().get(j).markNotifiactionAsRead();
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public boolean updateAccountBlocked(ArrayList<Integer> newBlacklist, String curUsername)

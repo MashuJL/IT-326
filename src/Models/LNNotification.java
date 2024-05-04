@@ -52,6 +52,10 @@ public class LNNotification implements Serializable
     public boolean markNotifiactionAsRead()
     {
         unread = false;
+        this.notifID = (Integer) null;
+        this.bodyText = null;
+        this.titleText = null;
+        this.account = null;
         return true;
     }
 }

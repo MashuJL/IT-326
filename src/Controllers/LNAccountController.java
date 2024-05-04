@@ -15,23 +15,14 @@ public class LNAccountController
         return acctHandler;
     }
 
-    public static boolean login(String username, String password) throws IOException, ClassNotFoundException // Calls
-                                                                                                             // login
-                                                                                                             // implementation
-                                                                                                             // from
-                                                                                                             // account
-                                                                                                             // handler
+    // Calls login implementation from account handler
+    public static boolean login(String username, String password) throws IOException, ClassNotFoundException
     {
         return getLNAccountHandlerInstance().login(username, password);
     }
 
-    public static boolean createAccount(String username, String password) throws IOException, ClassNotFoundException // Calls
-                                                                                                                     // create
-                                                                                                                     // account
-                                                                                                                     // implementation
-                                                                                                                     // from
-                                                                                                                     // account
-                                                                                                                     // handler
+    // Calls create account implementation from account handler
+    public static boolean createAccount(String username, String password) throws IOException, ClassNotFoundException
     {
         return getLNAccountHandlerInstance().createAccount(username, password);
     }
@@ -92,5 +83,20 @@ public class LNAccountController
     public static int getNotifCount(String username) throws IOException, ClassNotFoundException
     {
         return getLNAccountHandlerInstance().getNotifCount(username);
+    }
+
+    public static boolean disableNotifs(String username) throws IOException, ClassNotFoundException
+    {
+        return getLNAccountHandlerInstance().disableNotifs(username);
+    }
+
+    public static boolean clearNotifs(String username) throws IOException, ClassNotFoundException
+    {
+        return getLNAccountHandlerInstance().clearNotifs(username);
+    }
+
+    public static int printNotif(String username) throws ClassNotFoundException, IOException
+    {
+        return getLNAccountHandlerInstance().printNotif(username);
     }
 }
