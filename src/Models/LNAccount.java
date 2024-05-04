@@ -13,6 +13,7 @@ public class LNAccount implements Serializable
     private int accountID; // Account's ID
     private String accountEmail; // Account's email
     private String accountPassword; // Account's password
+    private boolean enableNotifs; // Account's prefence towards receving notifications
     private ArrayList<LNFile> ownedFiles; // Account's list of files
     private ArrayList<LNFolder> ownedFolders; // Account's list of folders
     private ArrayList<LNNotification> notifications; // Account's list of notifications
@@ -49,6 +50,7 @@ public class LNAccount implements Serializable
         this.notifications = new ArrayList<>();
         this.comments = new ArrayList<>();
         this.blockedUserIDs = new ArrayList<>();
+        this.enableNotifs = true;
     }
 
     public static LNAccountCRUDOps getAcctOps() // Gets CRUD operations
@@ -106,5 +108,10 @@ public class LNAccount implements Serializable
     public ArrayList<Integer> getBlockedUsers() // Gets the account's list of blocked users
     {
         return blockedUserIDs;
+    }
+
+    public boolean getEnableNotifs()
+    { // gets the accounts notification setting
+        return enableNotifs;
     }
 }

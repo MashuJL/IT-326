@@ -86,6 +86,10 @@ public class LNMain
                     System.out.println("0: Loggout");
                     System.out.println("1: Delete Account");
                     System.out.println("2: Update Account");
+                    System.out.println("3: Check notifactions" + "(" + LNAccountController.getNotifCount(loginUsername)
+                            + " new notification(s))");
+                    System.out.println("4: Clear all notifications");
+                    System.out.println("5: Disable Notifiactions");
                     try
                     {
                         userInput = Integer.parseInt(scanner.nextLine());
@@ -151,6 +155,40 @@ public class LNMain
                             else
                             {
                                 System.out.println("User was not updated");
+                            }
+                        }
+                        else if (userInput == 3)
+                        {
+
+                            for (int i = 0; i < LNAccountController.getNotifCount(loginUsername); i++)
+                            {
+
+                            }
+                        }
+                        else if (userInput == 4)
+                        {
+                            System.out.println("Clear all notifications? (press 1 to continue)");
+                            userInput = Integer.parseInt(scanner.nextLine());
+                            if (userInput == 1)
+                            {
+                                /* Code for clearing notifactions */
+                            }
+                            else
+                            {
+                                System.out.println("Notifiactions not deleted");
+                            }
+                        }
+                        else if (userInput == 5)
+                        {
+                            System.out.println("Disable notifacations? (press 1 to continue)");
+                            userInput = Integer.parseInt(scanner.nextLine());
+                            if (userInput == 1)
+                            {
+                                /* Code for disabling notifactions */
+                            }
+                            else
+                            {
+                                System.out.println("Notifiactions not disabled");
                             }
                         }
                     }
