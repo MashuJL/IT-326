@@ -111,7 +111,10 @@ public class LNAccountHandler
             ArrayList<Integer> blocked = temp.getBlockedUsers();
 
             if(blocked.size() == 0)
+            {
+                System.out.println("You have no blocked users yet.");
                 return 0;
+            }
             
             System.out.println("All blocked IDs: ");
             for(Integer i : blocked)
@@ -124,6 +127,14 @@ public class LNAccountHandler
         return -1;
     }
 
+    public void printNamesAndIDs() throws ClassNotFoundException, IOException
+    {
+        for(LNAccount a : getAcctOps().retrieveAccounts())
+        {
+            System.out.println(a.getEmail() + " [" + a.getAcctID() + "]");
+        }
+    }
+
     public boolean blockUser(String currentUser, int id) throws ClassNotFoundException, IOException
     {
         if(verify(currentUser) && verify(id))
@@ -134,8 +145,16 @@ public class LNAccountHandler
                 System.out.println("Error - Account [Name = "+currentUser+"] is null");
                 return false;
             }
+            if(temp.getAcctID() == id)
+                return false; //Can't block yourself
+            ArrayList<Integer> allIds = new ArrayList<Integer>(getAcctOps().retrieveAccounts().size());
+            for(LNAccount a : getAcctOps().retrieveAccounts())
+            {
+                allIds.add(a.getAcctID());
+            }
             ArrayList<Integer> newBlocked = temp.getBlockedUsers();
-
+            if(!allIds.contains((Integer) id ))
+                return false; //Invalid ID - no account has this ID
             if(newBlocked.contains((Integer) id))
                 return false; //Already blocked
             newBlocked.add((Integer) id);

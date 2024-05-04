@@ -190,4 +190,14 @@ public class LNAccountOperations extends LNAccountCRUDOps
         }
         return false;
     }
+
+    public ArrayList<LNAccount> retrieveAccounts() throws ClassNotFoundException, IOException
+    {
+        ArrayList<LNAccount> acctArr = readFromAccountCSV();
+        if(acctArr != null)
+        {
+            return acctArr;
+        }
+        return null;
+    }
 }
