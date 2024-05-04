@@ -3,7 +3,10 @@ package CRUDOps;
 import java.io.IOException;
 import java.util.ArrayList;
 
+//import Classes.LNAccount;
+//import Classes.LNComment;
 import Models.LNAccount;
+import Models.LNComment;
 
 public abstract class LNAccountCRUDOps
 {
@@ -44,4 +47,14 @@ public abstract class LNAccountCRUDOps
     public abstract int getNotifCount(String username) throws IOException, ClassNotFoundException; // Abstract method
                                                                                                    // for getting amount
                                                                                                    // of notifications
+
+    public abstract boolean updateAccountBlocked(ArrayList<Integer> newBlacklist, String curUsername)
+            throws IOException, ClassNotFoundException;
+
+    public abstract boolean updateAccountPinned(ArrayList<LNComment> newPinned, String curUsername)
+            throws IOException, ClassNotFoundException;
+
+    public abstract boolean updateAccountComments(ArrayList<LNComment> newComments, String curUsername)
+            throws IOException, ClassNotFoundException;
+
 };
