@@ -24,7 +24,9 @@ public class LNAccountOperations extends LNAccountCRUDOps
 
     public ArrayList<LNAccount> readFromAccountCSV() throws IOException, ClassNotFoundException //Reads in the accounts.csv file into an array list of account objects
     {
-        try(FileInputStream fis = new FileInputStream("accounts.csv"); ObjectInputStream ois = new ObjectInputStream(fis))
+        File acctFile = new File("accounts.csv");
+        acctFile.createNewFile();
+        try(FileInputStream fis = new FileInputStream(acctFile); ObjectInputStream ois = new ObjectInputStream(fis))
         {
             return (ArrayList<LNAccount>) ois.readObject();
         } catch (EOFException exc)
@@ -36,7 +38,7 @@ public class LNAccountOperations extends LNAccountCRUDOps
     public boolean writeToAccountCSV(ArrayList<LNAccount> accts) throws IOException, ClassNotFoundException //Writes into the accounts.csv file and reutrns a boolean based on if it worked or not
     {
         File csvFile = new File("accounts.csv");
-
+        csvFile.createNewFile();
         try(FileOutputStream fos = new FileOutputStream(csvFile); ObjectOutputStream oos = new ObjectOutputStream(fos))
         {
             oos.writeObject(accts);
