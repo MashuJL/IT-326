@@ -1,7 +1,7 @@
 package Controllers;
 import java.io.IOException;
 
-import Handlers_DEPRECATED.LNAccountHandler;
+import Handlers.LNAccountHandler;
 
 public class LNAccountController 
 {
