@@ -18,5 +18,5 @@ public abstract class LNAccountCRUDOps
     public abstract boolean updateAccountBlocked(ArrayList<Integer> newBlacklist, String curUsername) throws IOException, ClassNotFoundException;
     public abstract boolean updateAccountPinned(ArrayList<LNComment> newPinned, String curUsername) throws IOException, ClassNotFoundException;
     public abstract boolean updateAccountComments(ArrayList<LNComment> newComments, String curUsername) throws IOException, ClassNotFoundException;
-
+    public abstract ArrayList<LNAccount> retriveAcctList() throws ClassNotFoundException, IOException;
 };

@@ -111,7 +111,10 @@ public class LNAccountHandler
             ArrayList<Integer> blocked = temp.getBlockedUsers();
 
             if(blocked.size() == 0)
+            {
+                System.out.println("You have no blocked users yet.");
                 return 0;
+            }
             
             System.out.println("All blocked IDs: ");
             for(Integer i : blocked)
@@ -122,6 +125,15 @@ public class LNAccountHandler
         }
         System.out.println("Error - Invalid input");
         return -1;
+    }
+
+    public void printNamesAndIDs() throws ClassNotFoundException, IOException
+    {
+        ArrayList<LNAccount> temp = getAcctOps().retriveAcctList();
+        for(LNAccount a : temp)
+        {
+            System.out.println(a.getEmail()+" ["+a.getAcctID()+"]");
+        }
     }
 
     public boolean blockUser(String currentUser, int id) throws ClassNotFoundException, IOException

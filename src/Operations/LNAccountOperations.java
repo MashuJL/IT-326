@@ -190,4 +190,12 @@ public class LNAccountOperations extends LNAccountCRUDOps
         }
         return false;
     }
+
+    //Used to display list of accounts' names and IDs.
+    public ArrayList<LNAccount> retriveAcctList() throws ClassNotFoundException, IOException
+    {
+        ArrayList<LNAccount> acctArr = readFromAccountCSV();
+        return acctArr;
+    }
+
 }
