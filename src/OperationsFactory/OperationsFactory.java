@@ -1,8 +1,10 @@
 package OperationsFactory;
 
 import CRUDOps.LNAccountCRUDOps;
+import CRUDOps.LNCommentCRUDOps;
 import CRUDOps.LNNotificationCRUDOps;
 import Operations.LNAccountOperations;
+import Operations.LNCommentOperations;
 import Operations.LNNotificationOperations;
 
 public class OperationsFactory
@@ -16,4 +18,9 @@ public class OperationsFactory
     {
         return LNNotificationOperations.getLNNotificationOperationsInstance();
     }
+
+    // public static LNCommentCRUDOps getCommOps()
+    // {
+    // return LNCommentOperations.getLNAccountOperationsInstance();
+    // }
 }

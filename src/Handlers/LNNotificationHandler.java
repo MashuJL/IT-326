@@ -12,20 +12,23 @@ public class LNNotificationHandler
         return verifyStr instanceof String;
     }
 
-    public boolean createNotification(int notifID, String titleText, String bodyText, LNAccount account)
-    {
-
-        return false;
-    }
-
-    public boolean deleteNotification(/* String ? */)
-    {
-
-        return false;
-    }
-
     public LNNotificationCRUDOps getNotifOps()
     {
         return OperationsFactory.getNotifOps();
     }
+
+    public boolean createNotification(int notifID, String titleText, String bodyText, LNAccount account)
+    {
+        return getNotifOps().createNotification(notifID, titleText, bodyText, account);
+    }
+
+    public boolean deleteNotification(LNNotification notif)
+    {
+        if (!notif.getUnread())
+        {
+            return getNotifOps().deleteNotification(notif);
+        }
+        return false;
+    }
+
 }

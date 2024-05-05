@@ -10,21 +10,19 @@ public class LNNotificationController
 
     private LNNotificationHandler notifHandler = new LNNotificationHandler();
 
-    public boolean createNotification(int notifID, String titleText, String bodyText, LNAccount account)
-    {
-
-        return false;
-    }
-
-    public boolean deleteNotification(/* String ? */)
-    {
-
-        return false;
-    }
-
-    public LNNotificationHandler getNotificationCRUDOps()
+    private LNNotificationHandler getNotificationHandler()
     {
         return notifHandler;
+    }
+
+    public boolean createNotification(int notifID, String titleText, String bodyText, LNAccount account)
+    {
+        return getNotificationHandler().createNotification(notifID, titleText, bodyText, account);
+    }
+
+    public boolean deleteNotification(LNNotification notif)
+    {
+        return getNotificationHandler().deleteNotification(notif);
     }
 
 }

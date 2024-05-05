@@ -200,11 +200,12 @@ public class LNAccountOperations extends LNAccountCRUDOps
         {
             for (int i = 0; i < acctArr.size(); i++)
             {
-                if (acctArr.get(i).getEmail().toLowerCase().equals(username.toLowerCase()))
+                if (acctArr.get(i).getEmail().toLowerCase().equals(username.toLowerCase()))// Finds the desired account
                 {
-                    for (int j = 0; j < acctArr.get(i).getNotifs().size(); j++)
+                    for (int j = 0; j < acctArr.get(i).getNotifs().size(); j++)// loops through all notifications
                     {
-                        return acctArr.get(i).getNotifs().get(j).markNotifiactionAsRead();
+                        acctArr.get(i).getNotifs().get(j).markNotifiactionAsRead();
+                        acctArr.get(i).getNotifs().get(j).detectActivity();
                     }
                 }
             }

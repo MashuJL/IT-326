@@ -25,7 +25,7 @@ public class LNNotificationOperations extends LNNotificationCRUDOps
     public boolean deleteNotification(LNNotification notif)
     {
         notif = null;
-        return true;
+        return false;
     }
 
 }

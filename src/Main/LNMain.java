@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 import Controllers.LNAccountController;
+import Controllers.LNCommentController;
+import Models.LNAccount;
 
 public class LNMain
 {
@@ -94,10 +96,12 @@ public class LNMain
                             + " new notification(s))");
                     System.out.println("9: Clear all notifications");
                     System.out.println("10: Disable Notifiactions");
+                    System.out.println("11: view file");
+                    System.out.println("12: search for a comment");
                     try
                     {
                         userInput = Integer.parseInt(scanner.nextLine());
-                        if (userInput < 0 || userInput > 10)
+                        if (userInput < 0 || userInput > 12)
                         {
                             System.out.println("Error: Please enter a valid option");
                         }
@@ -288,11 +292,11 @@ public class LNMain
                             if (userInput == 1)
                             {
                                 if (LNAccountController.clearNotifs(loginUsername))
-                                    System.out.println("Notifiactions turned off");
+                                    System.out.println("Notifiactions cleared");
                             }
                             else
                             {
-                                System.out.println("Notifiactions not deleted");
+                                System.out.println("Notifiactions not cleared");
                             }
                         }
                         else if (userInput == 10) // disable notifications
@@ -308,6 +312,15 @@ public class LNMain
                             {
                                 System.out.println("Notifiactions will not be disabled");
                             }
+                        }
+                        else if (userInput == 11)
+                        {
+                            // view file code
+                        }
+                        else if (userInput == 12)
+                        {
+                            // search for comment code
+                            String search = scanner.nextLine();
                         }
                     }
                     catch (NumberFormatException e)
