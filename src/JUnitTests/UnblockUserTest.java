@@ -1,6 +1,6 @@
 package JUnitTests;
 
-public class BlockUserTest
+public class UnblockUserTest
 {
     
 }
