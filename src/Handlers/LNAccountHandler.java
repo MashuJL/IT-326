@@ -111,9 +111,12 @@ public class LNAccountHandler
             ArrayList<Integer> blocked = temp.getBlockedUsers();
 
             if(blocked.size() == 0)
+            {
+                System.out.println("You have no blocked users yet.");
                 return 0;
+            }
             
-            System.out.println("All blocked IDs: ");
+            System.out.println("All blocked IDs:");
             for(Integer i : blocked)
             {
                 System.out.println("["+i+"]");
@@ -122,6 +125,14 @@ public class LNAccountHandler
         }
         System.out.println("Error - Invalid input");
         return -1;
+    }
+
+    public void printNamesAndIDs() throws ClassNotFoundException, IOException
+    {
+        for(LNAccount a : getAcctOps().retrieveAccounts())
+        {
+            System.out.println(a.getEmail() + " [" + a.getAcctID() + "]");
+        }
     }
 
     public boolean blockUser(String currentUser, int id) throws ClassNotFoundException, IOException
@@ -134,8 +145,16 @@ public class LNAccountHandler
                 System.out.println("Error - Account [Name = "+currentUser+"] is null");
                 return false;
             }
+            if(temp.getAcctID() == id)
+                return false; //Can't block yourself
+            ArrayList<Integer> allIds = new ArrayList<Integer>(getAcctOps().retrieveAccounts().size());
+            for(LNAccount a : getAcctOps().retrieveAccounts())
+            {
+                allIds.add(a.getAcctID());
+            }
             ArrayList<Integer> newBlocked = temp.getBlockedUsers();
-
+            if(!allIds.contains((Integer) id ))
+                return false; //Invalid ID - no account has this ID
             if(newBlocked.contains((Integer) id))
                 return false; //Already blocked
             newBlocked.add((Integer) id);
@@ -220,8 +239,6 @@ public class LNAccountHandler
     {
         if(verify(currentUser) && verify(removed))
         {
-            //TODO: Update the LNFile the comment is attached to as well
-            //TODO: Actually, this may not be necessary if LNFile has the actual Comment object
             LNAccount temp = getAcctOps().retrieveAcct(currentUser);
             if(temp == null)
             {
@@ -241,8 +258,6 @@ public class LNAccountHandler
     {
         if(verify(newText) && verify(selected))
         {
-            //TODO: Update the LNFile the comment is attached to as well
-            //TODO: Actually, this may not be necessary if LNFile has the actual Comment object
             LNAccount temp = getAcctOps().retrieveAcct(currentUser);
             if(temp == null)
             {

@@ -43,6 +43,11 @@ public class LNAccountController
         return acctHandler.printBlockedUsers(currentUser);
     }
 
+    public static void printNamesAndIDs() throws ClassNotFoundException, IOException
+    {
+        acctHandler.printNamesAndIDs();
+    }
+
     public static boolean blockUser(String currentUser, int id) throws ClassNotFoundException, IOException
     {
         return acctHandler.blockUser(currentUser, id);
@@ -72,5 +77,6 @@ public class LNAccountController
     {
         return acctHandler.editComment(currentUser, selected, newText);
     }
+
 
 }
