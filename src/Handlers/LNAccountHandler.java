@@ -239,8 +239,6 @@ public class LNAccountHandler
     {
         if(verify(currentUser) && verify(removed))
         {
-            //TODO: Update the LNFile the comment is attached to as well
-            //TODO: Actually, this may not be necessary if LNFile has the actual Comment object
             LNAccount temp = getAcctOps().retrieveAcct(currentUser);
             if(temp == null)
             {
@@ -260,8 +258,6 @@ public class LNAccountHandler
     {
         if(verify(newText) && verify(selected))
         {
-            //TODO: Update the LNFile the comment is attached to as well
-            //TODO: Actually, this may not be necessary if LNFile has the actual Comment object
             LNAccount temp = getAcctOps().retrieveAcct(currentUser);
             if(temp == null)
             {
