@@ -15,10 +15,6 @@ public class LNFileHandler {
     {
         return OperationsFactory.getFileOps();
     }
-
-    public List<LNFile> filesInFolder getFilesInFolder(LNFolder folder){
-        return getFileOps().getFilesInFolder(folder);
-    }
     public boolean uploadFile(String name, int folderID, int accountID, List<LNFile> filesInFolder){
         return getFileOps().createFile(name, folderID, accountID);
     }

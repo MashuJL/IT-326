@@ -65,17 +65,6 @@ public class LNFileOperations extends LNFileCRUDOps{
         }
         return noError;
     }
-public String getName(){
-    
-}
-public int getID(){}
-public LNFile createFile(){}
-public void renameFile(String name){}
-public void downloadFile(String downloadName){}
-public boolean moveFile(String folderName){}
-public LNFile getFile(){}
-public LNAccount getAccount(){}
-public List<LNComment> getComments(){}
 @Override
 public ArrayList<LNFile> readFileCSV() throws IOException, ClassNotFoundException {
     try {

@@ -18,9 +18,6 @@ public class LNFileController {
             handler = new LNFileHandler();
         return handler;
     }
-    public List<LNFile> getFilesInFolder(LNFolder folder){
-        return handler.getFilesInFolder(folder);
-    }
 //finalize, save it.
 public Boolean uploadFile(String name, LNFile file){
     return handler.uploadFile(name, file);
