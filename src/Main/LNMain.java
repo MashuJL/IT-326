@@ -168,7 +168,7 @@ public class LNMain
                                 if(LNAccountController.blockUser(loginUsername, blocked))
                                     System.out.println("User ID = "+blocked+" blocked successfully!");
                                 else
-                                    System.out.println("Failed to block user ID = "+blocked+" (User is already blocked, ID does not exist or attempt to block own account)");
+                                    System.out.println("Failed to block user ID = "+blocked+" (User is already blocked, ID does not exist or attempted to block own ID)");
                             }
                             catch(NumberFormatException e)
                             {
