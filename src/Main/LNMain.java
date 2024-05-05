@@ -95,9 +95,6 @@ public class LNMain
                         {
                             System.out.println("Error: Please enter a valid option");
                         }
-                        //TODO:
-                        //There is a bug where a logged in user hits 0, goes back to the log in screen but hitting 0
-                        //again to quit brings the user back to this section
                         else if(userInput == 0) 
                         {
                             if(LNAccountController.loggout())
