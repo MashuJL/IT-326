@@ -4,9 +4,11 @@ import CRUDOps.LNFileCRUDOps;
 import Models.LNFile;
 
 import java.util.ArrayList;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,7 +16,7 @@ import java.io.ObjectOutputStream;
 
 public class LNFileOperations extends LNFileCRUDOps{
 
-    private static LNFileCRUDOps FileOps = null;
+    private static LNFileCRUDOps fileOps = null;
 
 
     private LNFile getFileInternal(ArrayList<LNFile> records, int FileID){
@@ -31,9 +33,9 @@ public class LNFileOperations extends LNFileCRUDOps{
         return toGet;
     }
     public static LNFileCRUDOps getLNFileOperationsInstance(){
-        if(FileOps==null)
-            FileOps = new LNFileOperations();
-        return FileOps;
+        if(fileOps==null)
+            fileOps = new LNFileOperations();
+        return fileOps;
     }
 
     public boolean createFile(String name,int folder,int account) throws ClassNotFoundException, IOException{
@@ -194,32 +196,9 @@ public boolean writeFileCSV(ArrayList<LNFile> records) throws IOException, Class
 }
 
 
-    private ArrayList<LNFile> records;
-    private static LNFileCRUDOps fileOps = null;
-
-    public static LNFileCRUDOps getLNFileOperationsInstance()
+    public int previewFiles() throws ClassNotFoundException, IOException
     {
-        if (fileOps == null)
-            fileOps = new LNFileOperations();
-        return fileOps;
-    }
-
-    public ArrayList<LNFile> readFileCSV() throws IOException, ClassNotFoundException
-    {
-        try
-        {
-            FileInputStream files = new FileInputStream("files.csv");
-            ObjectInputStream filesToFiles = new ObjectInputStream(files);
-            return (ArrayList<LNFile>) filesToFiles.readObject();
-        }
-        catch (Exception e)
-        {
-            return null;
-        }
-    }
-
-    public int previewFiles()
-    {
+        ArrayList<LNFile> records = readFileCSV(); 
         if (records != null)
         {
             for (int i = 0; i < records.size(); i++)
@@ -235,8 +214,9 @@ public boolean writeFileCSV(ArrayList<LNFile> records) throws IOException, Class
         }
     }
 
-    public ArrayList<LNFile> getFileList()
+    public ArrayList<LNFile> getFileList() throws ClassNotFoundException, IOException
     {
+        ArrayList<LNFile> records = readFileCSV(); 
         return records;
     }
 

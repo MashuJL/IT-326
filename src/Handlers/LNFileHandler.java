@@ -1,5 +1,9 @@
 package Handlers;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import CRUDOps.LNFileCRUDOps;
 import Models.LNFile;
 import OperationsFactory.OperationsFactory;
@@ -10,77 +14,63 @@ public class LNFileHandler {
     {
         return OperationsFactory.getFileOps();
     }
-    public boolean uploadFile(String name, int folderID, int accountID) throws ClassNotFoundException, IOException{
-        if(verify(name)&&verify(folderID)&&verify(accountID))
-        return getFileOps().createFile(name, folderID, accountID);
+
+    public boolean uploadFile(String name, int folderID, int accountID) throws ClassNotFoundException, IOException {
+        if (verify(name) && verify(folderID) && verify(accountID))
+            return getFileOps().createFile(name, folderID, accountID);
         else
-        return false;
+            return false;
     }
-    public boolean removeFile(LNFile file) throws ClassNotFoundException, IOException{
-        if(verify(file))
-        return getFileOps().deleteFile(file);
+
+    public boolean removeFile(LNFile file) throws ClassNotFoundException, IOException {
+        if (verify(file))
+            return getFileOps().deleteFile(file);
         else
-        return false;
+            return false;
     }
-    public boolean moveFile(LNFile file, int destination,int account) throws ClassNotFoundException, IOException{
-        if(verify(file)&&verify(destination)&&verify(account))
-        return getFileOps().moveFile(file.getFileID(), destination, account);
+
+    public boolean moveFile(LNFile file, int destination, int account) throws ClassNotFoundException, IOException {
+        if (verify(file) && verify(destination) && verify(account))
+            return getFileOps().moveFile(file.getfileID(), destination, account);
         else
-        return false;
+            return false;
     }
-    public boolean updateFile(int id,String name,String contents) throws ClassNotFoundException, IOException{
-        if(verify(id)&&verify(name)&&verify(contents))
-        return getFileOps().updateFile(id, name, contents);
+
+    public boolean updateFile(int id, String name, String contents) throws ClassNotFoundException, IOException {
+        if (verify(id) && verify(name) && verify(contents))
+            return getFileOps().updateFile(id, name, contents);
         else
-        return false;
+            return false;
     }
-    public boolean downloadFile(String name, String folder, LNFile file) throws IOException{
-        if(verify(name)&&verify(folder)&&verify(file))
-        return getFileOps().downloadFile(name, folder, file);
+
+    public boolean downloadFile(String name, String folder, LNFile file) throws IOException {
+        if (verify(name) && verify(folder) && verify(file))
+            return getFileOps().downloadFile(name, folder, file);
         else
-        return false;
+            return false;
     }
-    private boolean verify(String verifyStr){
+
+    private boolean verify(String verifyStr) {
         return verifyStr instanceof String;
     }
-    private boolean verify(Integer verifyInt){
+
+    private boolean verify(Integer verifyInt) {
         return verifyInt instanceof Integer;
     }
-    private boolean verify(LNFile verifyFile){
+
+    private boolean verify(LNFile verifyFile) {
         return verifyFile instanceof LNFile;
     }
 
-
-    public static LNFileCRUDOps getFileOps()
-    {
-        return OperationsFactory.getFileOps();
-    }
-
-    private boolean verify(int verifyInt)
-    {
-        try
-        {
-            Integer temp = (Integer) verifyInt;
-            return true;
-        }
-        catch (Exception e)
-        {
-            return false;
-        }
-    }
-
-    public int previewFiles()
-    {
+    public int previewFiles() throws ClassNotFoundException, IOException {
         return getFileOps().previewFiles();
     }
 
-    public ArrayList<LNFile> getFileList()
-    {
+    public ArrayList<LNFile> getFileList() throws ClassNotFoundException, IOException {
         return getFileOps().getFileList();
     }
 
-    public int viewFile(File theFile)
-    {
+    public int viewFile(File theFile) {
         return getFileOps().viewFile(theFile);
     }
 

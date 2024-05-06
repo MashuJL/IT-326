@@ -1,6 +1,7 @@
 package Models;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.Serializable;
 import java.io.IOException;
 import java.util.List;
@@ -10,139 +11,138 @@ import CRUDOps.LNFileCRUDOps;
 import Operations.LNFileOperations;
 import java.util.ArrayList;
 
-public class LNFile implements Serializable{
-private int fileID;
-private String name;
-private String content;
-private int folderID; 
-private int accountID;
-private File actualFile;
-private List<LNComment> comments;
+public class LNFile implements Serializable {
+    private int fileID;
+    private String name;
+    private String content;
+    private int folderID;
+    private int accountID;
+    private File actualFile;
+    private ArrayList<LNComment> comments;
 
+    public LNFile(String name, int folderID, int accountID) {
+        this.name = name;
+        this.folderID = folderID;
+        this.accountID = accountID;
+        fileID = generateID();
+        content = "";
+    }
 
+    public LNFile(String name, int folderID, int accountID, String contents) {
+        this.name = name;
+        this.folderID = folderID;
+        this.accountID = accountID;
+        fileID = generateID();
+        content = contents;
+    }
 
-public LNFile(String name, int folderID, int accountID){
-    this.name = name;
-    this.folderID = folderID;
-    this.accountID = accountID;
-    fileID = generateID();
-    content = "";
-}
-
-public LNFile(String name, int folderID, int accountID,String contents){
-    this.name = name;
-    this.folderID = folderID;
-    this.accountID = accountID;
-    fileID = generateID();
-    content = contents;
-}
-
-private int generateID(){
-    Random gen = new Random();
-    int ID =-1;
-    while(ID==-1){
-        ID = gen.nextInt(10000);
-        try {
-            if(getFileOps().getFileByID(ID)!= null){
-                ID = -1;
+    private int generateID() {
+        Random gen = new Random();
+        int ID = -1;
+        while (ID == -1) {
+            ID = gen.nextInt(10000);
+            try {
+                if (getFileOps().getFileByID(ID) != null) {
+                    ID = -1;
+                }
+            } catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        }
+        return ID;
+    }
+
+    // return name of file.
+    public String getName() {
+        return name;
+    }
+
+    public void deleteFile() {
+        comments = null;
+        actualFile.delete();
+    }
+
+    public int getAccountID() {
+        return accountID;
+    }
+
+    public boolean addComment(LNComment e) {
+        comments.add(e);
+        return true;
+    }
+
+    public boolean setName(String name) {
+        boolean worked = actualFile.renameTo(actualFile);
+        if (worked)
+            this.name = name;
+        return worked;
+    }
+
+    public boolean setContents(String contents) {
+        if(actualFile.canWrite()){
+            try (FileWriter toWrite = new FileWriter(actualFile)) {
+                toWrite.write(contents);
+                toWrite.close();
+                content = contents;
+            } catch (IOException e) {
+                return false;
+            }
+            return true;
+        }
+        else{
+            return false;
         }
     }
-    return ID;
-}
 
+    public int getfileID() {
+        return fileID;
+    }
 
-//return name of file.
-public String getName(){
-    return name;
-}
-public void deleteFile(){
-    comments = null;
-}
-public void renameFile(String name){
-    this.name = name;
-    file
-    this.actualFile.renameTo(actualFile);
-}
+    public void setfileID(int fileID) {
+        this.fileID = fileID;
+    }
 
-public int getAccountID(){
-    return accountID;
-}
-public boolean addComment(LNComment e){
-    comments.add(e);
-    return true;
-}
+    public String getContent() {
+        return content;
+    }
 
-public boolean setName(String name){
-    this.name = name;
-    return true;
-}
-public boolean setContents(String contents){
-    content = contents;
-    return true;
-}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-public int getfileID() {
-    return fileID;
-}
+    public int getFolderID() {
+        return folderID;
+    }
 
-public void setfileID(int fileID) {
-    fileID = fileID;
-}
+    public void setFolderID(int folderID) {
+        this.folderID = folderID;
+    }
 
-public String getContent() {
-    return content;
-}
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
+    }
 
-public void setContent(String content) {
-    this.content = content;
-}
+    public void setComments(ArrayList<LNComment> comments) {
+        this.comments = comments;
+    }
 
-public int getFolderID() {
-    return folderID;
-}
-
-public void setFolderID(int folderID) {
-    this.folderID = folderID;
-}
-
-public void setAccountID(int accountID) {
-    this.accountID = accountID;
-}
-
-public void setComments(List<LNComment> comments) {
-    this.comments = comments;
-}
-
-    public static LNFileCRUDOps getFileOps()
-    {
+    public static LNFileCRUDOps getFileOps() {
         return LNFileOperations.getLNFileOperationsInstance();
     }
 
-
-    public File getFile()
-    {
+    public File getFile() {
         return this.actualFile;
     }
 
-    public int getID()
-    {
+    public int getID() {
         return this.fileID;
     }
 
-    public LNAccount getAccount()
-    {
-        return ;
-    }
-
-    public ArrayList<LNComment> getComments()
-    {
+    public ArrayList<LNComment> getComments() {
         return this.comments;
     }
 }

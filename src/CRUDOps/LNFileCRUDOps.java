@@ -16,9 +16,9 @@ public abstract class LNFileCRUDOps {
     public abstract boolean updateFile(int FileID, String name, String contents) throws IOException, ClassNotFoundException;
     public abstract boolean moveFile(int FileID, int folder, int callingAccount) throws IOException, ClassNotFoundException;
 
-    public abstract int previewFiles();
+    public abstract int previewFiles() throws ClassNotFoundException, IOException;
 
-    public abstract ArrayList<LNFile> getFileList();
+    public abstract ArrayList<LNFile> getFileList() throws ClassNotFoundException, IOException;
 
     public abstract int viewFile(File theFile);
 }
