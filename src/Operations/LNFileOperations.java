@@ -40,11 +40,19 @@ public class LNFileOperations extends LNFileCRUDOps
 
     public int previewFiles()
     {
-        for (int i = 0; i < records.size(); i++)
+        if (records != null)
         {
-            System.out.println("ID:" + records.get(i).getID() + ", Name: " + records.get(i).getName());
+            for (int i = 0; i < records.size(); i++)
+            {
+                System.out.println("ID:" + records.get(i).getID() + ", Name: " + records.get(i).getName());
+            }
+            return records.size();
         }
-        return records.size();
+        else
+        {
+            System.out.println("No files present");
+            return 0;
+        }
     }
 
     public ArrayList<LNFile> getFileList()
