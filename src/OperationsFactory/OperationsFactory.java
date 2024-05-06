@@ -3,9 +3,11 @@ package OperationsFactory;
 import CRUDOps.LNAccountCRUDOps;
 import CRUDOps.LNCommentCRUDOps;
 import CRUDOps.LNNotificationCRUDOps;
+import CRUDOps.LNFileCRUDOps;
 import Operations.LNAccountOperations;
 import Operations.LNCommentOperations;
 import Operations.LNNotificationOperations;
+import Operations.LNFileOperations;
 
 public class OperationsFactory
 {
@@ -19,8 +21,13 @@ public class OperationsFactory
         return LNNotificationOperations.getLNNotificationOperationsInstance();
     }
 
-    // public static LNCommentCRUDOps getCommOps()
-    // {
-    // return LNCommentOperations.getLNAccountOperationsInstance();
-    // }
+    public static LNCommentCRUDOps getCommOps()
+    {
+        return LNCommentOperations.getLNCommentOperationsInstance();
+    }
+
+    public static LNFileCRUDOps getFileOps()
+    {
+        return LNFileOperations.getLNFileOperationsInstance();
+    }
 }

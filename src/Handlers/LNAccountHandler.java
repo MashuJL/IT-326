@@ -266,6 +266,32 @@ public class LNAccountHandler
         return false;
     }
 
+    public int searchComments(String keyword, String username) throws ClassNotFoundException, IOException
+    {
+        if (verify(keyword))
+        {
+            LNAccount temp = getAcctOps().retrieveAcct(username);
+            if (temp == null)
+            {
+                System.out.println("Error - Account [Name = " + username + "] is null");
+                return 0;
+            }
+            int results = 0;
+            ArrayList<LNComment> comments = temp.getComments();
+            System.out.println("Comments conaining keyword: ");
+            for (int i = 0; i < comments.size(); i++)
+            {
+                if (comments.get(i).getText().contains(keyword))
+                {
+                    comments.get(i).toString();
+                    results++;
+                }
+            }
+            return results;
+        }
+        return -1;
+    }
+
     public int getNotifCount(String username) throws ClassNotFoundException, IOException
     {
         if (verify(username))

@@ -14,8 +14,4 @@ public class LNCommentController
         return commHandler;
     }
 
-    public static int printComment(int commentID)
-    {
-        return getLNCommentHandlerInstance().printComment(commentID);
-    }
 }

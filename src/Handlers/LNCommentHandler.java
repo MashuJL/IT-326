@@ -24,10 +24,4 @@ public class LNCommentHandler
     {
         return OperationsFactory.getCommOps();
     }
-
-    public int printComment(int commentID)
-    {
-
-        return 0;
-    }
 }

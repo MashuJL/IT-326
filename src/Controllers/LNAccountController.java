@@ -84,6 +84,11 @@ public class LNAccountController
         return acctHandler.editComment(currentUser, selected, newText);
     }
 
+    public static int searchComments(String keyword, String username) throws ClassNotFoundException, IOException
+    {
+        return acctHandler.searchComments(keyword, username);
+    }
+
     // calls the getNotifCount implementation from account handler -Nathan
     public static int getNotifCount(String username) throws IOException, ClassNotFoundException
     {

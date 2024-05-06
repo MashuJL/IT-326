@@ -1,11 +1,13 @@
 package Main;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
 import Controllers.LNAccountController;
 import Controllers.LNCommentController;
+import Controllers.LNFileController;
 import Models.LNAccount;
 
 public class LNMain
@@ -315,14 +317,31 @@ public class LNMain
                                 System.out.println("Notifiactions will not be disabled");
                             }
                         }
-                        else if (userInput == 11)
+                        else if (userInput == 11) // view a file
                         {
-                            // view file code
+                            System.out.println("Enter ID of desired file");
+                            LNFileController.previewFiles();
+                            userInput = Integer.parseInt(scanner.nextLine());
+                            for (int i = 0; i < LNFileController.previewFiles(); i++)
+                            {
+                                if (userInput == LNFileController.getFileList().get(i).getID())
+                                {
+                                    /* the code for viewing the file goes here */
+                                    File selectFile = LNFileController.getFileList().get(i).getFile();
+                                    LNFileController.viewFile(selectFile);
+                                }
+                                else
+                                {
+                                    System.out.println("Error - No ID match found");
+                                }
+                            }
+
                         }
-                        else if (userInput == 12)
+                        else if (userInput == 12) // search for a comment
                         {
-                            // search for comment code
+                            System.out.println("Enter a search term: ");
                             String search = scanner.nextLine();
+                            LNAccountController.searchComments(search, loginUsername);
                         }
                     }
                     catch (NumberFormatException e)
