@@ -11,7 +11,7 @@ import Operations.LNFileOperations;
 import java.util.ArrayList;
 
 public class LNFile implements Serializable{
-private int FileID;
+private int fileID;
 private String name;
 private String content;
 private int folderID; 
@@ -25,7 +25,7 @@ public LNFile(String name, int folderID, int accountID){
     this.name = name;
     this.folderID = folderID;
     this.accountID = accountID;
-    FileID = generateID();
+    fileID = generateID();
     content = "";
 }
 
@@ -33,7 +33,7 @@ public LNFile(String name, int folderID, int accountID,String contents){
     this.name = name;
     this.folderID = folderID;
     this.accountID = accountID;
-    FileID = generateID();
+    fileID = generateID();
     content = contents;
 }
 
@@ -62,22 +62,17 @@ private int generateID(){
 public String getName(){
     return name;
 }
-//return id of file.
-public int getID(){
-    return FileID;
-}
 public void deleteFile(){
     comments = null;
 }
 public void renameFile(String name){
     this.name = name;
+    file
+    this.actualFile.renameTo(actualFile);
 }
 
 public int getAccountID(){
     return accountID;
-}
-public List<LNComment> getComments(){
-    return comments;
 }
 public boolean addComment(LNComment e){
     comments.add(e);
@@ -93,12 +88,12 @@ public boolean setContents(String contents){
     return true;
 }
 
-public int getFileID() {
-    return FileID;
+public int getfileID() {
+    return fileID;
 }
 
-public void setFileID(int fileID) {
-    FileID = fileID;
+public void setfileID(int fileID) {
+    fileID = fileID;
 }
 
 public String getContent() {
@@ -130,26 +125,6 @@ public void setComments(List<LNComment> comments) {
         return LNFileOperations.getLNFileOperationsInstance();
     }
 
-public class LNFile implements Serializable
-{
-    // TODO: get the current version of LNFile - this is a stub
-    private int fileID;
-    private String name;
-    private String contents;
-    private File actualFile;
-    private LNFolder folder;
-    private LNAccount account;
-    private ArrayList<LNComment> comments;
-
-    public LNFile(String name)
-    {
-        this.name = name;
-    }
-
-    public String getName()
-    {
-        return this.name;
-    }
 
     public File getFile()
     {
@@ -163,7 +138,7 @@ public class LNFile implements Serializable
 
     public LNAccount getAccount()
     {
-        return this.account;
+        return ;
     }
 
     public ArrayList<LNComment> getComments()
