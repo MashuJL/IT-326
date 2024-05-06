@@ -2,6 +2,8 @@ package Handlers;
 
 import Models.*;
 import CRUDOps.LNFolderCRUDOps;
+import OperationsFactory.OperationsFactory;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class LNFolderHandler 
@@ -23,6 +25,11 @@ public class LNFolderHandler
         }
     }
 
+    public static LNFolderCRUDOps getFolOps()
+    {
+        return OperationsFactory.getFolOps();
+    }
+
     /**
      * Method to get the files of the folder
      * @param folder the folder
@@ -33,11 +40,50 @@ public class LNFolderHandler
         return folder.getFileList();
     }
 
-    public Boolean renameFolder(LNFolder folder, String name)
+    /**
+     * Creates a new folder
+     * @param name name of the folder
+     * @param owner owner of the folder
+     * @return the folder
+     */
+    public LNFolder createFolder(String name, LNAccount owner)
     {
         if(verify(name))
         {
-            folder.updateFolder(folder, folder.getFolderID(), folder.getOwner(), folder.getFileList());
+            return getFolOps().createFolder(name, owner);
         }
+        else
+            return null;
     }
+
+    /**
+     * Renames the folder
+     * @param folder LNFolder object
+     * @param name new name
+     * @return True if name is changed
+     * @throws IOException
+     */
+    public Boolean renameFolder(LNFolder folder, String name) throws IOException
+    {
+        if(verify(name))
+        {
+            getFolOps().updateFolder(folder, folder.getFolderID(), name, folder.getOwner(), folder.getFileList());
+            return true;
+        }
+        else
+            return false;
+    }
+
+    /**
+     * Deletes the folder and the files inside the folder
+     * @param folder the folder being deleted
+     * @return True when the folder is deleted
+     * @throws ClassNotFoundException
+     * @throws IOException
+     */
+    public Boolean removeFolder(LNFolder folder) throws ClassNotFoundException, IOException
+    {
+        return getFolOps().deleteFolder(folder);
+    }
+
 }
