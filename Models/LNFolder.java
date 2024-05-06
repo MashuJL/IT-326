@@ -49,12 +49,12 @@ public class LNFolder implements Serializable
         this.name = newName;
     }
 
-    public LNFile[] getFileList()
+    public ArrayList<LNFile> getFileList()
     {
         return fileList;
     }
 
-    public void setFileList(LNFile[] files)
+    public void setFileList(ArrayList<LNFile> files)
     {
         fileList = files;
     }

@@ -6,7 +6,6 @@ import CRUDOps.LNFolderCRUDOps;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.*; 
-import java.lang.reflect.Array;
 
 public class LNFolderOperations extends LNFolderCRUDOps
 {
@@ -61,7 +60,7 @@ public class LNFolderOperations extends LNFolderCRUDOps
     }
 
     @Override
-    public boolean updateFolder(LNFolder folder, int FolderID, String name, LNAccount owner, LNFile files[])
+    public boolean updateFolder(LNFolder folder, int FolderID, String name, LNAccount owner, ArrayList<LNFile> files)
     {
         //If statement that returns false if the folder is a null object
         if(folder == null)
