@@ -9,7 +9,15 @@ import java.io.*;
 
 public class LNFolderOperations extends LNFolderCRUDOps
 {
-    private ArrayList<LNFolder> folders;
+    private ArrayList<LNFolder> folders = null;
+    private static LNFolderCRUDOps folOps = null;
+
+    public static LNFolderCRUDOps getLNFolderOperationsInstance()
+    {
+        if(folOps == null)
+            folOps = new LNFolderOperations();
+        return folOps;
+    }
 
     @Override
     public boolean createFolder(String name, LNAccount owner)
