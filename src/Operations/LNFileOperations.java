@@ -1,50 +1,24 @@
 package Operations;
-import java.util.List;
 
 import CRUDOps.LNFileCRUDOps;
-import Models.LNAccount;
-import Models.LNComment;
 import Models.LNFile;
 
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class LNFileOperations extends LNFileCRUDOps{
 
-    private ArrayList<LNFile> records;
+    private static LNFileCRUDOps FileOps = null;
 
-    public boolean createFile(String name,int folder,int account){
-        return records.add(new LNFile(name,folder,account));
-    }
-    public boolean deleteFile(LNFile deleted){
-        if(records.remove(deleted)){
-            deleted.deleteFile();
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    public LNFile getFile(int id){
+
+    private LNFile getFileInternal(ArrayList<LNFile> records, int FileID){
         LNFile toGet = null;
-        for (int i = 0; i < records.size(); i++) {
-            toGet = records.get(i);
-            if (toGet.getID()==id) {
-                break;
-            }
-            else{
-                toGet = null;
-            }
-        }
-        return toGet;
-    }
-    public boolean updateFile(int FileID, String name, String folder, String contents){
-        LNFile toGet = null;
-        boolean noError= true;
         for (int i = 0; i < records.size(); i++) {
             toGet = records.get(i);
             if (toGet.getID()==FileID) {
@@ -54,30 +28,169 @@ public class LNFileOperations extends LNFileCRUDOps{
                 toGet = null;
             }
         }
+        return toGet;
+    }
+    public static LNFileCRUDOps getLNFileOperationsInstance(){
+        if(FileOps==null)
+            FileOps = new LNFileOperations();
+        return FileOps;
+    }
+
+    public boolean createFile(String name,int folder,int account) throws ClassNotFoundException, IOException{
+        ArrayList<LNFile> records = readFileCSV(); 
+        if(records==null){
+            records = new ArrayList<LNFile>();
+        }
+        if(getFileInternal(records, name, folder, account)!=null){
+            return false;
+        }
+        boolean returnVal = records.add(new LNFile(name,folder,account));
+        if(returnVal)
+        writeFileCSV(records);
+        return returnVal;
+    }
+    public boolean deleteFile(LNFile deleted) 
+    throws IOException, ClassNotFoundException{
+        if(deleted== null){
+            return false;
+        }
+        ArrayList<LNFile> records = readFileCSV(); 
+        if(records==null){
+            return false;
+        }
+        if(records.remove(deleted)){
+            deleted.deleteFile();
+            writeFileCSV(records);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    private LNFile getFileInternal(ArrayList<LNFile> records, String name,int folder,int account) throws IOException, ClassNotFoundException{
+        LNFile toGet = null;
+        for (int i = 0; i < records.size(); i++) {
+            toGet = records.get(i);
+            if(records.get(i).getName().equals(name)&&
+            records.get(i).getFolderID()==folder&&
+            records.get(i).getAccountID()==account) {
+                break;
+            }
+            else{
+                toGet = null;
+            }
+        }
+        return toGet;
+    }
+    public LNFile getFile(String name,int folder,int account) throws IOException, ClassNotFoundException{
+        ArrayList<LNFile> records = readFileCSV(); 
+        if(records==null){
+            return null;
+        }
+        LNFile toGet = getFileInternal(records,name,folder,account);
+        return toGet;
+    }
+    public LNFile getFileByID(int id) throws IOException, ClassNotFoundException{
+        ArrayList<LNFile> records = readFileCSV(); 
+        if(records==null){
+            return null;
+        }
+        LNFile toGet = getFileInternal(records,id);
+        return toGet;
+    }
+
+    public boolean updateFile(int FileID, String name, String contents)
+    throws IOException, ClassNotFoundException{
+        ArrayList<LNFile> records = readFileCSV(); 
+        if(records==null){
+            return false;
+        }
+        LNFile toGet = getFileInternal(records,FileID);
+        boolean noError= true;
         if(toGet==null){
             return false;
         }
         if (name != null) {
             noError = toGet.setName(name);
         }
+        //don't want to have it continue on if we run into an error beforehand for renaming it
         if(contents!= null&&noError){
             noError = toGet.setContents(contents);
         }
+        //if there is no error, we update it. else just ignore
+        if(noError){
+            writeFileCSV(records);
+        }
         return noError;
+    }
+
+    public boolean moveFile(int FileID, int folder, int callingAccount)
+    throws IOException, ClassNotFoundException{
+        ArrayList<LNFile> records = readFileCSV(); 
+        if(records==null){
+            return false;
+        }
+        LNFile toGet = getFileInternal(records,FileID);
+        if(toGet==null){
+            return false;
+        }
+        LNFile existing = getFileInternal(records,toGet.getName(),folder,callingAccount);
+        if(existing!=null){
+            return false;
+        }
+        toGet.setFolderID(folder);
+        writeFileCSV(records);
+        return true;
+    }
+
+    public boolean downloadFile(String fileName, String folderName, LNFile toDownload) 
+    throws IOException{
+        File folderPath = new File(folderName);
+        File newFile = new File(folderName+fileName);
+        boolean madeFolders = folderPath.mkdirs();
+        //check if the folders were made or if path exists, if so, check
+        //if file can be made or written to, then write
+        if (madeFolders||folderPath.exists()) {
+            if (newFile.createNewFile()||newFile.canWrite()) {
+                FileWriter toWrite = new FileWriter(newFile);
+                toWrite.write(toDownload.getContent());
+                toWrite.close();
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
     }
 @Override
 public ArrayList<LNFile> readFileCSV() throws IOException, ClassNotFoundException {
     try {
         FileInputStream files = new FileInputStream("files.csv");
         ObjectInputStream filesToFiles = new ObjectInputStream(files);
-        return (ArrayList<LNFile>) filesToFiles.readObject();
+        ArrayList<LNFile> toRead = (ArrayList<LNFile>) filesToFiles.readObject();
+        filesToFiles.close();
+        return toRead;
     } catch (Exception e) {
         return null;
     }
 }
 @Override
-public boolean writeFileCSV(ArrayList<File> files) throws IOException, ClassNotFoundException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'writeFileCSV'");
+public boolean writeFileCSV(ArrayList<LNFile> records) throws IOException, ClassNotFoundException {
+    File csvFile = new File("files.csv");
+        csvFile.createNewFile();
+        try {
+            FileOutputStream fos = new FileOutputStream(csvFile);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.flush();
+            oos.writeObject(records);
+            oos.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
 }
+
 }

@@ -1,12 +1,7 @@
 package Handlers;
-import java.io.File;
-import java.util.List;
-
-import CRUDOps.LNAccountCRUDOps;
+import java.io.IOException;
 import CRUDOps.LNFileCRUDOps;
 import Models.LNFile;
-import Models.LNFolder;
-import Controllers.LNFolderController;
 import OperationsFactory.OperationsFactory;
 
 public class LNFileHandler {
@@ -15,23 +10,43 @@ public class LNFileHandler {
     {
         return OperationsFactory.getFileOps();
     }
-    public boolean uploadFile(String name, int folderID, int accountID, List<LNFile> filesInFolder){
+    public boolean uploadFile(String name, int folderID, int accountID) throws ClassNotFoundException, IOException{
+        if(verify(name)&&verify(folderID)&&verify(accountID))
         return getFileOps().createFile(name, folderID, accountID);
+        else
+        return false;
     }
-    public boolean removeFile(LNFile file){
+    public boolean removeFile(LNFile file) throws ClassNotFoundException, IOException{
+        if(verify(file))
         return getFileOps().deleteFile(file);
+        else
+        return false;
     }
-    public boolean moveFile(LNFile file, String destination,List<LNFile> filesInFolder){
-        return getFileOps().updateFile(file.getFileID(), null, destination, null);
+    public boolean moveFile(LNFile file, int destination,int account) throws ClassNotFoundException, IOException{
+        if(verify(file)&&verify(destination)&&verify(account))
+        return getFileOps().moveFile(file.getFileID(), destination, account);
+        else
+        return false;
     }
-    public boolean updateFile(int id,String name,String contents,List<LNFile> filesInFolder){
-        return getFileOps().updateFile(id, name, null, contents);
+    public boolean updateFile(int id,String name,String contents) throws ClassNotFoundException, IOException{
+        if(verify(id)&&verify(name)&&verify(contents))
+        return getFileOps().updateFile(id, name, contents);
+        else
+        return false;
     }
-    public boolean downloadFile(String name, LNFile file){
-        return getFileOps().;
+    public boolean downloadFile(String name, String folder, LNFile file) throws IOException{
+        if(verify(name)&&verify(folder)&&verify(file))
+        return getFileOps().downloadFile(name, folder, file);
+        else
+        return false;
     }
-    private boolean verify(){
-        return true;
+    private boolean verify(String verifyStr){
+        return verifyStr instanceof String;
     }
-    
+    private boolean verify(Integer verifyInt){
+        return verifyInt instanceof Integer;
+    }
+    private boolean verify(LNFile verifyFile){
+        return verifyFile instanceof LNFile;
+    }
 }

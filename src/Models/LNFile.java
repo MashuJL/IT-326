@@ -1,31 +1,58 @@
 package Models;
 import java.io.Serializable;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
+import java.util.Random;
+
+import CRUDOps.LNFileCRUDOps;
+import Operations.LNFileOperations;
 
 public class LNFile implements Serializable{
 private int FileID;
 private String name;
 private String content;
-private File actualFile;
 private int folderID; 
 private int accountID;
 private List<LNComment> comments;
+
+
 
 public LNFile(String name, int folderID, int accountID){
     this.name = name;
     this.folderID = folderID;
     this.accountID = accountID;
-    actualFile = new File(name);
+    FileID = generateID();
+    content = "";
 }
 
-public LNFile(String name, int folderID, int accountID,File actualFile){
+public LNFile(String name, int folderID, int accountID,String contents){
     this.name = name;
     this.folderID = folderID;
     this.accountID = accountID;
-    this.actualFile = actualFile;
+    FileID = generateID();
+    content = contents;
 }
+
+private int generateID(){
+    Random gen = new Random();
+    int ID =-1;
+    while(ID==-1){
+        ID = gen.nextInt(10000);
+        try {
+            if(getFileOps().getFileByID(ID)!= null){
+                ID = -1;
+            }
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    return ID;
+}
+
 
 //return name of file.
 public String getName(){
@@ -36,22 +63,10 @@ public int getID(){
     return FileID;
 }
 public void deleteFile(){
-    actualFile.delete();
     comments = null;
 }
 public void renameFile(String name){
     this.name = name;
-    File newFile = new File(actualFile,name);
-    actualFile.delete();
-    actualFile = newFile;
-}
-
-//this will allow user to download the file to another location.
-public void downloadFile(String downloadName){
-    File makeFile = new File(actualFile, downloadName);
-}
-public File getFile(){
-    return this.actualFile;
 }
 
 public int getAccountID(){
@@ -66,27 +81,12 @@ public boolean addComment(LNComment e){
 }
 
 public boolean setName(String name){
-    File renamFile = new File(actualFile, name);
-    if (actualFile.delete()) {
-        actualFile = renamFile;
-        return true;
-    } else {
-        return false;
-    }
-
+    this.name = name;
+    return true;
 }
 public boolean setContents(String contents){
-    if(contents ==null){
-        return true;
-    }
-    try {
-        FileWriter write = new FileWriter(actualFile);
-        write.write(contents);
-        write.close();
-        return true;
-    } catch (Exception e) {
-        return false;
-    }
+    content = contents;
+    return true;
 }
 
 public int getFileID() {
@@ -105,14 +105,6 @@ public void setContent(String content) {
     this.content = content;
 }
 
-public File getActualFile() {
-    return actualFile;
-}
-
-public void setActualFile(File actualFile) {
-    this.actualFile = actualFile;
-}
-
 public int getFolderID() {
     return folderID;
 }
@@ -128,5 +120,10 @@ public void setAccountID(int accountID) {
 public void setComments(List<LNComment> comments) {
     this.comments = comments;
 }
+
+    public static LNFileCRUDOps getFileOps()
+    {
+        return LNFileOperations.getLNFileOperationsInstance();
+    }
 
 }

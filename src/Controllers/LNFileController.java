@@ -1,13 +1,9 @@
 package Controllers;
 
-import java.io.File;
-import java.util.List;
+import java.io.IOException;
 
 import Models.LNFile;
-import Models.LNFolder;
 import Handlers.LNFileHandler;
-
-import java.util.List;
 
 
 public class LNFileController {
@@ -19,21 +15,21 @@ public class LNFileController {
         return handler;
     }
 //finalize, save it.
-public Boolean uploadFile(String name, LNFile file){
-    return handler.uploadFile(name, file);
+public Boolean uploadFile(String name, int folderID, int accountID) throws ClassNotFoundException, IOException{
+    return handler.uploadFile(name, folderID, accountID);
 }
-public boolean removeFile(LNFile file){
+public boolean removeFile(LNFile file) throws ClassNotFoundException, IOException{
     return handler.removeFile(file);
 }
-public boolean moveFile(LNFile file, LNFolder destination){
-    return handler.moveFile(file, destination);
+public boolean moveFile(LNFile file, int destination,int account) throws ClassNotFoundException, IOException{
+    return handler.moveFile(file, destination,account);
 }
 //when call update file, in that method you will ask user what they will want to change,title, text
-public boolean updateFile(String name,String contents){
-    return handler.updateFile(name, contents);
+public boolean updateFile(int id,String name,String contents) throws ClassNotFoundException, IOException{
+    return handler.updateFile(id,name, contents);
 }
-public boolean downloadFile(String name, LNFile file){
-    return handler.downloadFile(name, file);
+public boolean downloadFile(String name, String folder, LNFile file) throws IOException{
+    return handler.downloadFile(name, folder, file);
 }
 
 }
