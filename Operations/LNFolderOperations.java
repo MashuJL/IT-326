@@ -6,9 +6,10 @@ import CRUDOps.LNFolderCRUDOps;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.*; 
+import java.lang.reflect.Array;
 
 public class LNFolderOperations extends LNFolderCRUDOps
- {
+{
     private ArrayList<LNFolder> folders;
 
     @Override
@@ -88,5 +89,51 @@ public class LNFolderOperations extends LNFolderCRUDOps
         }
 
         return true;
-    }    
+    }
+
+    /**
+     * Adds a file to the folder
+     * @param folder folder the file is getting added to
+     * @param file file being added
+     * @return True when the file is added
+     */
+    public boolean addFile(LNFolder folder, LNFile file)
+    {
+       //Checks if the folder or the file are null 
+       if(folder == null || file == null)
+            return false;
+
+       //Adds the file to the folder 
+       ArrayList<LNFile> fileList = folder.getFileList();
+       fileList.add(file);
+       folder.setFileList(fileList); 
+       return true;
+    }
+
+    /**
+     * Deletes a file from the folder
+     * @param folder Folder the file is getting deleted from
+     * @param file The file being deleted
+     * @return True when the file is deleted
+     */
+    public boolean deleteFile(LNFolder folder, LNFile file)
+    {
+        //Checks if the folder or the file are null 
+        if(folder == null || file == null)
+            return false;
+        
+        //Removes the file from the folder
+        ArrayList<LNFile> fileList = folder.getFileList();
+        for(int i = 0; i < fileList.size(); i++)
+        {
+            if(fileList.get(i).getFileID == file.getFileID)
+            {
+                fileList.remove(i);
+                return true;
+            }
+        }
+
+        //Returns false if the file can't be found in the folder
+        return false;
+    }
 }
