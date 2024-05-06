@@ -16,22 +16,22 @@ public class LNFile implements Serializable {
     private String name;
     private String content;
     private int folderID;
-    private int accountID;
+    private String account;
     private File actualFile;
     private ArrayList<LNComment> comments;
 
-    public LNFile(String name, int folderID, int accountID) {
+    public LNFile(String name, int folderID, String account) {
         this.name = name;
         this.folderID = folderID;
-        this.accountID = accountID;
+        this.account = account;
         fileID = generateID();
         content = "";
     }
 
-    public LNFile(String name, int folderID, int accountID, String contents) {
+    public LNFile(String name, int folderID, String account, String contents) {
         this.name = name;
         this.folderID = folderID;
-        this.accountID = accountID;
+        this.account = account;
         fileID = generateID();
         content = contents;
     }
@@ -66,8 +66,8 @@ public class LNFile implements Serializable {
         actualFile.delete();
     }
 
-    public int getAccountID() {
-        return accountID;
+    public String getAccount() {
+        return account;
     }
 
     public boolean addComment(LNComment e) {
@@ -122,8 +122,8 @@ public class LNFile implements Serializable {
         this.folderID = folderID;
     }
 
-    public void setAccountID(int accountID) {
-        this.accountID = accountID;
+    public void setaccount(String account) {
+        this.account = account;
     }
 
     public void setComments(ArrayList<LNComment> comments) {

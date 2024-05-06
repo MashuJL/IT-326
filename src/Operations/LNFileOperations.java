@@ -38,7 +38,7 @@ public class LNFileOperations extends LNFileCRUDOps{
         return fileOps;
     }
 
-    public boolean createFile(String name,int folder,int account) throws ClassNotFoundException, IOException{
+    public boolean createFile(String name,int folder,String account) throws ClassNotFoundException, IOException{
         ArrayList<LNFile> records = readFileCSV(); 
         if(records==null){
             records = new ArrayList<LNFile>();
@@ -69,13 +69,13 @@ public class LNFileOperations extends LNFileCRUDOps{
             return false;
         }
     }
-    private LNFile getFileInternal(ArrayList<LNFile> records, String name,int folder,int account) throws IOException, ClassNotFoundException{
+    private LNFile getFileInternal(ArrayList<LNFile> records, String name,int folder,String account) throws IOException, ClassNotFoundException{
         LNFile toGet = null;
         for (int i = 0; i < records.size(); i++) {
             toGet = records.get(i);
             if(records.get(i).getName().equals(name)&&
             records.get(i).getFolderID()==folder&&
-            records.get(i).getAccountID()==account) {
+            records.get(i).getAccount().equals(account)) {
                 break;
             }
             else{
@@ -84,7 +84,7 @@ public class LNFileOperations extends LNFileCRUDOps{
         }
         return toGet;
     }
-    public LNFile getFile(String name,int folder,int account) throws IOException, ClassNotFoundException{
+    public LNFile getFile(String name,int folder,String account) throws IOException, ClassNotFoundException{
         ArrayList<LNFile> records = readFileCSV(); 
         if(records==null){
             return null;
@@ -126,7 +126,7 @@ public class LNFileOperations extends LNFileCRUDOps{
         return noError;
     }
 
-    public boolean moveFile(int FileID, int folder, int callingAccount)
+    public boolean moveFile(int FileID, int folder, String callingAccount)
     throws IOException, ClassNotFoundException{
         ArrayList<LNFile> records = readFileCSV(); 
         if(records==null){
@@ -251,5 +251,16 @@ public boolean writeFileCSV(ArrayList<LNFile> records) throws IOException, Class
             }
         }
         return 0;
+    }
+    @Override
+    public int getFileID(String name, int folderID, String account) throws ClassNotFoundException, IOException {
+        ArrayList<LNFile> records = readFileCSV(); 
+        if(records==null){
+            return -1;
+        }
+        LNFile toGet = getFileInternal(records,name,folderID,account);
+        if(toGet== null)
+        return -1;
+        return toGet.getID();
     }
 }

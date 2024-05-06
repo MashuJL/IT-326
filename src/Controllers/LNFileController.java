@@ -17,25 +17,25 @@ public class LNFileController {
     }
 
     // finalize, save it.
-    public Boolean uploadFile(String name, int folderID, int accountID) throws ClassNotFoundException, IOException {
-        return handler.uploadFile(name, folderID, accountID);
+    public static boolean uploadFile(String name, int folderID, String account) throws ClassNotFoundException, IOException {
+        return handler.uploadFile(name, folderID, account);
     }
 
-    public boolean removeFile(LNFile file) throws ClassNotFoundException, IOException {
+    public static boolean removeFile(LNFile file) throws ClassNotFoundException, IOException {
         return handler.removeFile(file);
     }
 
-    public boolean moveFile(LNFile file, int destination, int account) throws ClassNotFoundException, IOException {
+    public static boolean moveFile(LNFile file, int destination, String account) throws ClassNotFoundException, IOException {
         return handler.moveFile(file, destination, account);
     }
 
     // when call update file, in that method you will ask user what they will want
     // to change,title, text
-    public boolean updateFile(int id, String name, String contents) throws ClassNotFoundException, IOException {
+    public static boolean updateFile(int id, String name, String contents) throws ClassNotFoundException, IOException {
         return handler.updateFile(id, name, contents);
     }
 
-    public boolean downloadFile(String name, String folder, LNFile file) throws IOException {
+    public static boolean downloadFile(String name, String folder, LNFile file) throws IOException {
         return handler.downloadFile(name, folder, file);
     }
 
@@ -51,4 +51,11 @@ public class LNFileController {
         return getLNFileHandlerInstance().viewFile(theFile);
     }
 
+    public static int getFileID(String name, int folderID, String account) throws ClassNotFoundException, IOException {
+        return getLNFileHandlerInstance().getFileID(name,folderID, account);
+    }
+
+    public static LNFile getFileFromID(int id) {
+        return getLNFileHandlerInstance().getFileFromID(id);
+    }
 }

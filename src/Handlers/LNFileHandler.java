@@ -15,9 +15,9 @@ public class LNFileHandler {
         return OperationsFactory.getFileOps();
     }
 
-    public boolean uploadFile(String name, int folderID, int accountID) throws ClassNotFoundException, IOException {
-        if (verify(name) && verify(folderID) && verify(accountID))
-            return getFileOps().createFile(name, folderID, accountID);
+    public boolean uploadFile(String name, int folderID, String account) throws ClassNotFoundException, IOException {
+        if (verify(name) && verify(folderID) && verify(account))
+            return getFileOps().createFile(name, folderID, account);
         else
             return false;
     }
@@ -29,7 +29,7 @@ public class LNFileHandler {
             return false;
     }
 
-    public boolean moveFile(LNFile file, int destination, int account) throws ClassNotFoundException, IOException {
+    public boolean moveFile(LNFile file, int destination, String account) throws ClassNotFoundException, IOException {
         if (verify(file) && verify(destination) && verify(account))
             return getFileOps().moveFile(file.getfileID(), destination, account);
         else
@@ -62,6 +62,10 @@ public class LNFileHandler {
         return verifyFile instanceof LNFile;
     }
 
+    private boolean verify(File verifyFile) {
+        return verifyFile instanceof File;
+    }
+
     public int previewFiles() throws ClassNotFoundException, IOException {
         return getFileOps().previewFiles();
     }
@@ -71,7 +75,23 @@ public class LNFileHandler {
     }
 
     public int viewFile(File theFile) {
+        if(verify(theFile))
         return getFileOps().viewFile(theFile);
+        return -1;
     }
 
+    public int getFileID(String name, int folderID, String account) throws ClassNotFoundException, IOException {
+        if (verify(name) && verify(folderID) && verify(account))
+        return getFileOps().getFileID(name, folderID, account);
+        return -1;
+    }
+    public LNFile getFileFromID(int id){
+        if(verify(id))
+            try {
+                return getFileOps().getFileByID(id);
+            } catch (Exception e) {
+                return null;
+            }
+        return null;
+    }
 }
