@@ -1,6 +1,8 @@
 package Controllers;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import Models.LNFile;
 import Handlers.LNFileHandler;
@@ -31,5 +33,21 @@ public boolean updateFile(int id,String name,String contents) throws ClassNotFou
 public boolean downloadFile(String name, String folder, LNFile file) throws IOException{
     return handler.downloadFile(name, folder, file);
 }
+
+
+    public static int previewFiles()
+    {
+        return getLNFileHandlerInstance().previewFiles();
+    }
+
+    public static ArrayList<LNFile> getFileList()
+    {
+        return getLNFileHandlerInstance().getFileList();
+    }
+
+    public static int viewFile(File theFile)
+    {
+        return getLNFileHandlerInstance().viewFile(theFile);
+    }
 
 }

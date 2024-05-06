@@ -1,5 +1,6 @@
 package CRUDOps;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import Models.LNFile;
@@ -14,4 +15,10 @@ public abstract class LNFileCRUDOps {
     public abstract boolean downloadFile(String fileName, String folderName, LNFile toDownload) throws IOException;
     public abstract boolean updateFile(int FileID, String name, String contents) throws IOException, ClassNotFoundException;
     public abstract boolean moveFile(int FileID, int folder, int callingAccount) throws IOException, ClassNotFoundException;
+
+    public abstract int previewFiles();
+
+    public abstract ArrayList<LNFile> getFileList();
+
+    public abstract int viewFile(File theFile);
 }

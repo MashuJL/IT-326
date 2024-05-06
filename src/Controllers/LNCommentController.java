@@ -1,5 +1,17 @@
 package Controllers;
-public class LNCommentController 
+
+import Handlers.LNAccountHandler;
+import Handlers.LNCommentHandler;
+
+public class LNCommentController
 {
-    
+    private static LNCommentHandler commHandler = null;
+
+    private static LNCommentHandler getLNCommentHandlerInstance()
+    { // Gets the comment handler object
+        if (commHandler == null)
+            commHandler = new LNCommentHandler();
+        return commHandler;
+    }
+
 }

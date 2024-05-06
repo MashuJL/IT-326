@@ -49,4 +49,39 @@ public class LNFileHandler {
     private boolean verify(LNFile verifyFile){
         return verifyFile instanceof LNFile;
     }
+
+
+    public static LNFileCRUDOps getFileOps()
+    {
+        return OperationsFactory.getFileOps();
+    }
+
+    private boolean verify(int verifyInt)
+    {
+        try
+        {
+            Integer temp = (Integer) verifyInt;
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+
+    public int previewFiles()
+    {
+        return getFileOps().previewFiles();
+    }
+
+    public ArrayList<LNFile> getFileList()
+    {
+        return getFileOps().getFileList();
+    }
+
+    public int viewFile(File theFile)
+    {
+        return getFileOps().viewFile(theFile);
+    }
+
 }

@@ -1,29 +1,34 @@
 package Controllers;
+
 import java.io.IOException;
 
 import Handlers.LNAccountHandler;
 
-public class LNAccountController 
+public class LNAccountController
 {
     private static LNAccountHandler acctHandler = null;
 
-    private static LNAccountHandler getLNAccountHandlerInstance(){ //Gets the account handler object
-        if(acctHandler==null)
+    private static LNAccountHandler getLNAccountHandlerInstance()
+    { // Gets the account handler object
+        if (acctHandler == null)
             acctHandler = new LNAccountHandler();
         return acctHandler;
     }
-    
-    public static boolean login(String username, String password) throws IOException, ClassNotFoundException //Calls login implementation from account handler
+
+    // Calls login implementation from account handler
+    public static boolean login(String username, String password) throws IOException, ClassNotFoundException
     {
         return getLNAccountHandlerInstance().login(username, password);
     }
 
-    public static boolean createAccount(String username, String password) throws IOException, ClassNotFoundException //Calls create account implementation from account handler
+    // Calls create account implementation from account handler
+    public static boolean createAccount(String username, String password) throws IOException, ClassNotFoundException
     {
         return getLNAccountHandlerInstance().createAccount(username, password);
     }
 
-    public static boolean updateAccount(String username, String password, String curUsername, String curPassword) throws IOException, ClassNotFoundException
+    public static boolean updateAccount(String username, String password, String curUsername, String curPassword)
+            throws IOException, ClassNotFoundException
     {
         return getLNAccountHandlerInstance().updateAccount(username, password, curUsername, curPassword);
     }
@@ -33,7 +38,7 @@ public class LNAccountController
         return getLNAccountHandlerInstance().deleteAccount(username, password);
     }
 
-    public static boolean loggout() //Calls loggout implementation from account handler
+    public static boolean loggout() // Calls loggout implementation from account handler
     {
         return getLNAccountHandlerInstance().loggout();
     }
@@ -73,10 +78,35 @@ public class LNAccountController
         return acctHandler.removeComment(currentUser, removed);
     }
 
-    public static boolean editComment(String currentUser, int selected, String newText) throws ClassNotFoundException, IOException
+    public static boolean editComment(String currentUser, int selected, String newText)
+            throws ClassNotFoundException, IOException
     {
         return acctHandler.editComment(currentUser, selected, newText);
     }
 
+    public static int searchComments(String keyword, String username) throws ClassNotFoundException, IOException
+    {
+        return acctHandler.searchComments(keyword, username);
+    }
 
+    // calls the getNotifCount implementation from account handler -Nathan
+    public static int getNotifCount(String username) throws IOException, ClassNotFoundException
+    {
+        return getLNAccountHandlerInstance().getNotifCount(username);
+    }
+
+    public static boolean disableNotifs(String username) throws IOException, ClassNotFoundException
+    {
+        return getLNAccountHandlerInstance().disableNotifs(username);
+    }
+
+    public static boolean clearNotifs(String username) throws IOException, ClassNotFoundException
+    {
+        return getLNAccountHandlerInstance().clearNotifs(username);
+    }
+
+    public static int printNotif(String username) throws ClassNotFoundException, IOException
+    {
+        return getLNAccountHandlerInstance().printNotif(username);
+    }
 }
