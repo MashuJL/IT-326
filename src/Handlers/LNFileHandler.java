@@ -37,7 +37,7 @@ public class LNFileHandler {
     }
 
     public boolean updateFile(int id, String name, String contents) throws ClassNotFoundException, IOException {
-        if (verify(id) && verify(name) && verify(contents))
+        if (verify(id) && (verify(name)||name==null) && (verify(contents)||contents==null))
             return getFileOps().updateFile(id, name, contents);
         else
             return false;
@@ -83,6 +83,7 @@ public class LNFileHandler {
     public int getFileID(String name, int folderID, String account) throws ClassNotFoundException, IOException {
         if (verify(name) && verify(folderID) && verify(account))
         return getFileOps().getFileID(name, folderID, account);
+        System.out.println("dummy");
         return -1;
     }
     public LNFile getFileFromID(int id){

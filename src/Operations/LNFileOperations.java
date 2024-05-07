@@ -60,14 +60,14 @@ public class LNFileOperations extends LNFileCRUDOps{
         if(records==null){
             return false;
         }
-        if(records.remove(deleted)){
+        for (int i = 0; i < records.size(); i++) {
+            if(records.get(i).getID()==deleted.getID()){
             deleted.deleteFile();
             writeFileCSV(records);
             return true;
+            }
         }
-        else{
             return false;
-        }
     }
     private LNFile getFileInternal(ArrayList<LNFile> records, String name,int folder,String account) throws IOException, ClassNotFoundException{
         LNFile toGet = null;
@@ -108,10 +108,10 @@ public class LNFileOperations extends LNFileCRUDOps{
             return false;
         }
         LNFile toGet = getFileInternal(records,FileID);
-        boolean noError= true;
         if(toGet==null){
             return false;
         }
+        boolean noError= true;
         if (name != null) {
             noError = toGet.setName(name);
         }

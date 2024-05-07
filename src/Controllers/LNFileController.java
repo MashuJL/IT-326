@@ -18,25 +18,25 @@ public class LNFileController {
 
     // finalize, save it.
     public static boolean uploadFile(String name, int folderID, String account) throws ClassNotFoundException, IOException {
-        return handler.uploadFile(name, folderID, account);
+        return getLNFileHandlerInstance().uploadFile(name, folderID, account);
     }
 
     public static boolean removeFile(LNFile file) throws ClassNotFoundException, IOException {
-        return handler.removeFile(file);
+        return getLNFileHandlerInstance().removeFile(file);
     }
 
     public static boolean moveFile(LNFile file, int destination, String account) throws ClassNotFoundException, IOException {
-        return handler.moveFile(file, destination, account);
+        return getLNFileHandlerInstance().moveFile(file, destination, account);
     }
 
     // when call update file, in that method you will ask user what they will want
     // to change,title, text
     public static boolean updateFile(int id, String name, String contents) throws ClassNotFoundException, IOException {
-        return handler.updateFile(id, name, contents);
+        return getLNFileHandlerInstance().updateFile(id, name, contents);
     }
 
     public static boolean downloadFile(String name, String folder, LNFile file) throws IOException {
-        return handler.downloadFile(name, folder, file);
+        return getLNFileHandlerInstance().downloadFile(name, folder, file);
     }
 
     public static int previewFiles() throws ClassNotFoundException, IOException {

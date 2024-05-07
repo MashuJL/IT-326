@@ -26,14 +26,12 @@ public class LNFile implements Serializable {
         this.account = account;
         fileID = generateID();
         content = "";
-    }
-
-    public LNFile(String name, int folderID, String account, String contents) {
-        this.name = name;
-        this.folderID = folderID;
-        this.account = account;
-        fileID = generateID();
-        content = contents;
+        actualFile = new File(name);
+        try {
+            actualFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private int generateID() {
@@ -76,9 +74,15 @@ public class LNFile implements Serializable {
     }
 
     public boolean setName(String name) {
-        boolean worked = actualFile.renameTo(actualFile);
-        if (worked)
+        File newFile = new File(name);
+        boolean worked = actualFile.renameTo(newFile);
+        if(worked){
             this.name = name;
+            if(actualFile.exists()){
+                actualFile.delete();
+            }
+            actualFile = newFile;
+        }
         return worked;
     }
 

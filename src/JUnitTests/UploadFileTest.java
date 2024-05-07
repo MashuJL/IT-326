@@ -12,6 +12,8 @@ import org.junit.Test;
 
 import Handlers.LNFileHandler;
 
-public class GetFileTest {
+public class UploadFileTest {
+    LNFileHandler testHandle;
+    File csvFile;
     
 }

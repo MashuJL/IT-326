@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-
 import Controllers.LNAccountController;
 import Controllers.LNCommentController;
 import Controllers.LNFileController;
@@ -16,8 +15,9 @@ public class LNMain
         System.out.println("Enter the name of the file.");
         String name = scanner.nextLine();
         try {
-            return LNFileController.getFileID(loginUsername, folderID, name);
+            return LNFileController.getFileID(name, folderID, loginUsername);
         } catch (ClassNotFoundException | IOException e) {
+            System.out.println("yagh");
             return -1;
         }
     }
@@ -373,12 +373,17 @@ public class LNMain
                         }
                         else if (userInput == 14){ //update file name
                             int id = getFileFunc(scanner,loginUsername,0);
-                            System.out.println("Enter the new name of the file.");
+                            if(id ==-1){
+
+                            }
+                            else{
+                                System.out.println("Enter the new name of the file.");
                             String newName = scanner.nextLine();
                             if (LNFileController.updateFile(id, newName, null)) {
                                 System.out.println("File modified.");
                             } else {
                                 System.out.println("File not modified as there was an error.");
+                            }
                             }
                         }
                         else if (userInput == 15){ //update file contents
