@@ -18,6 +18,10 @@ public class OperationsFactory
         return LNAccountOperations.getLNAccountOperationsInstance();
     }
 
+    public static LNFileCRUDOps getFileOps() {
+        return LNFileOperations.getLNFileOperationsInstance();
+    }
+
     public static LNNotificationCRUDOps getNotifOps()
     {
         return LNNotificationOperations.getLNNotificationOperationsInstance();
@@ -26,11 +30,6 @@ public class OperationsFactory
     public static LNCommentCRUDOps getCommOps()
     {
         return LNCommentOperations.getLNCommentOperationsInstance();
-    }
-
-    public static LNFileCRUDOps getFileOps()
-    {
-        return LNFileOperations.getLNFileOperationsInstance();
     }
 
     public static LNFolderCRUDOps getFolOps()

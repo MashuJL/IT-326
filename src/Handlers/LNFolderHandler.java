@@ -59,17 +59,17 @@ public class LNFolderHandler
 
     /**
      * Renames the folder
-     * @param folder LNFolder object
+     * @param ID ID of the folder getting its name changed
      * @param name new name
      * @param owner owner of the file
      * @return True if name is changed
      * @throws IOException
      */
-    public Boolean renameFolder(String folder, String name, LNAccount owner) throws IOException
+    public Boolean renameFolder(int ID, String name, LNAccount owner) throws IOException
     {
-        if(verify(folder))
+        if(verify(ID))
         {
-            LNFolder fol = folderLookUp(folder, owner);
+            LNFolder fol = folderLookUp(ID, owner);
             if(fol == null)
                 return null;
             if(verify(name))
@@ -87,31 +87,38 @@ public class LNFolderHandler
 
     /**
      * Deletes the folder and the files inside the folder
-     * @param folder the folder being deleted
+     * @param ID the ID of the folder being deleted
      * @param owner owner of the folder
      * @return True when the folder is deleted
      * @throws ClassNotFoundException
      * @throws IOException
      */
-    public Boolean removeFolder(String folder, LNAccount owner) throws ClassNotFoundException, IOException
+    public Boolean removeFolder(int ID, LNAccount owner) throws ClassNotFoundException, IOException
     {
-        if(verify(folder))
+        if(verify(ID))
         {
-            LNFolder fol = folderLookUp(folder, owner);
+            LNFolder fol = folderLookUp(ID, owner);
             if(fol == null)
-            return getFolOps().deleteFolder(fol);
+                return false;
+            else
+                return getFolOps().deleteFolder(fol);
         }
         else
             return false;
-        return false;
     }
 
-    private LNFolder folderLookUp(String name, LNAccount owner)
+    /**
+     * Looks up a folder that is owend by a user
+     * @param ID id of the folder
+     * @param owner owner of the folder
+     * @return returns the folder that matched the id 
+     */
+    private LNFolder folderLookUp(int ID, LNAccount owner)
     {
         ArrayList<LNFolder> folders = owner.getFolders();
         for (int i=0;i < folders.size();i++) 
         {
-            if (folders.get(i).getName().equals(name))  
+            if (folders.get(i).getFolderID() == ID)  
                 return folders.get(i);
         }
         return null;

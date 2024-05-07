@@ -16,9 +16,9 @@ public class LNCommentController
         return commHandler;
     }
 
-    public static boolean leaveComment(String text, LNFile file, LNAccount owner)
+    public static boolean leaveComment(String text, LNFile file, LNAccount owner, LNAccount fileOwner)
     {
-        return getLNCommentHandlerInstance().leaveComment(text, file, owner);
+        return getLNCommentHandlerInstance().leaveComment(text, file, owner, fileOwner);
     }
 
     public static boolean replyToComment(String text, LNComment comment, LNAccount owner)

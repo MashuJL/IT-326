@@ -38,15 +38,16 @@ public class LNCommentHandler
      * @param text contents of the comment
      * @param file the file
      * @param owner owner of the comment
+     * @param fileOwner
      * @return true if the comment if left
      */
-    public boolean leaveComment(String text, LNFile file, LNAccount owner)
+    public boolean leaveComment(String text, LNFile file, LNAccount owner, LNAccount fileOwner)
     {
         if(verify(text))
         {
-            for(int i = 0; i < file.getAccount().getBlockedUsers().size(); i++)
+            for(int i = 0; i < fileOwner.getBlockedUsers().size(); i++)
             {
-                if(file.getAccount().getBlockedUsers().get(i) == owner.getAcctID())
+                if(fileOwner.getBlockedUsers().get(i) == owner.getAcctID())
                     return false;
             }
             LNComment newCom = new LNComment(text, file, owner);

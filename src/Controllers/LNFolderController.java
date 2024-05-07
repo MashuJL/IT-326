@@ -21,13 +21,13 @@ public class LNFolderController
         return getFolderHandlerInstance().createFolder(name, owner);
     }
 
-    public static boolean renameFolder(String folder, String name, LNAccount owner) throws IOException
+    public static boolean renameFolder(int ID, String name, LNAccount owner) throws IOException
     {
-        return getFolderHandlerInstance().renameFolder(folder, name, owner);
+        return getFolderHandlerInstance().renameFolder(ID, name, owner);
     }
 
-    public static boolean removeFolder(String folder, LNAccount owner) throws IOException, ClassNotFoundException
+    public static boolean removeFolder(int ID, LNAccount owner) throws IOException, ClassNotFoundException
     {
-        return getFolderHandlerInstance().removeFolder(folder, owner);
+        return getFolderHandlerInstance().removeFolder(ID, owner);
     }
 }

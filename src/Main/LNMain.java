@@ -1,9 +1,12 @@
 package Main;
 
 import Controllers.LNAccountController;
+import Controllers.LNCommentController;
 import Controllers.LNFileController;
 import Controllers.LNFolderController;
 import Models.LNAccount;
+import Models.LNComment;
+import Models.LNFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +14,16 @@ import java.util.Scanner;
 
 public class LNMain
 {
+    public static int getFileFunc(Scanner scanner,String loginUsername, int folderID){
+        System.out.println("Enter the name of the file.");
+        String name = scanner.nextLine();
+        try {
+            return LNFileController.getFileID(name, folderID, loginUsername);
+        } catch (ClassNotFoundException | IOException e) {
+            System.out.println("yagh");
+            return -1;
+        }
+    }
     public static void main(String[] args) throws IOException, ClassNotFoundException
     {
         boolean endAllFlag = false; // End the app boolean variable
@@ -99,13 +112,21 @@ public class LNMain
                     System.out.println("10: Disable Notifiactions");
                     System.out.println("11: view file");
                     System.out.println("12: search for a comment");
-                    System.out.println("13: create a folder");
-                    System.out.println("14: rename a folder");
-                    System.out.println("15: remove a folder");
+                    System.out.println("13: Upload File");
+                    System.out.println("14: Update File Name");
+                    System.out.println("15: Update File Contents");
+                    System.out.println("16: Download File");
+                    System.out.println("17: Move File");
+                    System.out.println("18: Remove File");
+                    System.out.println("19: create a folder");
+                    System.out.println("20: rename a folder");
+                    System.out.println("21: remove a folder");
+                    System.out.println("22: leave a comment");
+                    System.out.println("23: reply to a comment");
                     try
                     {
                         userInput = Integer.parseInt(scanner.nextLine());
-                        if (userInput < 0 || userInput > 14)
+                        if (userInput < 0 || userInput > 23)
                         {
                             System.out.println("Error: Please enter a valid option");
                         }
@@ -345,28 +366,142 @@ public class LNMain
                             String search = scanner.nextLine();
                             LNAccountController.searchComments(search, loginUsername);
                         }
-                        else if(userInput == 13) //Create a folder
+                        else if (userInput == 13){ //upload file
+                            System.out.println("Enter the name of the file.");
+                            String name = scanner.nextLine();
+                            System.out.println("Enter the folder to put it under, if any.");
+                            String folderName = scanner.nextLine();
+                            //get folder id here somehow
+                            if(LNFileController.uploadFile(name, 0, loginUsername)){
+                                System.out.println("File Uploaded.");
+                            }
+                            else{
+                                System.out.println("There was an error. Check if the file is already uploaded?");
+                            }
+                        }
+                        else if (userInput == 14){ //update file name
+                            int id = getFileFunc(scanner,loginUsername,0);
+                            if(id ==-1){
+
+                            }
+                            else{
+                                System.out.println("Enter the new name of the file.");
+                            String newName = scanner.nextLine();
+                            if (LNFileController.updateFile(id, newName, null)) {
+                                System.out.println("File modified.");
+                            } else {
+                                System.out.println("File not modified as there was an error.");
+                            }
+                            }
+                        }
+                        else if (userInput == 15){ //update file contents
+                            int id = getFileFunc(scanner,loginUsername,0);
+                            System.out.println("Enter the new contents of the file.");
+                            String newContents = scanner.nextLine();
+                            if (LNFileController.updateFile(id, null, newContents)) {
+                                System.out.println("File modified.");
+                            } else {
+                                System.out.println("File not modified as there was an error.");
+                            }
+                        }
+                        else if (userInput == 16){ //download file
+                            int id = getFileFunc(scanner,loginUsername,0);
+                            System.out.println("Enter the folder to download it to.");
+                            String folderName = scanner.nextLine();
+                            System.out.println("Enter the name of the file to be downloaded as.");
+                            String downloadName = scanner.nextLine();
+                            if (LNFileController.downloadFile(downloadName, folderName, LNFileController.getFileFromID(id))) {
+                                System.out.println("File Downloaded.");
+                            } else {
+                                System.out.println("File not downloaded due to error.");
+                            }
+                        }
+                        else if (userInput == 17){ //move file
+                            int id = getFileFunc(scanner,loginUsername,0);
+                            System.out.println("Enter the folder to move it to, if any.");
+                            String folderName = scanner.nextLine();
+                            //get new folder int here
+                            if(LNFileController.moveFile(LNFileController.getFileFromID(id), 1, loginUsername)){
+                                System.out.println("File moved.");
+                            }
+                            else{
+                                System.out.println("File not moved. Check if folder exists or if a file with the same name already exists in there.");
+                            }
+                        }
+                        else if (userInput == 18){ //remove file
+                            int id = getFileFunc(scanner,loginUsername,0);
+                            if(LNFileController.removeFile(LNFileController.getFileFromID(id)))
+                            System.out.println("File has been removed");
+                            else
+                            System.out.println("There was an error.");
+                        }
+                        else if(userInput == 19) //Create a folder
                         {
                             System.out.print("Please enter name of new folder: ");
                             String folderName = scanner.nextLine();
-                            LNFolderController.createFolder(folderName, LNAccountController.searchForAccount(loginUsername));
-                            LNAccountController.searchForAccount(loginUsername).saveAccount();
+                            LNAccount temp = LNAccountController.searchForAccount(loginUsername);
+                            LNFolderController.createFolder(folderName, temp);
+                            temp.saveAccount();
+                            System.out.println(temp.getFolders().size());
                         }
-                        else if(userInput == 14) // rename folder
+                        else if(userInput == 20) // rename folder
                         {
-                            System.out.println("Please enter the name of the folder: ");
-                            String folderName = scanner.nextLine();
-                            System.out.println("Please enter new name: ");
+                            LNAccount tempAcct = LNAccountController.searchForAccount(loginUsername);
+                            for(int i = 0; i < tempAcct.getFolders().size(); i++)
+                            {
+                                System.out.println(tempAcct.getFolders().get(i).getName() + ": " +
+                                tempAcct.getFolders().get(i).getFolderID());
+                            }
+                            System.out.print("Please enter the ID of the folder: ");
+                            int folderID = Integer.parseInt(scanner.nextLine());
+                            System.out.print("Please enter new name: " );
                             String newFolderName = scanner.nextLine();
-                            LNAccount tempAcct = LNAccountController.searchForAccount(loginUsername);
-                            LNFolderController.renameFolder(folderName, newFolderName, tempAcct);
+                            LNFolderController.renameFolder(folderID, newFolderName, tempAcct);
+                            tempAcct.saveAccount();    
                         }
-                        else if (userInput == 15)
+                        else if (userInput == 21) // remove folder
                         {
-                            System.out.println("Please enter the name of the folder");
-                            String folderName = scanner.nextLine();
                             LNAccount tempAcct = LNAccountController.searchForAccount(loginUsername);
-                            LNFolderController.removeFolder(folderName, tempAcct);
+                            for(int i = 0; i < tempAcct.getFolders().size(); i++)
+                            {
+                                System.out.println(tempAcct.getFolders().get(i).getName() + ": " +
+                                tempAcct.getFolders().get(i).getFolderID());
+                            }
+                            System.out.print("Please enter the ID of the folder: ");
+                            int folderID = Integer.parseInt(scanner.nextLine());
+                            LNFolderController.removeFolder(folderID, tempAcct);
+                            tempAcct.saveAccount();
+                        }
+                        else if(userInput == 22) // leave comement
+                        {
+                            LNAccount tempAcct = LNAccountController.searchForAccount(loginUsername);
+                            LNFile testFile = null;
+                            LNAccount testAccount = new LNAccount("123", "456");
+                            LNCommentController.leaveComment("Test", testFile, testAccount, tempAcct);
+                        }
+                        else if(userInput == 23) // reply to comment
+                        {
+                            System.out.println("Please enter the Comment's owner's username: ");
+                            String commentOwner = scanner.nextLine(); 
+                            for(int i = 0; i < LNAccountController.searchForAccount(commentOwner).getComments().size(); i++)
+                            {
+                                System.out.println(LNAccountController.searchForAccount(commentOwner).getComments().get(i).getID() + ": " +
+                                LNAccountController.searchForAccount(commentOwner).getComments().get(i).getText());
+                            }
+                            System.out.println("What is the ID of the comment you would like to reply to?");
+                            int commentID = Integer.parseInt(scanner.nextLine());
+                            LNComment comment = null;
+                            for(int i = 0; i < LNAccountController.searchForAccount(commentOwner).getComments().size(); i++)
+                            {
+                                if(LNAccountController.searchForAccount(commentOwner).getComments().get(i).getID() == commentID)
+                                {
+                                    comment = LNAccountController.searchForAccount(commentOwner).getComments().get(i);
+                                    break;
+                                }
+                            }
+                            System.out.println("Please enter your response: ");
+                            String responseText = scanner.nextLine();
+                            LNCommentController.replyToComment(responseText, comment, LNAccountController.searchForAccount(loginUsername));
                         }
 
                     }
