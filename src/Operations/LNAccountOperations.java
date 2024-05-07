@@ -1,18 +1,16 @@
 package Operations;
 
+import CRUDOps.LNAccountCRUDOps;
+import Models.LNAccount;
+import Models.LNComment;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
-import java.io.EOFException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-
-import CRUDOps.LNAccountCRUDOps;
-import Models.LNAccount;
-import Models.LNComment;
-import Models.LNNotification;
 
 public class LNAccountOperations extends LNAccountCRUDOps
 {
@@ -71,7 +69,7 @@ public class LNAccountOperations extends LNAccountCRUDOps
         ArrayList<LNAccount> accts = readFromAccountCSV();
         if (accts == null)
         {
-            accts = new ArrayList<>();
+            accts = new ArrayList<>(); 
         }
 
         if (retrieveAcct(acct.getEmail()) == null)
@@ -80,8 +78,23 @@ public class LNAccountOperations extends LNAccountCRUDOps
         }
         else
         {
-            System.out.print("Error: Account has already been made.");
-            return false;
+            //Logic for updating the account's contents and differing between newly created accounts with the same name
+            if(acct.getAcctID() == retrieveAcct(acct.getEmail()).getAcctID())
+            {
+                deleteAccount(acct.getEmail(), acct.getPassword());
+                accts = readFromAccountCSV();
+                accts.add(acct);
+                if (writeToAccountCSV(accts) != false)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                System.out.print("Error: Account has already been made.");
+                return false;
+            }
         }
 
         if (writeToAccountCSV(accts) != false)

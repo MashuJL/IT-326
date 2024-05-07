@@ -357,4 +357,9 @@ public class LNAccountHandler
         System.out.println("Error - invalid input");
         return -1;
     }
+
+    public LNAccount searchForAccount(String username) throws IOException, ClassNotFoundException
+    {
+        return getAcctOps().retrieveAcct(username);
+    }
 }

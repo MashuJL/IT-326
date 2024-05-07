@@ -1,13 +1,13 @@
 package Main;
 
+import Controllers.LNAccountController;
+import Controllers.LNFileController;
+import Controllers.LNFolderController;
+import Models.LNAccount;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-import Controllers.LNAccountController;
-import Controllers.LNCommentController;
-import Controllers.LNFileController;
-import Models.LNAccount;
 
 public class LNMain
 {
@@ -115,10 +115,15 @@ public class LNMain
                     System.out.println("16: Download File");
                     System.out.println("17: Move File");
                     System.out.println("18: Remove File");
+                    System.out.println("19: create a folder");
+                    System.out.println("20: rename a folder");
+                    System.out.println("21: remove a folder");
+                    // System.out.println("22: leave a comment");
+                    // System.out.println("23: reply to a comment");
                     try
                     {
                         userInput = Integer.parseInt(scanner.nextLine());
-                        if (userInput < 0 || userInput > 18)
+                        if (userInput < 0 || userInput > 21)
                         {
                             System.out.println("Error: Please enter a valid option");
                         }
@@ -427,6 +432,75 @@ public class LNMain
                             else
                             System.out.println("There was an error.");
                         }
+                        else if(userInput == 19) //Create a folder
+                        {
+                            System.out.print("Please enter name of new folder: ");
+                            String folderName = scanner.nextLine();
+                            LNAccount temp = LNAccountController.searchForAccount(loginUsername);
+                            LNFolderController.createFolder(folderName, temp);
+                            temp.saveAccount();
+                            System.out.println(temp.getFolders().size());
+                        }
+                        else if(userInput == 20) // rename folder
+                        {
+                            LNAccount tempAcct = LNAccountController.searchForAccount(loginUsername);
+                            for(int i = 0; i < tempAcct.getFolders().size(); i++)
+                            {
+                                System.out.println(tempAcct.getFolders().get(i).getName() + ": " +
+                                tempAcct.getFolders().get(i).getFolderID());
+                            }
+                            System.out.print("Please enter the ID of the folder: ");
+                            int folderID = Integer.parseInt(scanner.nextLine());
+                            System.out.print("Please enter new name: " );
+                            String newFolderName = scanner.nextLine();
+                            LNFolderController.renameFolder(folderID, newFolderName, tempAcct);
+                            tempAcct.saveAccount();    
+                        }
+                        else if (userInput == 21) // remove folder
+                        {
+                            LNAccount tempAcct = LNAccountController.searchForAccount(loginUsername);
+                            for(int i = 0; i < tempAcct.getFolders().size(); i++)
+                            {
+                                System.out.println(tempAcct.getFolders().get(i).getName() + ": " +
+                                tempAcct.getFolders().get(i).getFolderID());
+                            }
+                            System.out.print("Please enter the ID of the folder: ");
+                            int folderID = Integer.parseInt(scanner.nextLine());
+                            LNFolderController.removeFolder(folderID, tempAcct);
+                            tempAcct.saveAccount();
+                        }
+                        // else if(userInput == 22) // leave comement
+                        // {
+                        //     LNAccount tempAcct = LNAccountController.searchForAccount(loginUsername);
+                        //     LNFile testFile = null;
+                        //     LNAccount testAccount = new LNAccount("123", "456");
+                        //     LNCommentController.leaveComment("Test", testFile, testAccount, tempAcct);
+                        // }
+                        // else if(userInput == 23) // reply to comment
+                        // {
+                        //     System.out.println("Please enter the Comment's owner's username: ");
+                        //     String commentOwner = scanner.nextLine(); 
+                        //     for(int i = 0; i < LNAccountController.searchForAccount(commentOwner).getComments().size(); i++)
+                        //     {
+                        //         System.out.println(LNAccountController.searchForAccount(commentOwner).getComments().get(i).getID() + ": " +
+                        //         LNAccountController.searchForAccount(commentOwner).getComments().get(i).getText());
+                        //     }
+                        //     System.out.println("What is the ID of the comment you would like to reply to?");
+                        //     int commentID = Integer.parseInt(scanner.nextLine());
+                        //     LNComment comment = null;
+                        //     for(int i = 0; i < LNAccountController.searchForAccount(commentOwner).getComments().size(); i++)
+                        //     {
+                        //         if(LNAccountController.searchForAccount(commentOwner).getComments().get(i).getID() == commentID)
+                        //         {
+                        //             comment = LNAccountController.searchForAccount(commentOwner).getComments().get(i);
+                        //             break;
+                        //         }
+                        //     }
+                        //     System.out.println("Please enter your response: ");
+                        //     String responseText = scanner.nextLine();
+                        //     LNCommentController.replyToComment(responseText, comment, LNAccountController.searchForAccount(loginUsername));
+                        // }
+
                     }
                     catch (NumberFormatException e)
                     {
