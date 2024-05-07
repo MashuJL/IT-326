@@ -78,6 +78,7 @@ public class LNAccountOperations extends LNAccountCRUDOps
         }
         else
         {
+            //Logic for updating the account's contents and differing between newly created accounts with the same name
             if(acct.getAcctID() == retrieveAcct(acct.getEmail()).getAcctID())
             {
                 deleteAccount(acct.getEmail(), acct.getPassword());
