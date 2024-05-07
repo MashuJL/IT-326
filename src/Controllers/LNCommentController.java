@@ -1,7 +1,9 @@
 package Controllers;
 
-import Handlers.LNAccountHandler;
 import Handlers.LNCommentHandler;
+import Models.LNAccount;
+import Models.LNComment;
+import Models.LNFile;
 
 public class LNCommentController
 {
@@ -14,4 +16,13 @@ public class LNCommentController
         return commHandler;
     }
 
+    public static boolean leaveComment(String text, LNFile file, LNAccount owner)
+    {
+        return getLNCommentHandlerInstance().leaveComment(text, file, owner);
+    }
+
+    public static boolean replyToComment(String text, LNComment comment, LNAccount owner)
+    {
+        return getLNCommentHandlerInstance().replyToComment(text, comment, owner);
+    }
 }

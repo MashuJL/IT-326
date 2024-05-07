@@ -2,12 +2,14 @@ package OperationsFactory;
 
 import CRUDOps.LNAccountCRUDOps;
 import CRUDOps.LNCommentCRUDOps;
-import CRUDOps.LNNotificationCRUDOps;
 import CRUDOps.LNFileCRUDOps;
+import CRUDOps.LNFolderCRUDOps;
+import CRUDOps.LNNotificationCRUDOps;
 import Operations.LNAccountOperations;
 import Operations.LNCommentOperations;
-import Operations.LNNotificationOperations;
 import Operations.LNFileOperations;
+import Operations.LNFolderOperations;
+import Operations.LNNotificationOperations;
 
 public class OperationsFactory
 {
@@ -29,5 +31,10 @@ public class OperationsFactory
     public static LNFileCRUDOps getFileOps()
     {
         return LNFileOperations.getLNFileOperationsInstance();
+    }
+
+    public static LNFolderCRUDOps getFolOps()
+    {
+        return LNFolderOperations.getLNFolderOperationsInstance();
     }
 }
