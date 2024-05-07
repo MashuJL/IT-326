@@ -85,20 +85,7 @@ public class LNFolderOperations extends LNFolderCRUDOps
             folders.add(folder);
             owner.setFolders(folders);
         }
-
-        //for loop to check if the contents of the files array list is the same as the folders
-        boolean same = true;
-        for(int i = 0; i < files.size(); i++)
-        {
-            if(!(files.get(i) == folder.getFileList().get(i)))
-            {
-                same = false;
-                break;
-            }
-        }
-        //Updates the filesList of folder
-        if(!same)
-            folder.setFileList(files);
+        
         return true;
     }
 

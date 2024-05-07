@@ -1,12 +1,9 @@
 package Main;
 
 import Controllers.LNAccountController;
-import Controllers.LNCommentController;
 import Controllers.LNFileController;
 import Controllers.LNFolderController;
 import Models.LNAccount;
-import Models.LNComment;
-import Models.LNFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -121,12 +118,12 @@ public class LNMain
                     System.out.println("19: create a folder");
                     System.out.println("20: rename a folder");
                     System.out.println("21: remove a folder");
-                    System.out.println("22: leave a comment");
-                    System.out.println("23: reply to a comment");
+                    // System.out.println("22: leave a comment");
+                    // System.out.println("23: reply to a comment");
                     try
                     {
                         userInput = Integer.parseInt(scanner.nextLine());
-                        if (userInput < 0 || userInput > 23)
+                        if (userInput < 0 || userInput > 21)
                         {
                             System.out.println("Error: Please enter a valid option");
                         }
@@ -472,37 +469,37 @@ public class LNMain
                             LNFolderController.removeFolder(folderID, tempAcct);
                             tempAcct.saveAccount();
                         }
-                        else if(userInput == 22) // leave comement
-                        {
-                            LNAccount tempAcct = LNAccountController.searchForAccount(loginUsername);
-                            LNFile testFile = null;
-                            LNAccount testAccount = new LNAccount("123", "456");
-                            LNCommentController.leaveComment("Test", testFile, testAccount, tempAcct);
-                        }
-                        else if(userInput == 23) // reply to comment
-                        {
-                            System.out.println("Please enter the Comment's owner's username: ");
-                            String commentOwner = scanner.nextLine(); 
-                            for(int i = 0; i < LNAccountController.searchForAccount(commentOwner).getComments().size(); i++)
-                            {
-                                System.out.println(LNAccountController.searchForAccount(commentOwner).getComments().get(i).getID() + ": " +
-                                LNAccountController.searchForAccount(commentOwner).getComments().get(i).getText());
-                            }
-                            System.out.println("What is the ID of the comment you would like to reply to?");
-                            int commentID = Integer.parseInt(scanner.nextLine());
-                            LNComment comment = null;
-                            for(int i = 0; i < LNAccountController.searchForAccount(commentOwner).getComments().size(); i++)
-                            {
-                                if(LNAccountController.searchForAccount(commentOwner).getComments().get(i).getID() == commentID)
-                                {
-                                    comment = LNAccountController.searchForAccount(commentOwner).getComments().get(i);
-                                    break;
-                                }
-                            }
-                            System.out.println("Please enter your response: ");
-                            String responseText = scanner.nextLine();
-                            LNCommentController.replyToComment(responseText, comment, LNAccountController.searchForAccount(loginUsername));
-                        }
+                        // else if(userInput == 22) // leave comement
+                        // {
+                        //     LNAccount tempAcct = LNAccountController.searchForAccount(loginUsername);
+                        //     LNFile testFile = null;
+                        //     LNAccount testAccount = new LNAccount("123", "456");
+                        //     LNCommentController.leaveComment("Test", testFile, testAccount, tempAcct);
+                        // }
+                        // else if(userInput == 23) // reply to comment
+                        // {
+                        //     System.out.println("Please enter the Comment's owner's username: ");
+                        //     String commentOwner = scanner.nextLine(); 
+                        //     for(int i = 0; i < LNAccountController.searchForAccount(commentOwner).getComments().size(); i++)
+                        //     {
+                        //         System.out.println(LNAccountController.searchForAccount(commentOwner).getComments().get(i).getID() + ": " +
+                        //         LNAccountController.searchForAccount(commentOwner).getComments().get(i).getText());
+                        //     }
+                        //     System.out.println("What is the ID of the comment you would like to reply to?");
+                        //     int commentID = Integer.parseInt(scanner.nextLine());
+                        //     LNComment comment = null;
+                        //     for(int i = 0; i < LNAccountController.searchForAccount(commentOwner).getComments().size(); i++)
+                        //     {
+                        //         if(LNAccountController.searchForAccount(commentOwner).getComments().get(i).getID() == commentID)
+                        //         {
+                        //             comment = LNAccountController.searchForAccount(commentOwner).getComments().get(i);
+                        //             break;
+                        //         }
+                        //     }
+                        //     System.out.println("Please enter your response: ");
+                        //     String responseText = scanner.nextLine();
+                        //     LNCommentController.replyToComment(responseText, comment, LNAccountController.searchForAccount(loginUsername));
+                        // }
 
                     }
                     catch (NumberFormatException e)
