@@ -102,12 +102,7 @@ public class LNFolderOperations extends LNFolderCRUDOps
         return true;
     }
 
-    /**
-     * Adds a file to the folder
-     * @param folder folder the file is getting added to
-     * @param file file being added
-     * @return True when the file is added
-     */
+    @Override
     public boolean addFile(LNFolder folder, LNFile file)
     {
        //Checks if the folder or the file are null 
@@ -121,12 +116,7 @@ public class LNFolderOperations extends LNFolderCRUDOps
        return true;
     }
 
-    /**
-     * Deletes a file from the folder
-     * @param folder Folder the file is getting deleted from
-     * @param file The file being deleted
-     * @return True when the file is deleted
-     */
+    @Override
     public boolean deleteFile(LNFolder folder, LNFile file)
     {
         //Checks if the folder or the file are null 

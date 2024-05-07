@@ -107,6 +107,16 @@ public class LNFolderHandler
             return false;
     }
 
+    public boolean addFile(LNFolder folder, LNFile file)
+    {
+        return getFolOps().addFile(folder, file);
+    }
+
+    public boolean deleteFile(LNFolder folder, LNFile file)
+    {
+        return getFolOps().deleteFile(folder, file);
+    }
+
     /**
      * Looks up a folder that is owend by a user
      * @param ID id of the folder

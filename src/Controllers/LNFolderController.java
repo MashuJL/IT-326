@@ -2,6 +2,7 @@ package Controllers;
 
 import Handlers.LNFolderHandler;
 import Models.LNAccount;
+import Models.LNFile;
 import Models.LNFolder;
 import java.io.IOException;
 
@@ -29,5 +30,15 @@ public class LNFolderController
     public static boolean removeFolder(int ID, LNAccount owner) throws IOException, ClassNotFoundException
     {
         return getFolderHandlerInstance().removeFolder(ID, owner);
+    }
+
+    public static boolean addFile(LNFolder folder, LNFile file)
+    {
+        return getFolderHandlerInstance().addFile(folder, file);
+    }
+
+    public static boolean deleteFile(LNFolder folder, LNFile file)
+    {
+        return getFolderHandlerInstance().deleteFile(folder, file);
     }
 }
