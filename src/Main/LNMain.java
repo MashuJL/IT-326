@@ -17,7 +17,6 @@ public class LNMain
         try {
             return LNFileController.getFileID(name, folderID, loginUsername);
         } catch (ClassNotFoundException | IOException e) {
-            System.out.println("yagh");
             return -1;
         }
     }
