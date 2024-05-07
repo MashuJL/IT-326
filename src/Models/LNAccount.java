@@ -1,12 +1,11 @@
 package Models;
 
+import CRUDOps.LNAccountCRUDOps;
+import Operations.LNAccountOperations;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
-import java.io.IOException;
-
-import Operations.LNAccountOperations;
-import CRUDOps.LNAccountCRUDOps;
 
 public class LNAccount implements Serializable
 {
@@ -156,6 +155,11 @@ public class LNAccount implements Serializable
     {
         this.enableNotifs = false;
         return true;
+    }
+
+    public boolean saveAccount() throws IOException, ClassNotFoundException
+    {
+        return getAcctOps().saveAcct(this);
     }
 
 }

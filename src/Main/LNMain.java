@@ -1,14 +1,13 @@
 package Main;
 
+import Controllers.LNAccountController;
+import Controllers.LNFileController;
+import Controllers.LNFolderController;
+import Models.LNAccount;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-
-import Controllers.LNAccountController;
-import Controllers.LNCommentController;
-import Controllers.LNFileController;
-import Models.LNAccount;
 
 public class LNMain
 {
@@ -100,10 +99,13 @@ public class LNMain
                     System.out.println("10: Disable Notifiactions");
                     System.out.println("11: view file");
                     System.out.println("12: search for a comment");
+                    System.out.println("13: create a folder");
+                    System.out.println("14: rename a folder");
+                    System.out.println("15: remove a folder");
                     try
                     {
                         userInput = Integer.parseInt(scanner.nextLine());
-                        if (userInput < 0 || userInput > 12)
+                        if (userInput < 0 || userInput > 14)
                         {
                             System.out.println("Error: Please enter a valid option");
                         }
@@ -343,6 +345,30 @@ public class LNMain
                             String search = scanner.nextLine();
                             LNAccountController.searchComments(search, loginUsername);
                         }
+                        else if(userInput == 13) //Create a folder
+                        {
+                            System.out.print("Please enter name of new folder: ");
+                            String folderName = scanner.nextLine();
+                            LNFolderController.createFolder(folderName, LNAccountController.searchForAccount(loginUsername));
+                            LNAccountController.searchForAccount(loginUsername).saveAccount();
+                        }
+                        else if(userInput == 14) // rename folder
+                        {
+                            System.out.println("Please enter the name of the folder: ");
+                            String folderName = scanner.nextLine();
+                            System.out.println("Please enter new name: ");
+                            String newFolderName = scanner.nextLine();
+                            LNAccount tempAcct = LNAccountController.searchForAccount(loginUsername);
+                            LNFolderController.renameFolder(folderName, newFolderName, tempAcct);
+                        }
+                        else if (userInput == 15)
+                        {
+                            System.out.println("Please enter the name of the folder");
+                            String folderName = scanner.nextLine();
+                            LNAccount tempAcct = LNAccountController.searchForAccount(loginUsername);
+                            LNFolderController.removeFolder(folderName, tempAcct);
+                        }
+
                     }
                     catch (NumberFormatException e)
                     {

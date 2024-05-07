@@ -1,8 +1,8 @@
 package Controllers;
 
-import java.io.IOException;
-
 import Handlers.LNAccountHandler;
+import Models.LNAccount;
+import java.io.IOException;
 
 public class LNAccountController
 {
@@ -108,5 +108,10 @@ public class LNAccountController
     public static int printNotif(String username) throws ClassNotFoundException, IOException
     {
         return getLNAccountHandlerInstance().printNotif(username);
+    }
+
+    public static LNAccount searchForAccount(String username) throws IOException, ClassNotFoundException
+    {
+        return getLNAccountHandlerInstance().searchForAccount(username);
     }
 }

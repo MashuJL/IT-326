@@ -61,30 +61,59 @@ public class LNFolderHandler
      * Renames the folder
      * @param folder LNFolder object
      * @param name new name
+     * @param owner owner of the file
      * @return True if name is changed
      * @throws IOException
      */
-    public Boolean renameFolder(LNFolder folder, String name) throws IOException
+    public Boolean renameFolder(String folder, String name, LNAccount owner) throws IOException
     {
-        if(verify(name))
+        if(verify(folder))
         {
-            getFolOps().updateFolder(folder, folder.getFolderID(), name, folder.getOwner(), folder.getFileList());
-            return true;
+            LNFolder fol = folderLookUp(folder, owner);
+            if(fol == null)
+                return null;
+            if(verify(name))
+            {
+                getFolOps().updateFolder(fol, fol.getFolderID(), name, fol.getOwner(), fol.getFileList());
+                return true;
+            }
+            else
+                return false;
         }
         else
             return false;
+
     }
 
     /**
      * Deletes the folder and the files inside the folder
      * @param folder the folder being deleted
+     * @param owner owner of the folder
      * @return True when the folder is deleted
      * @throws ClassNotFoundException
      * @throws IOException
      */
-    public Boolean removeFolder(LNFolder folder) throws ClassNotFoundException, IOException
+    public Boolean removeFolder(String folder, LNAccount owner) throws ClassNotFoundException, IOException
     {
-        return getFolOps().deleteFolder(folder);
+        if(verify(folder))
+        {
+            LNFolder fol = folderLookUp(folder, owner);
+            if(fol == null)
+            return getFolOps().deleteFolder(fol);
+        }
+        else
+            return false;
+        return false;
     }
 
+    private LNFolder folderLookUp(String name, LNAccount owner)
+    {
+        ArrayList<LNFolder> folders = owner.getFolders();
+        for (int i=0;i < folders.size();i++) 
+        {
+            if (folders.get(i).getName().equals(name))  
+                return folders.get(i);
+        }
+        return null;
+    }
 }
